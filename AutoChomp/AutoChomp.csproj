@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5B395E28-C81F-48D3-ADA6-D0C0B7C69730}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoChomp</RootNamespace>
+    <AssemblyName>AutoChomp</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="accoremgd">
+      <HintPath>..\..\..\Program Files\Autodesk\AutoCAD 2024\accoremgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acdbmgd">
+      <HintPath>..\..\..\Program Files\Autodesk\AutoCAD 2024\acdbmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acdbmgdbrep">
+      <HintPath>..\..\..\Program Files\Autodesk\AutoCAD 2024\acdbmgdbrep.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acmgd">
+      <HintPath>..\..\..\Program Files\Autodesk\AutoCAD 2024\acmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.DirectInput.4.2.0\lib\net45\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoCAD\UserFormCode\clsInput.cs" />
+    <Compile Include="AutoCAD\UserFormCode\clsSharpDX.cs" />
+    <Compile Include="AutoCAD\UserFormCode\clsInit.cs" />
+    <Compile Include="AutoCAD\UserFormCode\clsPalette.cs" />
+    <Compile Include="AutoCAD\UserForm\xmlDebug.xaml.cs">
+      <DependentUpon>xmlDebug.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCAD\UserForm\xmlGhost.xaml.cs">
+      <DependentUpon>xmlGhost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCAD\UserForm\xmlMain.xaml.cs">
+      <DependentUpon>xmlMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AutoCAD\UserForm\xmlOptions.xaml.cs">
+      <DependentUpon>xmlOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GameLoop\Data\clsDataGhostMove.cs" />
+    <Compile Include="GameLoop\Data\clsDataSquiggle.cs" />
+    <Compile Include="AutoCAD\UserFormCode\clsResetGame.cs" />
+    <Compile Include="GameLoop\Data\clsDataAlignToGrid.cs" />
+    <Compile Include="GameLoop\Data\clsDataDots.cs" />
+    <Compile Include="GameLoop\Data\clsDataMouth.cs" />
+    <Compile Include="GameLoop\Data\clsDataPacmanMove.cs" />
+    <Compile Include="GameLoop\Data\clsDataWrapAround.cs" />
+    <Compile Include="GameLoop\Update\clsUpdateData.cs" />
+    <Compile Include="GameLoop\Update\clsUpdateGraphics.cs" />
+    <Compile Include="GameTable\Geometry\GameBlock\clsCreateBlock.cs" />
+    <Compile Include="GameTable\Geometry\GameBlock\clsInsertBlock.cs" />
+    <Compile Include="GameTable\Geometry\GameDots\clsDrawDots.cs" />
+    <Compile Include="GameTable\Geometry\GameEntity\clsEntityAppend.cs" />
+    <Compile Include="GameTable\Geometry\GameEntity\clsEntityDelete.cs" />
+    <Compile Include="GameTable\Geometry\GameGeometry\clsCircle.cs" />
+    <Compile Include="GameTable\Geometry\GameGeometry\clsPolylineAdd.cs" />
+    <Compile Include="GameTable\Geometry\GameGeometry\clsPolylineCombine.cs" />
+    <Compile Include="GameTable\Geometry\GameGeometry\clsPolylineFilltet.cs" />
+    <Compile Include="GameTable\Geometry\GameGeometry\clsPolylineJoin.cs" />
+    <Compile Include="GameTable\Geometry\GameGeometry\clsHatch.cs" />
+    <Compile Include="GameLoop\Graphics\clsGraphicsDots.cs" />
+    <Compile Include="GameLoop\Graphics\clsGraphicsGhost.cs" />
+    <Compile Include="GameLoop\Graphics\clsGraphicsPacman.cs" />
+    <Compile Include="GameTable\Geometry\GameGrid\clsDrawGrid.cs" />
+    <Compile Include="GameTable\Geometry\GameGrid\clsDrawGridLines.cs" />
+    <Compile Include="GameTable\Geometry\GameGrid\clsElements.cs" />
+    <Compile Include="GameTable\Geometry\GameGrid\clsFilter.cs" />
+    <Compile Include="GameTable\Geometry\GameGrid\clsGameGrid.cs" />
+    <Compile Include="GameTable\Geometry\GamePosition\clsStartPosition.cs" />
+    <Compile Include="GameTable\Geometry\GamePosition\clsStartRandom.cs" />
+    <Compile Include="GameTable\Sprites\Maps\clsGetGrid.cs" />
+    <Compile Include="GameTable\Geometry\GameGrid\clsLetters.cs" />
+    <Compile Include="GameTable\Geometry\GameSprites\clsCharacterAfraid.cs" />
+    <Compile Include="GameTable\Geometry\GameSprites\clsCharacterDead.cs" />
+    <Compile Include="GameTable\Geometry\GameSprites\clsCharacterGhost.cs" />
+    <Compile Include="GameTable\Geometry\GameSprites\clsCharacterOther.cs" />
+    <Compile Include="GameTable\Geometry\GameSprites\clsCharacterPacman.cs" />
+    <Compile Include="GameTable\Sprites\Characters\clsMainCharacters.cs" />
+    <Compile Include="GameTable\Sprites\Maps\clsMainDots.cs" />
+    <Compile Include="GameTable\Sprites\Maps\clsMainGrid.cs" />
+    <Compile Include="GameTable\Sprites\Maps\clsMsPacmanMaze2.cs" />
+    <Compile Include="GameTable\Sprites\Maps\clsMsPacmanMaze4.cs" />
+    <Compile Include="GameTable\Sprites\Maps\clsMsPacmanMaze3.cs" />
+    <Compile Include="GameTable\Sprites\Maps\clsMsPacmanMaze1.cs" />
+    <Compile Include="GameTable\Sprites\Maps\clsPacmanMaze.cs" />
+    <Compile Include="Movement\Common\clsSetAfraid.cs" />
+    <Compile Include="Movement\Pathfinder\clsAStar.cs" />
+    <Compile Include="Movement\Pathfinder\clsDrawTunnel.cs" />
+    <Compile Include="Movement\Pathfinder\clsGetBlockage.cs" />
+    <Compile Include="Movement\Pathfinder\clsValidDirections.cs" />
+    <Compile Include="Movement\Play\clsPlaySounds.cs" />
+    <Compile Include="Movement\State\clsAfraid.cs" />
+    <Compile Include="Movement\State\clsTunnel.cs" />
+    <Compile Include="Movement\Common\clsZoomToPoint.cs" />
+    <Compile Include="Movement\Frame\clsFrame.cs" />
+    <Compile Include="Movement\Gluttony\clsDotCount.cs" />
+    <Compile Include="Movement\Gluttony\clsGluttony.cs" />
+    <Compile Include="Movement\State\clsHouse.cs" />
+    <Compile Include="Movement\Common\clsGetCurrentCell.cs" />
+    <Compile Include="Movement\Common\clsRandomizer.cs" />
+    <Compile Include="Movement\Common\clsSetReverse.cs" />
+    <Compile Include="Overlay\clsScore.cs" />
+    <Compile Include="_Global\Timers\clsTimerEvents.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Movement\Common\clsGetDirection.cs" />
+    <Compile Include="GameTable\Tables\clsGenerateTables.cs" />
+    <Compile Include="_Global\Reference\clsClassDots.cs" />
+    <Compile Include="_Global\Reference\clsClassFormElement.cs" />
+    <Compile Include="_Global\Reference\clsClassGamePosition.cs" />
+    <Compile Include="_Global\Reference\clsClassMaze.cs" />
+    <Compile Include="_Global\Reference\clsClassPower.cs" />
+    <Compile Include="_Global\Reference\clsClassTables.cs" />
+    <Compile Include="_Global\Reference\clsClassEntity.cs" />
+    <Compile Include="_Global\Reference\clsClassGhost.cs" />
+    <Compile Include="_Global\Timers\clsClassTimers.cs" />
+    <Compile Include="_Global\Shared\clsEnum.cs" />
+    <Compile Include="_Global\Reference\clsClassPacman.cs" />
+    <Compile Include="_Global\Reference\clsClassCommon.cs" />
+    <Compile Include="_Global\Shared\clsExtensions.cs" />
+    <Compile Include="_Global\Shared\clsReg.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="AutoCAD\UserForm\xmlDebug.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AutoCAD\UserForm\xmlGhost.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AutoCAD\UserForm\xmlMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AutoCAD\UserForm\xmlOptions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Audio\credit.wav" />
+    <Content Include="Audio\death_1.wav" />
+    <Content Include="Audio\death_2.wav" />
+    <Content Include="Audio\death_3.wav" />
+    <Content Include="Audio\eat_fruit.wav" />
+    <Content Include="Audio\eat_ghost.wav" />
+    <Content Include="Audio\extend.wav" />
+    <Content Include="Audio\game_start.wav" />
+    <Content Include="Audio\intermission.wav" />
+    <Content Include="Audio\munch_1.wav" />
+    <Content Include="Audio\munch_2.wav" />
+    <Content Include="Audio\power_pellet.wav" />
+    <Content Include="Audio\retreating.wav" />
+    <Content Include="Audio\siren_1.wav" />
+    <Content Include="Audio\siren_2.wav" />
+    <Content Include="Audio\siren_3.wav" />
+    <Content Include="Audio\siren_4.wav" />
+    <Content Include="Audio\siren_5.wav" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
