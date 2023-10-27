@@ -60,6 +60,8 @@ namespace AutoChomp
 
         internal List<GameGhost> lstInHouse;
 
+        internal int[,] arrAStarHouse;
+
         internal GameGhostCommon()
         {
             this.bolGraphicsRequired = false;
@@ -69,6 +71,8 @@ namespace AutoChomp
             this.bolPowerTimerFlash = false;
 
             this.lstInHouse = new List<GameGhost>();
+
+            this.arrAStarHouse = new int[0, 0];
         }
     }
 }

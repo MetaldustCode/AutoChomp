@@ -3,6 +3,7 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 
 namespace AutoChomp.Update
@@ -12,13 +13,20 @@ namespace AutoChomp.Update
         internal void UpdateGraphics(Transaction acTrans, Database acDb)
         {
             // if (!clsValues.IsResetRunning)
-
+         
             //Update Pacman
             if (clsCommon.GamePacman.bolGraphicsRequired)
             {
                 clsGraphicsPacman clsGraphicsPacman = new clsGraphicsPacman();
                 clsGraphicsPacman.UpdatePacmanPositionAndVisibility(acTrans, acDb, ref clsCommon.GamePacman);
                 clsCommon.GamePacman.bolGraphicsRequired = false;
+
+                if (clsCommon.GamePacman.bolCellChanged)
+                {
+                    clsAStar clsAStar = new clsAStar();
+                    clsAStar.CreateTextData();
+                    clsCommon.GamePacman.bolCellChanged = false;
+                }
             }
 
             //Hide Dots
@@ -45,6 +53,7 @@ namespace AutoChomp.Update
                 clsGhostPosition.UpdateGhostGraphics(acTrans, acDb, ref lstGhost);
                 clsCommon.GameGhostCommon.bolGraphicsRequired = false;
             }
+
         }
 
         internal void UpdatePacmanBoxes(Transaction acTrans, Database acDb)

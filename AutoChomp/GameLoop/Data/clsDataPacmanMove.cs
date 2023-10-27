@@ -41,7 +41,7 @@ namespace AutoChomp.Data
             }
 
             if (strValue == "Random")
-            {           
+            {
                 direction = clsGetDirection.GetRandomDirection(Pacman.Origin, Pacman.Direction, 6);
 
                 clsGluttony clsGluttony = new clsGluttony();
@@ -50,7 +50,6 @@ namespace AutoChomp.Data
                                         ref Pacman.GameLoop.bolHistoryUpdate);
             }
 
-         
             List<Position> lstNextCell = new List<Position>();
 
             if (direction != Direction.None)
@@ -83,8 +82,15 @@ namespace AutoChomp.Data
                 }
             }
 
+            if (Pacman.bolGraphicsRequired)
+            {
+                clsAStar clsAStar = new clsAStar();
+                clsAStar.UpdateAStar(ref Pacman);
+            }
+
             clsCommon.GamePacman = Pacman;
         }
+
 
         internal void SetDataUpdateMouth()
         {

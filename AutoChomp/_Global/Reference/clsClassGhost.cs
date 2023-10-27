@@ -34,8 +34,13 @@ namespace AutoChomp
         internal Boolean bolExitHouse;
         internal Direction[,] arrHistory;
 
+        internal Boolean bolCellChanged;
+
+        internal Position posCurrent;       
+
         internal string strName;
 
+        internal int[,] arrAStar;
         //Red
         //Pink
         //Blue
@@ -100,6 +105,12 @@ namespace AutoChomp
             this.arrHistory = new Direction[col, row];
 
             this.strName = strName;
+
+            this.posCurrent = new Position(0, 0);     
+
+            this.bolCellChanged = false;
+
+            this.arrAStar = new int[0, 0];
         }
     }
 }

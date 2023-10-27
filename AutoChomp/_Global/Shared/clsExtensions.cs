@@ -12,6 +12,41 @@ namespace AutoChomp
         private static readonly double Cell = clsGridValues.Cell;
         private static readonly double Middle = clsGridValues.Middle;
 
+        internal static string[,] ConvertIntToString(this int[,] arrNum)
+        {
+            arrNum.GetSize(out int col, out int row);
+
+            string[,] arrText = new string[col, row];
+
+            for (int x = 0; x < col; x++)
+            {
+                for (int y = 0; y < row; y++)
+                    arrText[x, y] = arrNum[x, y].ToString();
+            }
+
+            return arrText;
+        }
+
+
+        internal static int[,] ConvertStringToInt(this string[,] arrText)
+        {
+            arrText.GetSize(out int col, out int row);
+
+            int[,] arrNum = new int[col, row];
+
+            for (int x = 0; x < col; x++)
+            {
+                for (int y = 0; y < row; y++)
+                {
+                    if (arrText[x, y] != null)
+                        arrNum[x, y] = arrText[x, y].ToInt();
+                }
+            }
+
+            return arrNum;
+        }
+
+
         internal static Point2d GetOrigin(this int x, int y)
         {
             double X = (x * Cell) + Middle;
@@ -104,6 +139,13 @@ namespace AutoChomp
             col = arr.GetLength(0);
             row = arr.GetLength(1);
         }
+
+        internal static void GetSize(this String[,] arr, out int col, out int row)
+        {
+            col = arr.GetLength(0);
+            row = arr.GetLength(1);
+        }
+
 
         internal static void GetSize(this DBText[,] arr, out int col, out int row)
         {

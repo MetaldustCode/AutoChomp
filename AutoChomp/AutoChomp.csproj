@@ -133,8 +133,10 @@
     <Compile Include="GameTable\Sprites\Maps\clsPacmanMaze.cs" />
     <Compile Include="Movement\Common\clsSetAfraid.cs" />
     <Compile Include="Movement\Pathfinder\clsAStar.cs" />
+    <Compile Include="Movement\Pathfinder\clsBuildMap.cs" />
     <Compile Include="Movement\Pathfinder\clsDrawTunnel.cs" />
     <Compile Include="Movement\Pathfinder\clsGetBlockage.cs" />
+    <Compile Include="Movement\Pathfinder\clsPathfinder.cs" />
     <Compile Include="Movement\Pathfinder\clsValidDirections.cs" />
     <Compile Include="Movement\Play\clsPlaySounds.cs" />
     <Compile Include="Movement\State\clsAfraid.cs" />
@@ -207,6 +209,7 @@
     <Content Include="Audio\siren_3.wav" />
     <Content Include="Audio\siren_4.wav" />
     <Content Include="Audio\siren_5.wav" />
+    <Content Include="Icon\refresh-16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

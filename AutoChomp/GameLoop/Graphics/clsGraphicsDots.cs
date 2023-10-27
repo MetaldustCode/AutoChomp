@@ -8,6 +8,10 @@ namespace AutoChomp.Graphics
     {
         internal void DisplayDots(Transaction acTrans)
         {
+            clsReg clsReg = new clsReg();
+
+            Boolean bolShowDots = clsReg.GetDotsVisible();
+
             if (clsCommon.GameDots != null)
             {
                 GameDots GameDots = clsCommon.GameDots;
@@ -22,11 +26,38 @@ namespace AutoChomp.Graphics
                         if (acBlkRef.ObjectId.IsValid && !acBlkRef.ObjectId.IsErased)
                         {
                             acBlkRef = acTrans.GetObject(acBlkRef.ObjectId, OpenMode.ForWrite) as BlockReference;
-                            acBlkRef.Visible = false;
+                            if (acBlkRef.Visible == true)
+                                acBlkRef.Visible = false;
                         }
                         GameDots.lstIsBlockVisible[i] = false;
                     }
                 }
+
+                for (int i = 0; i < lstEatenDots.Count; i++)
+                {
+                    BlockReference acBlkRef = GameDots.lstBlockReference[i];
+                    if (acBlkRef.ObjectId.IsValid && !acBlkRef.ObjectId.IsErased)
+                    {
+                        acBlkRef = acTrans.GetObject(acBlkRef.ObjectId, OpenMode.ForWrite) as BlockReference;
+                        if (bolShowDots)
+                        {
+                            if (GameDots.lstIsBlockVisible[i])
+                            {
+                                if (acBlkRef.Visible == false)
+                                    acBlkRef.Visible = true;
+                            }
+                        }
+                        else
+                        {
+                            if (acBlkRef.Visible == true)
+                                acBlkRef.Visible = false;
+                        }
+                    }
+                }
+
+
+
+
                 clsCommon.GameDots = GameDots;
             }
         }
@@ -67,5 +98,7 @@ namespace AutoChomp.Graphics
                     acBlkRef.Visible = bolIsVisible;
             }
         }
+
+
     }
 }

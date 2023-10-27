@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autodesk.AutoCAD.Geometry;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -61,7 +62,19 @@ namespace AutoChomp.Data
                     break;
                 }
             }
+
+            clsAStar clsAStar = new clsAStar();
+            for (int i = 0; i < lstGhost.Count; i++)
+            {
+                GameGhost gameGhost = lstGhost[i];
+                if (!gameGhost.bolInHouse)
+                    clsAStar.UpdateAStar(ref gameGhost);
+                lstGhost[i] = gameGhost;
+            }
+
+            clsCommon.lstGameGhost = lstGhost;
         }
+
 
         // Is sprite selected to move
         internal Boolean IsRandom(int i)
@@ -88,7 +101,7 @@ namespace AutoChomp.Data
 
             for (int i = 0; i < lstGhosts.Count; i++)
             {
-                if (lstInTunnel[i] || 
+                if (lstInTunnel[i] ||
                     lstGhosts[i].bolIsAfraid ||
                     lstGhosts[i].bolInHouse)
                     lstSpeed[i] = 50;

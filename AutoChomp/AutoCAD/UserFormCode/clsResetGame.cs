@@ -68,6 +68,10 @@ namespace AutoChomp
                     else
                         clsValidDirection.DeleteValid();
 
+                    // Store House Path
+                    clsAStar clsAStar = new clsAStar();
+                    clsAStar.GenerateAStarHouse();
+
                     //clsDrawBox clsDrawBox = new clsDrawBox();
                     //clsDrawBox.DrawBox(acTrans, acDb);
 

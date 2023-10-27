@@ -65,7 +65,7 @@ namespace AutoChomp
                         {
                             for (int y = 0; y < intHeight; y++)
                             {
-                                if (arr[x, y] != null)
+                                if (arr[x, y] != null) 
                                 {
                                     if (arr[x, y].Count > 0)
                                     {

@@ -9,14 +9,23 @@ namespace AutoChomp
         private readonly double Cell = clsGridValues.Cell;
         private readonly double Middle = clsGridValues.Middle;
 
-        internal Position GetCell(Point2d ptPosition, Direction Direction)
+
+        internal Position GetPacmanPosition()
+        {
+            Point2d ptOrigin = clsCommon.GamePacman.Origin;
+            Direction direction = clsCommon.GamePacman.Direction;
+
+            return GetCell(ptOrigin, direction);
+        }
+
+        internal Position GetCell(Point2d ptOrigin, Direction Direction)
         {
             Position ptCell = new Position();
 
-            if (clsClassTables.lstXGridOrigin.Contains(ptPosition))
-                ptCell = GetMidCell(ptPosition);
+            if (clsClassTables.lstXGridOrigin.Contains(ptOrigin))
+                ptCell = GetMidCell(ptOrigin);
             else
-                GetCell(ptPosition, Direction, ref ptCell);
+                GetCell(ptOrigin, Direction, ref ptCell);
 
             return ptCell;
         }
