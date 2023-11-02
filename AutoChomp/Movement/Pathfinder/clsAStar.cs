@@ -1,13 +1,8 @@
-﻿using AutoChomp.Movement.Pathfinder;
-using Autodesk.AutoCAD.ApplicationServices;
+﻿using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoChomp
 {
@@ -72,7 +67,6 @@ namespace AutoChomp
         //{
         //    if (arrAStarNum != null)
         //    {
-
         //        arrAStarNum.GetSize(out int col, out int row);
 
         //        clsGluttony clsGluttony = new clsGluttony();
@@ -95,8 +89,6 @@ namespace AutoChomp
         //        }
         //    }
         //}
-
-
 
         //internal void UpdateTextGrid(int[,] arrAStarNum, ref DBText[,] arrAStarText, Transaction acTrans)
         //{
@@ -132,7 +124,7 @@ namespace AutoChomp
             {
                 using (DocumentLock @lock = acDoc.LockDocument())
                 {
-                    int[,] arrNum = clsCommon.lstGameGhost[3].arrAStar;
+                    int[,] arrNum = clsCommon.lstGameGhost[0].arrAStar;
 
                     if (arrDBText != null)
                     {
@@ -152,37 +144,78 @@ namespace AutoChomp
             }
         }
 
-        internal void UpdateAStar(ref GameGhost Ghost)
+
+        internal void DeleteText()
         {
-            Point2d ptOrigin = Ghost.Origin;
-            Direction direction = Ghost.Direction;
-            clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
+            Document acDoc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+            Database acDb = acDoc.Database;
 
-            Position posCurrent = clsGetCurrentCell.GetCell(ptOrigin, direction);
-            if (!PositionMatch(Ghost.posCurrent, posCurrent))
+            // Start a transaction
+            using (Transaction acTrans = acDb.TransactionManager.StartTransaction())
             {
-                Ghost.posCurrent = posCurrent;
-                Ghost.bolCellChanged = true;
+                using (DocumentLock @lock = acDoc.LockDocument())
+                {
+                    int[,] arrNum = clsCommon.GamePacman.arrAStar;
 
-                clsAStar clsAStar = new clsAStar();
-                Ghost.arrAStar = GenerateAStar(posCurrent);
-            }
+                    if (arrDBText != null)
+                    {
+                        List<ObjectId> lstObjectId = GetObjectId(arrDBText);
 
-        }
+                        clsEntityDelete clsEntityDelete = new clsEntityDelete();
+                        clsEntityDelete.DeleteObjectId(acTrans, acDb, lstObjectId);
+                    }
 
-        internal void UpdateAStar(ref GamePacman Pacman)
-        {
-            clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
-
-            Position posCurrent = clsGetCurrentCell.GetPacmanPosition();
-            if (!PositionMatch(Pacman.posCurrent, posCurrent))
-            {
-                Pacman.posCurrent = posCurrent;
-                Pacman.bolCellChanged = true;
-
-                Pacman.arrAStar = GenerateAStar(posCurrent);
+                    acTrans.Commit();
+                }
             }
         }
+
+        internal void UpdateGhostAStar(ref GameGhost Ghost)
+        {
+            GamePacman Pacman = clsCommon.GamePacman;
+
+            Direction dirGhost = Ghost.Direction;
+            Direction dirPacman = Pacman.Direction;
+
+            clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
+            Position posGhost = clsGetCurrentCell.GetCell(Ghost.Origin, dirGhost);
+
+            Position posPacman = clsGetCurrentCell.GetCell(Pacman.Origin, dirPacman);
+           
+            Ghost.posCurrent = posGhost;
+            Pacman.posCurrent = posPacman;
+
+            clsCommon.GamePacman = Pacman;
+
+            Ghost.arrAStar = GenerateAStar(posPacman, posGhost, dirGhost);
+
+            //clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
+            //Ghost.arrAStar = GenerateAStar(posCurrent, direction);
+
+            ////Position posCurrent = clsGetCurrentCell.GetCell(ptOrigin, direction);
+            ////if (!PositionMatch(Ghost.posCurrent, posCurrent))
+            ////{
+            //Ghost.posCurrent = posCurrent;
+            //Ghost.bolCellChanged = true;
+
+            //clsAStar clsAStar = new clsAStar();
+            //Ghost.arrAStar = GenerateAStar(posCurrent, direction);
+            // }
+        }
+
+        //internal void UpdatePacmanAStar(ref GamePacman Pacman)
+        //{
+        //    clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
+
+        //    Position posCurrent = clsGetCurrentCell.GetPacmanPosition();
+        //    if (!PositionMatch(Pacman.posCurrent, posCurrent))
+        //    {
+        //        Pacman.posCurrent = posCurrent;
+        //        Pacman.bolCellChanged = true;
+
+        //        Pacman.arrAStar = GenerateAStar(posCurrent, Pacman.Direction);
+        //    }
+        //}
 
         internal Boolean HasPosition(List<Position> lstPosition, Position Pos)
         {
@@ -201,23 +234,21 @@ namespace AutoChomp
             return true;
         }
 
+        //internal void GenerateAStarHouse()
+        //{
+        //    Position posCell = new Position(15, 21);
 
-        internal void GenerateAStarHouse()
-        {
-            Position posCell = new Position(15, 21);
+        //    clsCommon.GameGhostCommon.arrAStarHouse = GenerateAStar(posCell, Direction.None);
+        //}
 
-            clsCommon.GameGhostCommon.arrAStarHouse = GenerateAStar(posCell);
-        }
-
-        internal int[,] GenerateAStar(Position posCell)
+        internal int[,] GenerateAStar(Position posPacman, Position posGhost, Direction dirGhost)
         {
             clsBuildMap clsBuildMap = new clsBuildMap();
 
-            string[,] arrText = clsBuildMap.BuildMap(posCell.X, posCell.Y);
+            string[,] arrText = clsBuildMap.BuildMap(posPacman, posGhost, dirGhost);
 
             return arrText.ConvertStringToInt();
         }
-
 
         internal List<ObjectId> GetObjectId(DBText[,] arrNum)
         {
@@ -242,7 +273,6 @@ namespace AutoChomp
             if (arrText != null)
             {
                 arrText.GetSize(out int col, out int row);
-
 
                 clsGluttony clsGluttony = new clsGluttony();
 

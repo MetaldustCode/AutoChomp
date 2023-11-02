@@ -87,7 +87,7 @@ namespace AutoChomp
             {
                 clsInsertBlock clsInsertBlock = new clsInsertBlock();
 
-                BlockReference acBlkRef = clsInsertBlock.InsertBlock(strBlockName, "0", acTrans, acDb);
+                BlockReference acBlkRef = clsInsertBlock.InsertBlock(strBlockName, "0", intColor,  acTrans, acDb);
 
                 rtnValue = acBlkRef;
             }

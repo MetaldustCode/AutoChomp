@@ -8,7 +8,7 @@ namespace AutoChomp
 {
     internal class clsPolylineAdd
     {
-        internal ObjectId AddPolyLine(Transaction acTrans, Database acDb, List<Point2d> lstPoint, int intColor)
+        internal ObjectId AddPolyLine(Transaction acTrans, Database acDb, List<Point2d> lstPoint, int intColor, double dblWidth = 0)
         {
             BlockTable acBlkTbl = acTrans.GetObject(acDb.BlockTableId, OpenMode.ForRead) as BlockTable;
             // Open the Block table record Model space for write
@@ -22,9 +22,7 @@ namespace AutoChomp
 
             acPoly.SetDatabaseDefaults();
             for (int i = 0; i < lstPoint.Count; i++)
-            {
-                acPoly.AddVertexAt(i, new Point2d(lstPoint[i].X, lstPoint[i].Y), 0, 0, 0);
-            }
+                acPoly.AddVertexAt(i, new Point2d(lstPoint[i].X, lstPoint[i].Y), 0, dblWidth, dblWidth);
 
             // Add the new object to the block table record and the transaction
             acBlkTblRec.AppendEntity(acPoly);
@@ -141,7 +139,7 @@ namespace AutoChomp
             else
             {
                 clsInsertBlock clsInsertBlock = new clsInsertBlock();
-                rtnValue = clsInsertBlock.InsertBlock(strBlockName, "0", acTrans, acDb);
+                rtnValue = clsInsertBlock.InsertBlock(strBlockName, "0", intColor,  acTrans, acDb);
             }
 
             return rtnValue;
@@ -167,7 +165,7 @@ namespace AutoChomp
             else
             {
                 clsInsertBlock clsInsertBlock = new clsInsertBlock();
-                rtnValue = clsInsertBlock.InsertBlock(strBlockName, "0", acTrans, acDb);
+                rtnValue = clsInsertBlock.InsertBlock(strBlockName, "0", intColor, acTrans, acDb);
             }
 
             return rtnValue;

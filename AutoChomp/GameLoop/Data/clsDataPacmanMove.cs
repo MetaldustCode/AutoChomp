@@ -84,13 +84,12 @@ namespace AutoChomp.Data
 
             if (Pacman.bolGraphicsRequired)
             {
-                clsAStar clsAStar = new clsAStar();
-                clsAStar.UpdateAStar(ref Pacman);
+                //clsAStar clsAStar = new clsAStar();
+                //clsAStar.UpdatePacmanAStar(ref Pacman);
             }
 
             clsCommon.GamePacman = Pacman;
         }
-
 
         internal void SetDataUpdateMouth()
         {

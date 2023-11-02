@@ -1,5 +1,4 @@
-﻿using AutoPAC;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -152,13 +151,26 @@ namespace AutoChomp
                 this.btnStop.Content = "Continue";
             else
                 this.btnStop.Content = "Pause";
+
+            clsReg clsReg = new clsReg();
+
+            if (clsReg.GetPlaySound())
+            {
+                clsNAudio.StopPowerPellet();
+            }
         }
 
         private void btnHouse_Click(object sender, RoutedEventArgs e)
         {
-            clsAStar clsAStar = new clsAStar();
+            clsSolvePath clsSolvePath = new clsSolvePath();
 
-            clsAStar.CreateTextData();
+            clsSolvePath.Solve();
+
+            //clsNAudio.PlayPowerPellet();
+
+            //clsAStar clsAStar = new clsAStar();
+
+            //clsAStar.CreateTextData();
             // clsPlaySounds.PlayPalette();
 
             //clsValidDirection clsValidDirection = new clsValidDirection();
@@ -167,7 +179,8 @@ namespace AutoChomp
 
         private void btnPacmanDeath_Click(object sender, RoutedEventArgs e)
         {
-            // clsPlaySounds.StopPalette();
+            //clsNAudio clsNAudio = new clsNAudio();
+            //clsNAudio.StopPowerPellet();
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)

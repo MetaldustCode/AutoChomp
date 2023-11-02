@@ -8,14 +8,16 @@ namespace AutoChomp
     internal static class clsClassTables
     {
         // Grid Path
-        internal static Boolean[,] arrXGridPath = null;   
+        internal static Boolean[,] arrXGridPath = null;
 
         // Directions Path
         internal static List<Direction>[,] arrXDirection = null;
+
         internal static List<List<Direction>> lstLstXDirection = null;
 
         // Position Path
-        internal static List<Position> lstXGridPosition = null;    
+        internal static List<Position> lstXGridPosition = null;
+
         internal static List<Point2d> lstXGridOrigin = null;
 
         // Tunnel Path
@@ -29,6 +31,7 @@ namespace AutoChomp
 
         // A-Star
         internal static int[,] arrAStarNum = null;
+
         internal static DBText[,] arrAStarText = null;
 
         // Dots Path

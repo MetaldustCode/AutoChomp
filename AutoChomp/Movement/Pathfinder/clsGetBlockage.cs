@@ -1,5 +1,4 @@
-﻿ 
-using Autodesk.AutoCAD.Geometry;
+﻿using Autodesk.AutoCAD.Geometry;
 using System;
 using System.Collections.Generic;
 
@@ -46,7 +45,7 @@ namespace AutoChomp
                 List<int> lstRow = new List<int>();
                 List<int> lstCol = new List<int>();
 
-                clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();             
+                clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
 
                 if (clsGetCurrentCell.GetCellLocation3(arrXGrid, ptPosition, ref lstCol, ref lstRow))
                 {
@@ -99,7 +98,5 @@ namespace AutoChomp
 
             return lstAll;
         }
-
-
     }
 }

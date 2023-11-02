@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoChomp
 {
@@ -12,6 +9,16 @@ namespace AutoChomp
         {
             if (clsCommon.lstGameGhost != null)
             {
+                clsReg clsReg = new clsReg();
+
+                if (clsReg.GetPlaySound())
+                {
+                    if (bolIsAfraid)
+                        clsNAudio.PlayPowerPellet();
+                    else
+                        clsNAudio.StopPowerPellet();
+                }
+
                 List<GameGhost> lstGhosts = clsCommon.lstGameGhost;
 
                 for (int i = 0; i < lstGhosts.Count; i++)

@@ -9,7 +9,6 @@ namespace AutoChomp
         private readonly double Cell = clsGridValues.Cell;
         private readonly double Middle = clsGridValues.Middle;
 
-
         internal Position GetPacmanPosition()
         {
             Point2d ptOrigin = clsCommon.GamePacman.Origin;

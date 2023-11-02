@@ -18,6 +18,8 @@ namespace AutoChomp
             DeleteObjectId(acTrans, acDb, gameElements.lstObjBoxes);
             DeleteObjectId(acTrans, acDb, gameElements.lstObjDirectionBoxes);
             DeleteObjectId(acTrans, acDb, gameElements.lstObjHistoryBoxes);
+            DeleteObjectId(acTrans, acDb, gameElements.lstObjAStar);
+            DeleteObjectId(acTrans, acDb, gameElements.lstObjPosition);
 
             //  clsCommon.bolDirectionBoxUpdate = false;
             clsCommon.GamePacman.GameLoop.bolBoxDirectionUpdate = false;

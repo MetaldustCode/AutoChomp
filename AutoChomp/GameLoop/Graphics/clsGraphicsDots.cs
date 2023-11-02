@@ -55,9 +55,6 @@ namespace AutoChomp.Graphics
                     }
                 }
 
-
-
-
                 clsCommon.GameDots = GameDots;
             }
         }
@@ -98,7 +95,5 @@ namespace AutoChomp.Graphics
                     acBlkRef.Visible = bolIsVisible;
             }
         }
-
-
     }
 }

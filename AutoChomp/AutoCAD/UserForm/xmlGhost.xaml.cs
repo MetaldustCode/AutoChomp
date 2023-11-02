@@ -11,7 +11,7 @@ namespace AutoChomp
         {
             InitializeComponent();
             InitReference();
-            LoadDefault();
+            LoadGhost();
             LoadPacman();
             LoadMaze();
         }
@@ -22,6 +22,7 @@ namespace AutoChomp
                 clsCommon.GameForm = new GameForm();
 
             clsCommon.GameGhostCommon = new GameGhostCommon();
+            clsCommon.GameSounds = new GameSounds();
 
             clsCommon.GameForm.chkRed = this.chkRed;
             clsCommon.GameForm.chkPink = this.chkPink;
@@ -38,15 +39,17 @@ namespace AutoChomp
 
         private void LoadMaze()
         {
-            List<String> lstDropDown = new List<String>() { "Pacman Maze", "Ms Pacman Maze 1", "Ms Pacman Maze 2", "Ms Pacman Maze 3", "Ms Pacman Maze 4" };
+            List<String> lstDropDown = new List<String>() { "Pacman Maze", "Ms Pacman Maze 1",
+                                                            "Ms Pacman Maze 2", "Ms Pacman Maze 3",
+                                                            "Ms Pacman Maze 4" };
             SetDropDownMaze(lstDropDown);
 
             LoadRegistryMaze();
         }
 
-        private void LoadDefault()
+        private void LoadGhost()
         {
-            List<String> lstDropDown = new List<String>() { "None", "Random" };
+            List<String> lstDropDown = new List<String>() { "None", "Random", "A-Star" };
             SetDropDown(lstDropDown);
 
             LoadRegistry(lstDropDown);

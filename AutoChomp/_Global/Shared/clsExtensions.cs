@@ -27,7 +27,6 @@ namespace AutoChomp
             return arrText;
         }
 
-
         internal static int[,] ConvertStringToInt(this string[,] arrText)
         {
             arrText.GetSize(out int col, out int row);
@@ -45,7 +44,6 @@ namespace AutoChomp
 
             return arrNum;
         }
-
 
         internal static Point2d GetOrigin(this int x, int y)
         {
@@ -146,7 +144,6 @@ namespace AutoChomp
             row = arr.GetLength(1);
         }
 
-
         internal static void GetSize(this DBText[,] arr, out int col, out int row)
         {
             col = arr.GetLength(0);
@@ -158,8 +155,6 @@ namespace AutoChomp
             col = arr.GetLength(0);
             row = arr.GetLength(1);
         }
-
-
 
         internal static void GetSize(this BlockReference[,] arr, out int col, out int row)
         {
@@ -526,11 +521,20 @@ namespace AutoChomp
             return false;
         }
 
-        public static Boolean isNumeric(this String strValue, ref double dblValue)
+        public static Boolean IsNumeric(this String strValue, out double dblValue)
         {
             String strDegree = "".GetDegreeSymbol();
             strValue = strValue.Replace(strDegree, "");
             if (Double.TryParse(strValue, out dblValue))
+                return true;
+            return false;
+        }
+
+        public static Boolean IsNumeric(this String strValue, out int intValue)
+        {
+            String strDegree = "".GetDegreeSymbol();
+            strValue = strValue.Replace(strDegree, "");
+            if (int.TryParse(strValue, out intValue))
                 return true;
             return false;
         }
@@ -605,7 +609,6 @@ namespace AutoChomp
             return true;
         }
 
-
         public static Boolean MoveEntityXY(this Polyline Entity, double X, double Y)
         {
             Point3d acPt3d = new Point3d(0, 0, 0);
@@ -628,9 +631,6 @@ namespace AutoChomp
             }
             return false;
         }
-
-
- 
 
         public static double Deg2Rad(this double Deg)
         {

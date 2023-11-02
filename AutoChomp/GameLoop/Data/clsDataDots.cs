@@ -41,10 +41,9 @@ namespace AutoChomp.Data
 
                         clsScoreValues.intPacmanScore += 10;
 
-                  
                         if (clsReg.GetPlaySound())
-                        {                   
-                            clsPlaySounds.PlayMP3();
+                        {
+                            clsNAudio.PlayMunch();
                         }
                     }
                 }

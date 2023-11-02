@@ -122,6 +122,7 @@ namespace AutoChomp
         {
             SaveData("IncrementLevel", strValue.ToString());
         }
+
         internal Boolean GetIncrementLevel()
         {
             string strValue = GetData("IncrementLevel");
@@ -145,7 +146,6 @@ namespace AutoChomp
             return false;
         }
 
-
         internal void SetDebugDirection(Boolean strValue)
         {
             SaveData("ShowDebugDirection", strValue.ToString());
@@ -159,7 +159,6 @@ namespace AutoChomp
                 strValue == "True") return true;
             return false;
         }
-
 
         internal void SetGhostEatDots(Boolean strValue)
         {
@@ -175,7 +174,6 @@ namespace AutoChomp
             return false;
         }
 
-
         internal void SetPacmanEatDots(Boolean strValue)
         {
             SaveData("ShowPacmanEatDots", strValue.ToString());
@@ -189,10 +187,6 @@ namespace AutoChomp
                 strValue == "True") return true;
             return false;
         }
-
-
-
-
 
         internal void SetShowHistory(Boolean strValue)
         {

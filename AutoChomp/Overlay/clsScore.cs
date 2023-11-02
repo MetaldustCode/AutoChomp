@@ -2,9 +2,6 @@
 using Autodesk.AutoCAD.Geometry;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoChomp
 {
@@ -12,7 +9,6 @@ namespace AutoChomp
     {
         private static readonly double Cell = clsGridValues.Cell;
         private static readonly double Middle = clsGridValues.Middle;
-
 
         internal void ClearScore()
         {

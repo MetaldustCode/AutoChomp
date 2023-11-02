@@ -1,14 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using System.Windows;
-using AutoPAC;
-using AutoChomp.Movement.Pathfinder;
-using Autodesk.AutoCAD.DatabaseServices;
 
 namespace AutoChomp
 {
@@ -22,12 +13,10 @@ namespace AutoChomp
 
             if (intValue > 0)
             {
-
             }
 
             return rtnValue;
         }
-
 
         //Sub PathFinder(ByVal arr(,) As String, ByRef frmWidth As Integer, ByVal frmHeight As Integer,
         //               ByRef x As Integer, ByRef y As Integer, ByRef CTR As Integer,

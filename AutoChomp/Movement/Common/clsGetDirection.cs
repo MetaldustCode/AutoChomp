@@ -347,6 +347,5 @@ namespace AutoChomp
 
             return Direction.None;
         }
-
     }
 }

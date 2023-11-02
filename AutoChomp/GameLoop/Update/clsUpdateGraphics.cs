@@ -3,7 +3,6 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows;
 
 namespace AutoChomp.Update
@@ -13,7 +12,23 @@ namespace AutoChomp.Update
         internal void UpdateGraphics(Transaction acTrans, Database acDb)
         {
             // if (!clsValues.IsResetRunning)
-         
+
+            if (clsCommon.GamePacman.bolGraphicsRequired || clsCommon.GameGhostCommon.bolGraphicsRequired)
+            {
+                clsSolvePath clsSolvePath = new clsSolvePath();
+                clsSolvePath.Solve();
+
+                clsReg clsReg = new clsReg();
+                clsAStar clsAStar = new clsAStar();
+
+                if (clsReg.GetNumbersVisible())
+                    clsAStar.CreateTextData();
+                else
+                    clsAStar.DeleteText();
+
+                UpdateAStarLine(acTrans, acDb);
+            }
+
             //Update Pacman
             if (clsCommon.GamePacman.bolGraphicsRequired)
             {
@@ -21,13 +36,18 @@ namespace AutoChomp.Update
                 clsGraphicsPacman.UpdatePacmanPositionAndVisibility(acTrans, acDb, ref clsCommon.GamePacman);
                 clsCommon.GamePacman.bolGraphicsRequired = false;
 
-                if (clsCommon.GamePacman.bolCellChanged)
-                {
-                    clsAStar clsAStar = new clsAStar();
-                    clsAStar.CreateTextData();
-                    clsCommon.GamePacman.bolCellChanged = false;
-                }
+                //if (clsCommon.GamePacman.bolCellChanged)
+                //{
+                //    clsReg clsReg = new clsReg();
+                //    clsAStar clsAStar = new clsAStar();
+
+
+
+                //    clsCommon.GamePacman.bolCellChanged = false;
+                //}
             }
+
+
 
             //Hide Dots
             if (clsCommon.GameDots.bolGraphicsRequired)
@@ -53,7 +73,27 @@ namespace AutoChomp.Update
                 clsGhostPosition.UpdateGhostGraphics(acTrans, acDb, ref lstGhost);
                 clsCommon.GameGhostCommon.bolGraphicsRequired = false;
             }
+        }
 
+        internal void UpdateAStarLine(Transaction acTrans, Database acDb)
+        {
+            clsSolvePath clsSolvePath = new clsSolvePath();
+            clsSolvePath.DeleteLine(acTrans, acDb);
+            List<Boolean> lstSearch = clsSolvePath.GetSearchVisible().Multiply();
+
+            List<GameGhost> lstGhosts = clsCommon.lstGameGhost;
+
+            List<int> lstColor = new List<int>() { 1, 241, 4, 30 }.Multiply();
+
+            for (int i = 0; i < lstGhosts.Count; i++)
+            {
+                if (lstSearch[i])
+                {
+                    List<Position> lstPos = lstGhosts[i].lstPosition;
+
+                    clsSolvePath.DrawLine(acTrans, acDb, lstPos, lstColor[i]);
+                }
+            }
         }
 
         internal void UpdatePacmanBoxes(Transaction acTrans, Database acDb)

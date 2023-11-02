@@ -47,7 +47,9 @@ namespace AutoChomp
         internal List<ObjectId> lstObjPower = new List<ObjectId>();
         internal List<ObjectId> lstObjBoxes = new List<ObjectId>();
         internal List<ObjectId> lstObjDirectionBoxes = new List<ObjectId>();
-        internal List<ObjectId> lstObjHistoryBoxes = new List<ObjectId>(); 
+        internal List<ObjectId> lstObjHistoryBoxes = new List<ObjectId>();
+        internal List<ObjectId> lstObjAStar = new List<ObjectId>();
+        internal List<ObjectId> lstObjPosition = new List<ObjectId>();
     }
 
     internal class GameDebug

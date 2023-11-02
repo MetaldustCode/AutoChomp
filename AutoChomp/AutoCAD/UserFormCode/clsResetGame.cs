@@ -1,7 +1,6 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 
 namespace AutoChomp
 {
@@ -69,8 +68,8 @@ namespace AutoChomp
                         clsValidDirection.DeleteValid();
 
                     // Store House Path
-                    clsAStar clsAStar = new clsAStar();
-                    clsAStar.GenerateAStarHouse();
+                    //clsAStar clsAStar = new clsAStar();
+                    //clsAStar.GenerateAStarHouse();
 
                     //clsDrawBox clsDrawBox = new clsDrawBox();
                     //clsDrawBox.DrawBox(acTrans, acDb);

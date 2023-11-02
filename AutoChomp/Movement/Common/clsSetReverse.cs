@@ -33,12 +33,11 @@ namespace AutoChomp
                 {
                     direction = clsGetDirection.GetReverse(direction);
                     lstGhosts[i].Direction = direction;
-                    // lstGhosts[i].bolInHouse = true;             
+                    // lstGhosts[i].bolInHouse = true;
                 }
             }
 
             clsCommon.lstGameGhost = lstGhosts;
         }
-      
     }
 }

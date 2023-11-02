@@ -1,5 +1,4 @@
-﻿using Autodesk.AutoCAD.Geometry;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -68,13 +67,12 @@ namespace AutoChomp.Data
             {
                 GameGhost gameGhost = lstGhost[i];
                 if (!gameGhost.bolInHouse)
-                    clsAStar.UpdateAStar(ref gameGhost);
+                    clsAStar.UpdateGhostAStar(ref gameGhost);
                 lstGhost[i] = gameGhost;
             }
 
             clsCommon.lstGameGhost = lstGhost;
         }
-
 
         // Is sprite selected to move
         internal Boolean IsRandom(int i)

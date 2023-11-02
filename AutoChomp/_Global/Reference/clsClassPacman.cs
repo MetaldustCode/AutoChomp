@@ -29,6 +29,7 @@ namespace AutoChomp
         internal Position posCurrent;
 
         internal int[,] arrAStar;
+        internal List<Position> lstPosition;
 
         internal GameLoop GameLoop;
 
@@ -60,6 +61,8 @@ namespace AutoChomp
             this.GameLoop = new GameLoop();
 
             this.arrAStar = new int[0, 0];
+
+            this.lstPosition = new List<Position>();    
         }
     }
 }

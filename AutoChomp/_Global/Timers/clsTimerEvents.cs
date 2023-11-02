@@ -133,7 +133,6 @@ namespace AutoChomp
                     clsTimers.GameStopWatch.StopWatchPowerFlash.Restart();
         }
 
-
         internal void StopTimerPowerFlash()
         {
             if (clsTimers.GameStopWatch != null)

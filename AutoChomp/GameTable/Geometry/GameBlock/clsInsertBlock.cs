@@ -5,7 +5,7 @@ namespace AutoChomp
 {
     internal class clsInsertBlock
     {
-        internal BlockReference InsertBlock(string strBlockname, string strLayerName,
+        internal BlockReference InsertBlock(string strBlockname, string strLayerName, int intColor,
                                           Transaction acTrans, Database acDb)
         {
             BlockReference rtnValue = null;
@@ -31,6 +31,7 @@ namespace AutoChomp
                 if (blkRecId != ObjectId.Null)
                 {
                     BlockReference acBlkRef = new BlockReference(Point3d.Origin, blkRecId) { Layer = strLayerName };
+                    acBlkRef.ColorIndex = intColor;
                     BlockTableRecord btr = (BlockTableRecord)acTrans.GetObject(acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForWrite);
                     btr.AppendEntity(acBlkRef);
                     acTrans.AddNewlyCreatedDBObject(acBlkRef, true);

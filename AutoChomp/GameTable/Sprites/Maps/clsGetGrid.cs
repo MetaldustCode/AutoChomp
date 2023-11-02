@@ -52,7 +52,7 @@ namespace AutoChomp
 
             dblWidth = (double)intWidth * Cell;
             dblHeight = (double)intHeight * Cell;
-           
+
             return rtnValue;
         }
     }

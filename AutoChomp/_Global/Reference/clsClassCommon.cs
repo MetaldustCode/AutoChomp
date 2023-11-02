@@ -22,6 +22,10 @@ namespace AutoChomp
         internal static GameGhostCommon GameGhostCommon;
 
         internal static GameDebug GameDebug;
+
+        internal static GameSounds GameSounds;
+
+ 
     }
 
     internal static class clsGridValues
@@ -35,8 +39,6 @@ namespace AutoChomp
 
         internal static List<int> lstFrameCounter =
             new List<int> { 0, 0, 0, 0 }.Multiply();
-
-
     }
 
     internal static class clsScoreValues
@@ -73,6 +75,36 @@ namespace AutoChomp
             this.lstInHouse = new List<GameGhost>();
 
             this.arrAStarHouse = new int[0, 0];
+        }
+    }
+
+    internal class GameSounds
+    {
+        private bool bolCredit;
+        private bool bolEatFruit;
+        private bool bolEatGhost;
+        private bool bolGameStart;
+        private bool bolIntermission;
+
+        private bool bolPowerPellet;
+        private bool bolRetreating;
+
+        private int intMunch;
+        private int intSiren;
+
+        internal GameSounds()
+        {
+            bool bolCredit = false;
+            bool bolEatFruit = false;
+            bool bolEatGhost = false;
+            bool bolGameStart = false;
+            bool bolIntermission = false;
+
+            bool bolPowerPellet = false;
+            bool bolRetreating = false;
+
+            int intMunch = 0;
+            int intSiren = 0;
         }
     }
 }

@@ -36,11 +36,13 @@ namespace AutoChomp
 
         internal Boolean bolCellChanged;
 
-        internal Position posCurrent;       
+        internal Position posCurrent;
 
         internal string strName;
 
         internal int[,] arrAStar;
+
+        internal List<Position> lstPosition;
         //Red
         //Pink
         //Blue
@@ -106,11 +108,13 @@ namespace AutoChomp
 
             this.strName = strName;
 
-            this.posCurrent = new Position(0, 0);     
+            this.posCurrent = new Position(0, 0);
 
             this.bolCellChanged = false;
 
             this.arrAStar = new int[0, 0];
+
+            this.lstPosition = new List<Position>();    
         }
     }
 }

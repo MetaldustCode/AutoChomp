@@ -1,5 +1,4 @@
-﻿using AutoChomp;
-using Autodesk.AutoCAD.ApplicationServices;
+﻿using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using System;
@@ -14,7 +13,6 @@ namespace AutoChomp
 
         internal void DeleteValid()
         {
-
             Document acDoc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
             Database acDb = acDoc.Database;
 
@@ -65,7 +63,7 @@ namespace AutoChomp
                         {
                             for (int y = 0; y < intHeight; y++)
                             {
-                                if (arr[x, y] != null) 
+                                if (arr[x, y] != null)
                                 {
                                     if (arr[x, y].Count > 0)
                                     {
@@ -148,6 +146,4 @@ namespace AutoChomp
             return clsPolylineAdd.AddLine(acTrans, acDb, new List<Point2d>() { pt, ptEnd }, 7);
         }
     }
-
 }
-
