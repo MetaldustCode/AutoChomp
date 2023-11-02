@@ -118,6 +118,7 @@
     <Compile Include="AutoCAD\UserForm\xmlOptions.xaml.cs">
       <DependentUpon>xmlOptions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\clsData.cs" />
     <Compile Include="GameLoop\Data\clsDataGhostMove.cs" />
     <Compile Include="GameLoop\Data\clsDataSquiggle.cs" />
     <Compile Include="AutoCAD\UserFormCode\clsResetGame.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="GameTable\Sprites\Maps\clsMsPacmanMaze3.cs" />
     <Compile Include="GameTable\Sprites\Maps\clsMsPacmanMaze1.cs" />
     <Compile Include="GameTable\Sprites\Maps\clsPacmanMaze.cs" />
+    <Compile Include="Movement\AStar\clsGetNextDirection.cs" />
     <Compile Include="Movement\Common\clsSetAfraid.cs" />
     <Compile Include="Movement\Pathfinder\clsAStar.cs" />
     <Compile Include="Movement\Pathfinder\clsBuildMap.cs" />
@@ -173,7 +175,7 @@
     <Compile Include="Movement\Pathfinder\clsValidDirections.cs" />
     <Compile Include="Movement\Play\clsNAudio.cs" />
     <Compile Include="Movement\Play\LoopStream.cs" />
-    <Compile Include="Movement\Solve\clsSolvePath.cs" />
+    <Compile Include="Movement\Pathfinder\clsSolvePath.cs" />
     <Compile Include="Movement\State\clsAfraid.cs" />
     <Compile Include="Movement\State\clsTunnel.cs" />
     <Compile Include="Movement\Common\clsZoomToPoint.cs" />

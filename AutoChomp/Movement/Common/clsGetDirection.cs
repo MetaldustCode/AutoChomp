@@ -305,12 +305,12 @@ namespace AutoChomp
             return false;
         }
 
-        internal Direction GetRandomDirection(Point2d ptPosition, Direction CurrentDirection, int intBias)
+        internal Direction GetRandomDirection(Point2d ptOrigin, Direction CurrentDirection, int intBias)
         {
-            if (clsClassTables.lstXGridOrigin.Contains(ptPosition) || CurrentDirection == Direction.None)
+            if (clsClassTables.lstXGridOrigin.Contains(ptOrigin) || CurrentDirection == Direction.None)
             {
                 clsGetDirection clsCharacterDirection = new clsGetDirection();
-                List<Direction> lstDirection = clsCharacterDirection.GetPossibleDirection(ptPosition);
+                List<Direction> lstDirection = clsCharacterDirection.GetPossibleDirection(ptOrigin);
 
                 Direction ReverseDirection = GetReverse(CurrentDirection);
 
