@@ -1,5 +1,4 @@
-﻿using Autodesk.AutoCAD.DatabaseServices;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -41,29 +40,17 @@ namespace AutoChomp
         internal void InjectBlockAge(ref string[,] arrNum, int col, int row, Position posGhost, Direction direction)
         {
             if (direction != Direction.None)
-            { 
+            {
                 clsGetDirection clsGetDirection = new clsGetDirection();
-                List<Direction> lstDirection = clsGetDirection.GetDirection();
 
-                for (int i = 0; i < lstDirection.Count; i++)
-                {
-                    if (lstDirection[i] != direction)
-                    {
-                        int x = posGhost.X;
-                        int y = posGhost.Y;
+                int x = posGhost.X;
+                int y = posGhost.Y;
+                Direction Reverse = clsGetDirection.GetReverse(direction);
 
-                        GetDirection(lstDirection[i], ref x, ref y);
+                GetDirection(Reverse, ref x, ref y);
 
-                        if (col.IsInGrid(row, x, y))
-                            arrNum[x, y] = "X";
-                    }
-                }
-                //Direction Reverse = clsGetDirection.GetReverse(direction);
-
-                //GetDirection(Reverse, ref x, ref y);
-
-                //if (col.IsInGrid(row, x, y))
-                //    arrNum[x, y] = "X";
+                if (col.IsInGrid(row, x, y))
+                    arrNum[x, y] = "X";
             }
         }
 
@@ -147,7 +134,6 @@ namespace AutoChomp
             }
         }
 
-
         internal void GetDirection(Direction dir, ref int x, ref int y)
         {
             switch (dir)
@@ -169,6 +155,5 @@ namespace AutoChomp
                     break;
             }
         }
-
     }
 }

@@ -1,11 +1,11 @@
-﻿using AutoChomp.Graphics;
+﻿using AutoChomp.Gameloop.Graphics;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace AutoChomp.Update
+namespace AutoChomp.Gameloop.Update
 {
     internal class clsUpdateGraphics
     {
@@ -15,8 +15,8 @@ namespace AutoChomp.Update
 
             if (clsCommon.GamePacman.bolGraphicsRequired || clsCommon.GameGhostCommon.bolGraphicsRequired)
             {
-                clsSolvePath clsSolvePath = new clsSolvePath();
-                clsSolvePath.Solve();
+                //clsSolvePath clsSolvePath = new clsSolvePath();
+                //clsSolvePath.Solve();
 
                 clsReg clsReg = new clsReg();
                 clsAStar clsAStar = new clsAStar();
@@ -26,7 +26,7 @@ namespace AutoChomp.Update
                 else
                     clsAStar.DeleteText();
 
-                UpdateAStarLine(acTrans, acDb);
+                // UpdateAStarLine(acTrans, acDb);
             }
 
             //Update Pacman
@@ -40,19 +40,14 @@ namespace AutoChomp.Update
                 //{
                 //    clsReg clsReg = new clsReg();
                 //    clsAStar clsAStar = new clsAStar();
-
-
-
                 //    clsCommon.GamePacman.bolCellChanged = false;
                 //}
             }
 
-
-
             //Hide Dots
             if (clsCommon.GameDots.bolGraphicsRequired)
             {
-                Graphics.clsGraphicsDots clsEatGraphics = new Graphics.clsGraphicsDots();
+                Gameloop.Graphics.clsGraphicsDots clsEatGraphics = new Gameloop.Graphics.clsGraphicsDots();
                 clsEatGraphics.DisplayDots(acTrans);
                 clsCommon.GameDots.bolGraphicsRequired = false;
             }
@@ -60,7 +55,7 @@ namespace AutoChomp.Update
             //Flash Power
             if (clsCommon.GamePower.bolGraphicsRequired)
             {
-                Graphics.clsGraphicsDots clsEatGraphics = new Graphics.clsGraphicsDots();
+                Gameloop.Graphics.clsGraphicsDots clsEatGraphics = new Gameloop.Graphics.clsGraphicsDots();
                 clsEatGraphics.DisplayPower(acTrans);
                 clsCommon.GamePower.bolGraphicsRequired = false;
             }
@@ -69,7 +64,7 @@ namespace AutoChomp.Update
             {
                 List<GameGhost> lstGhost = clsCommon.lstGameGhost;
                 // Update Ghost
-                Graphics.clsGraphicsGhost clsGhostPosition = new Graphics.clsGraphicsGhost();
+                Gameloop.Graphics.clsGraphicsGhost clsGhostPosition = new Gameloop.Graphics.clsGraphicsGhost();
                 clsGhostPosition.UpdateGhostGraphics(acTrans, acDb, ref lstGhost);
                 clsCommon.GameGhostCommon.bolGraphicsRequired = false;
             }
@@ -79,7 +74,6 @@ namespace AutoChomp.Update
         {
             clsSolvePath clsSolvePath = new clsSolvePath();
             clsSolvePath.DeleteLine(acTrans, acDb);
-            List<Boolean> lstSearch = clsSolvePath.GetSearchVisible().Multiply();
 
             List<GameGhost> lstGhosts = clsCommon.lstGameGhost;
 
@@ -87,13 +81,52 @@ namespace AutoChomp.Update
 
             for (int i = 0; i < lstGhosts.Count; i++)
             {
-                if (lstSearch[i])
+                if (lstGhosts[i].bolAStarShowLine)
                 {
-                    List<Position> lstPos = lstGhosts[i].lstPosition;
+                    List<Position> lstPos = lstGhosts[i].lstAStarPosition;
+                    if (lstPos.Count > 0)
+                    {
+                        GamePacman Pacman = clsCommon.GamePacman;
 
-                    clsSolvePath.DrawLine(acTrans, acDb, lstPos, lstColor[i]);
+                        clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
+                        Position posPacman = clsGetCurrentCell.GetCell(Pacman.ptOrigin, Pacman.Direction);
+
+                        string strPos = String.Format("{0} {1} / ", lstPos[lstPos.Count - 1].X, lstPos[lstPos.Count - 1].Y);
+                        strPos += String.Format("{0} {1}", posPacman.X, posPacman.Y);
+
+                        int intPos = HasPosition(lstPos, posPacman);
+
+                        //if (intPos > -1 && intPos != lstPos.Count - 1)
+                        //{
+                        //    List<Position> lstNew = new List<Position>();
+
+                        //    for (int k = 0; k < intPos; k++)
+                        //        lstNew.Add(lstPos[k]);
+
+                        //    lstPos = new List<Position>(lstNew);
+                        //}
+
+                        clsSolvePath.DrawLine(acTrans, acDb, lstPos, lstColor[i]);
+                    }
                 }
             }
+        }
+
+        internal int HasPosition(List<Position> lstPosition, Position Pos)
+        {
+            for (int i = 0; i < lstPosition.Count; i++)
+            {
+                if (PositionMatch(lstPosition[i], Pos))
+                    return i;
+            }
+            return -1;
+        }
+
+        internal Boolean PositionMatch(Position p1, Position p2)
+        {
+            if (p1.X != p2.X || p1.Y != p2.Y)
+                return false;
+            return true;
         }
 
         internal void UpdatePacmanBoxes(Transaction acTrans, Database acDb)
@@ -163,6 +196,8 @@ namespace AutoChomp.Update
                     UpdateGraphics(acTrans, acDb);
 
                     UpdatePacmanBoxes(acTrans, acDb);
+
+                    UpdateAStarLine(acTrans, acDb);
 
                     clsScore clsScore = new clsScore();
                     clsScore.ShowValue(acTrans, acDb);

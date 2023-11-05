@@ -64,9 +64,6 @@ namespace AutoChomp
             if (chk.Name == "chkNumber")
                 clsReg.SetNumbersVisible((bool)chk.IsChecked);
 
-            if (chk.Name == "chkSound")
-                clsReg.SetPlaySound((bool)chk.IsChecked);
-
             if (chk.Name == "chkDirection")
                 clsReg.SetShowDirection((bool)chk.IsChecked);
 
@@ -89,7 +86,12 @@ namespace AutoChomp
                 clsReg.SetIncrementLevel((bool)chk.IsChecked);
 
             if (chk.Name == "chkPlaySound")
+            {
                 clsReg.SetPlaySound((bool)chk.IsChecked);
+
+                if (!(bool)chk.IsChecked)
+                    clsNAudio.StopPowerPellet();
+            }
         }
     }
 }

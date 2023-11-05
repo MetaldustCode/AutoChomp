@@ -1,39 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutoChomp.Movement.AStar
+﻿namespace AutoChomp
 {
     internal class clsGetNextDirection
     {
-        internal Direction GetNextDirection(GameGhost Ghost, List<Position> lstPos)
-        {
-            Direction rtnValue = Ghost.Direction;
+        //internal Direction GetNextDirection(GameGhost Ghost)
+        //{
+        //    Direction rtnValue = Ghost.Direction;
 
-            Position posCurrent = Ghost.posCurrent;
+        //    Position posCurrent = Ghost.ptPosition;
 
-            for (int i = 0; i < lstPos.Count; i++)
-            {
-                Position posNext = lstPos[i];
+        //    List<Position> lstPos = Ghost.lstAStarPosition;
 
-                rtnValue = GetNextDirection(posCurrent, posNext);
+        //    for (int i = 0; i < lstPos.Count; i++)
+        //    {
+        //        Position posNext = lstPos[i];
 
-                if (rtnValue != Direction.None)
-                {
-                    Ghost.Direction = rtnValue;
-                }
-                else
-                {
-                    // Random
-                }
+        //        rtnValue = GetNextDirection(posCurrent, posNext);
 
-                break;
-            }  
+        //        if (rtnValue != Direction.None)
+        //        {
+        //            Ghost.Direction = rtnValue;
+        //        }
+        //        else
+        //        {
+        //            // Random
+        //        }
 
-            return rtnValue;
-        }
+        //        break;
+        //    }
+
+        //    return rtnValue;
+        //}
 
         internal Direction GetNextDirection(Position posCurrent, Position posNext)
         {
@@ -46,11 +42,10 @@ namespace AutoChomp.Movement.AStar
             if (posNext.Y > posCurrent.Y)
                 return Direction.Up;
 
-            if (posNext.X < posCurrent.X)
+            if (posNext.Y < posCurrent.Y)
                 return Direction.Down;
 
             return Direction.None;
-
         }
     }
 }

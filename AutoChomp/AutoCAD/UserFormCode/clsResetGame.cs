@@ -35,8 +35,9 @@ namespace AutoChomp
                     // Open the Block table record Model space for read
                     BlockTableRecord acBlkTblRec = (BlockTableRecord)acTrans.GetObject(acBlkTbl[BlockTableRecord.ModelSpace], OpenMode.ForRead);
 
-                    // Delete Existing Maze
+                    clsNAudio.Init();
 
+                    // Delete Existing Maze
                     clsEntityDelete.DeleteElements(acTrans, acDb);
 
                     clsInit clsInit = new clsInit();
@@ -66,6 +67,13 @@ namespace AutoChomp
                         clsValidDirection.DrawValid();
                     else
                         clsValidDirection.DeleteValid();
+
+                    // Set Enum InputMode for Ghosts and Pacman
+                    clsSetInputMode clsSetInputMode = new clsSetInputMode();
+                    clsSetInputMode.SetInputMode();
+
+                    clsSetSearchMode clsSetSearchMode = new clsSetSearchMode();
+                    clsSetSearchMode.SetSearchMode();
 
                     // Store House Path
                     //clsAStar clsAStar = new clsAStar();

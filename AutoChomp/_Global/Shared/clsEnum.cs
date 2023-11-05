@@ -4,8 +4,15 @@
     {
         Alive,
         Afraid,
-        Dead,
-        Invisible
+        Dead
+    }
+
+    internal enum HouseState
+    {
+        ReturnHouse,
+        LeaveHouse,
+        OutHouse,
+        InHouse
     }
 
     internal enum StartLocation
@@ -51,5 +58,14 @@
         MainGame,
         ReloadGame,
         PacmanDeath
+    }
+
+    internal enum InputMode
+    {
+        None,
+        Keyboard,
+        Random,
+        Gluttany,
+        AStar
     }
 }

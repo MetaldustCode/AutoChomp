@@ -7,6 +7,8 @@ namespace AutoChomp
 {
     internal class GameGhost
     {
+        internal string strName;
+
         internal List<string> lstBlockNameStandard;
         internal List<string> lstBlockNameAlternate;
         internal List<string> lstBlockNameAfraid;
@@ -19,30 +21,34 @@ namespace AutoChomp
 
         internal Direction Direction;
         internal Squiggle Squiggle;
-        internal Point2d Origin;
+        internal Point2d ptOrigin;
+        internal Position ptPosition;
         internal GhostColor Color;
         internal StartLocation StartLocation;
-        internal Boolean bolIsAfraid;
-        internal GhostState State;
+        internal GhostState GhostState;
         internal int intColorIndex;
 
-        internal double dblFrameDelay;
-        internal double dblSpeed;
+        //internal double dblFrameDelay;
+        //internal double dblSpeed;
 
         internal Boolean bolUpdateHistory;
-        internal Boolean bolInHouse;
-        internal Boolean bolExitHouse;
+        internal HouseState HouseState;
+        //internal Boolean bolExitHouse;
+
         internal Direction[,] arrHistory;
 
         internal Boolean bolCellChanged;
 
-        internal Position posCurrent;
+        internal int[,] arrAStarGrid;
+        internal List<Position> lstAStarPosition;
+        internal List<int> lstAStarNumber;
+        internal Boolean bolAStarShowLine;
 
-        internal string strName;
+        internal Boolean bolIsEaten;
 
-        internal int[,] arrAStar;
+        // Form Values
+        internal InputMode InputMode;
 
-        internal List<Position> lstPosition;
         //Red
         //Pink
         //Blue
@@ -89,18 +95,17 @@ namespace AutoChomp
 
             this.Direction = Direction.None;
             this.Squiggle = Squiggle.Standard;
-            this.Origin = new Point2d(0, 0);
+            this.ptOrigin = new Point2d(0, 0);
             this.Color = GhostColor.Default;
             this.StartLocation = StartLocation;
-            this.bolIsAfraid = false;
 
-            this.State = GhostState.Alive;
+            this.GhostState = GhostState.Alive;
             this.intColorIndex = intColorIndex;
 
             // History
             this.bolUpdateHistory = false;
-            this.bolInHouse = true;
-            this.bolExitHouse = false;
+            this.HouseState = HouseState.InHouse;
+            //this.bolExitHouse = false;
 
             clsGenerateTables clsGenerateTables = new clsGenerateTables();
             clsGenerateTables.GetSize(out int col, out int row);
@@ -108,13 +113,17 @@ namespace AutoChomp
 
             this.strName = strName;
 
-            this.posCurrent = new Position(0, 0);
+            this.ptPosition = new Position(0, 0);
 
             this.bolCellChanged = false;
 
-            this.arrAStar = new int[0, 0];
+            this.arrAStarGrid = new int[0, 0];
+            this.lstAStarPosition = new List<Position>();
+            this.lstAStarNumber = new List<int>();
 
-            this.lstPosition = new List<Position>();    
+            this.InputMode = InputMode.None;
+            this.bolAStarShowLine = false;
+            this.bolIsEaten = false;
         }
     }
 }

@@ -24,15 +24,15 @@ namespace AutoChomp
             clsCommon.GameGhostCommon = new GameGhostCommon();
             clsCommon.GameSounds = new GameSounds();
 
-            clsCommon.GameForm.chkRed = this.chkRed;
-            clsCommon.GameForm.chkPink = this.chkPink;
-            clsCommon.GameForm.chkBlue = this.chkBlue;
-            clsCommon.GameForm.chkOrange = this.chkOrange;
+            //clsCommon.GameForm.chkRed = this.chkRed;
+            //clsCommon.GameForm.chkPink = this.chkPink;
+            //clsCommon.GameForm.chkBlue = this.chkBlue;
+            //clsCommon.GameForm.chkOrange = this.chkOrange;
 
-            clsCommon.GameForm.cboRed = this.cboRed;
-            clsCommon.GameForm.cboPink = this.cboPink;
-            clsCommon.GameForm.cboBlue = this.cboBlue;
-            clsCommon.GameForm.cboOrange = this.cboOrange;
+            //clsCommon.GameForm.cboRed = this.cboRed;
+            //clsCommon.GameForm.cboPink = this.cboPink;
+            //clsCommon.GameForm.cboBlue = this.cboBlue;
+            //clsCommon.GameForm.cboOrange = this.cboOrange;
 
             clsCommon.GameForm.cboMaze = this.cboMaze;
         }
@@ -67,10 +67,10 @@ namespace AutoChomp
         {
             clsReg clsReg = new clsReg();
 
-            this.cboRed.SelectedIndex = lstDropDown.IndexOf(clsReg.GetRedSearchMode());
-            this.cboPink.SelectedIndex = lstDropDown.IndexOf(clsReg.GetPinkSearchMode());
-            this.cboBlue.SelectedIndex = lstDropDown.IndexOf(clsReg.GetBlueSearchMode());
-            this.cboOrange.SelectedIndex = lstDropDown.IndexOf(clsReg.GetOrangeSearchMode());
+            this.cboRed.SelectedIndex = lstDropDown.IndexOf(clsReg.GetRedInputMode());
+            this.cboPink.SelectedIndex = lstDropDown.IndexOf(clsReg.GetPinkInputMode());
+            this.cboBlue.SelectedIndex = lstDropDown.IndexOf(clsReg.GetBlueInputMode());
+            this.cboOrange.SelectedIndex = lstDropDown.IndexOf(clsReg.GetOrangeInputMode());
 
             this.chkRed.IsChecked = clsReg.GetRedSearchVisible();
             this.chkPink.IsChecked = clsReg.GetPinkSearchVisible();
@@ -82,8 +82,8 @@ namespace AutoChomp
         {
             clsReg clsReg = new clsReg();
 
-            this.cboPacman.SelectedIndex = lstDropDown.IndexOf(clsReg.GetPacmanSearchMode());
-            this.chkPacman.IsChecked = clsReg.GetRedSearchVisible();
+            this.cboPacman.SelectedIndex = lstDropDown.IndexOf(clsReg.GetPacmanInputMode());
+            this.chkPacman.IsChecked = clsReg.GetPacmanSearchVisible();
         }
 
         private void LoadRegistryMaze()
@@ -126,12 +126,17 @@ namespace AutoChomp
 
             ComboBox cbo = (ComboBox)sender;
 
-            if (cbo.Name == "cboPacman") clsReg.SetPacmanSearchMode(cbo.Text);
-            if (cbo.Name == "cboRed") clsReg.SetRedSearchMode(cbo.Text);
-            if (cbo.Name == "cboPink") clsReg.SetPinkSearchMode(cbo.Text);
-            if (cbo.Name == "cboBlue") clsReg.SetBlueSearchMode(cbo.Text);
-            if (cbo.Name == "cboOrange") clsReg.SetOrangeSearchMode(cbo.Text);
+            //MessageBox.Show(cbo.Name);
+
+            if (cbo.Name == "cboPacman") clsReg.SetPacmanInputMode(cbo.Text);
+            if (cbo.Name == "cboRed") clsReg.SetRedInputMode(cbo.Text);
+            if (cbo.Name == "cboPink") clsReg.SetPinkInputMode(cbo.Text);
+            if (cbo.Name == "cboBlue") clsReg.SetBlueInputMode(cbo.Text);
+            if (cbo.Name == "cboOrange") clsReg.SetOrangeInputMode(cbo.Text);
             if (cbo.Name == "cboMaze") clsReg.SetMazeIndex(cbo.SelectedIndex);
+
+            clsSetInputMode clsSetInputMode = new clsSetInputMode();
+            clsSetInputMode.SetInputMode();
         }
 
         private void chkPath_Checked(object sender, System.Windows.RoutedEventArgs e)
@@ -144,6 +149,12 @@ namespace AutoChomp
             if (chk.Name == "chkPink") clsReg.SetPinkSearchVisible((bool)chk.IsChecked);
             if (chk.Name == "chkBlue") clsReg.SetBlueSearchVisible((bool)chk.IsChecked);
             if (chk.Name == "chkOrange") clsReg.SetOrangeSearchVisible((bool)chk.IsChecked);
+
+            clsSetInputMode clsSetInputMode = new clsSetInputMode();
+            clsSetInputMode.SetInputMode();
+
+            clsSetSearchMode clsSetSearchMode = new clsSetSearchMode();
+            clsSetSearchMode.SetSearchMode();
         }
 
         private void cbo_PreviewMouseWheel(object sender, MouseWheelEventArgs e)

@@ -191,6 +191,7 @@ namespace AutoChomp
         {
             bool[,] arrXGrid = clsClassTables.arrXGridPath;
             List<Direction>[,] arrXDir = clsClassTables.arrXDirection;
+            List<Point2d> lstOrigin = clsClassTables.lstXGridOrigin;
 
             arrXGrid.GetSize(out int col, out int row);
 
@@ -211,6 +212,17 @@ namespace AutoChomp
 
             clsClassTables.lstXGridPosition = lstPosition;
             clsClassTables.lstLstXDirection = lstLstDirection;
+
+            List<String> lstXGridPositionString = new List<string>();
+            for (int i = 0; i < lstPosition.Count; i++)
+                lstXGridPositionString.Add(string.Format("{0},{1}", lstPosition[i].X, lstPosition[i].Y));
+
+            List<String> lstXGridOriginString = new List<string>();
+            for (int i = 0; i < lstOrigin.Count; i++)
+                lstXGridOriginString.Add(string.Format("{0},{1}", lstOrigin[i].X, lstOrigin[i].Y));
+
+            clsClassTables.lstXGridPositionString = lstXGridPositionString;
+            clsClassTables.lstXGridOriginString = lstXGridOriginString;
         }
 
         internal void GenerateStartPositon()

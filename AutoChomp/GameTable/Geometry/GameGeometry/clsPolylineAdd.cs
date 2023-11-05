@@ -139,7 +139,7 @@ namespace AutoChomp
             else
             {
                 clsInsertBlock clsInsertBlock = new clsInsertBlock();
-                rtnValue = clsInsertBlock.InsertBlock(strBlockName, "0", intColor,  acTrans, acDb);
+                rtnValue = clsInsertBlock.InsertBlock(strBlockName, "0", intColor, acTrans, acDb);
             }
 
             return rtnValue;

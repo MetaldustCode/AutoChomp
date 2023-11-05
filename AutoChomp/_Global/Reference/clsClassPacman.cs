@@ -17,7 +17,8 @@ namespace AutoChomp
 
         internal PacmanState PacmanState;
         internal Direction Direction;
-        internal Point2d Origin;
+        internal Point2d ptOrigin;
+        internal Position ptPosition;
         internal int intMouth;
 
         // Movement
@@ -26,12 +27,14 @@ namespace AutoChomp
         internal Boolean bolGraphicsRequired;
 
         internal Boolean bolCellChanged;
-        internal Position posCurrent;
 
         internal int[,] arrAStar;
-        internal List<Position> lstPosition;
+        internal List<Position> lstAStarPosition;
 
         internal GameLoop GameLoop;
+
+        internal InputMode InputMode;
+        internal Boolean bolSearchMode;
 
         internal GamePacman(string strBlockName, int intColorIndex)
         {
@@ -48,21 +51,25 @@ namespace AutoChomp
             this.Direction = Direction.None;
             this.PacmanState = PacmanState.Mid;
 
-            this.Origin = new Point2d(0, 0);
+            this.ptOrigin = new Point2d(0, 0);
             this.intMouth = intColorIndex;
 
             // Movement
             this.FacingDirection = Direction.None;
             this.bolGraphicsRequired = true;
 
-            this.posCurrent = new Position(0, 0);
+            this.ptPosition = new Position(0, 0);
             this.bolCellChanged = false;
 
             this.GameLoop = new GameLoop();
 
             this.arrAStar = new int[0, 0];
 
-            this.lstPosition = new List<Position>();    
+            this.lstAStarPosition = new List<Position>();
+
+            this.InputMode = InputMode.None;
+
+            this.bolSearchMode = false;
         }
     }
 }

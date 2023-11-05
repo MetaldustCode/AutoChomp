@@ -6,7 +6,7 @@ namespace AutoChomp
     internal class clsTunnel
     {
         // Check if sprite in tunnel
-        internal void IsInTunnel(ref List<Boolean> lstInTunnelGhost)
+        internal void IsInTunnel(out List<Boolean> lstInTunnelGhost)
         {
             lstInTunnelGhost = new List<bool>() { false, false, false, false }.Multiply();
 

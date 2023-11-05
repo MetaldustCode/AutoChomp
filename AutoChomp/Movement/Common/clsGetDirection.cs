@@ -331,6 +331,43 @@ namespace AutoChomp
             return CurrentDirection;
         }
 
+        //internal Direction GetPathfinderDirection(GameGhost Ghost, Point2d ptOrigin, Direction CurrentDirection, int intBias)
+        //{
+        //    if (clsClassTables.lstXGridOrigin.Contains(ptOrigin) || CurrentDirection == Direction.None)
+        //    {
+        //        clsGetDirection clsCharacterDirection = new clsGetDirection();
+        //        List<Direction> lstDirection = clsCharacterDirection.GetPossibleDirection(ptOrigin);
+
+        //        clsGetNextDirection clsGetNextDirection = new clsGetNextDirection();
+
+        //        Direction dirNext = clsGetNextDirection.GetNextDirection(Ghost);
+
+        //        Direction ReverseDirection = GetReverse(CurrentDirection);
+
+        //        if (lstDirection.Contains(ReverseDirection))
+        //            lstDirection.RemoveAt(lstDirection.IndexOf(ReverseDirection));
+
+        //        if (lstDirection.Contains(dirNext))
+        //        {
+        //            return dirNext;
+        //        }
+        //        else
+        //        {
+        //            if (lstDirection.Contains(CurrentDirection))
+        //                for (int i = 0; i < intBias; i++)
+        //                    lstDirection.Add(CurrentDirection);
+
+        //            if (lstDirection.Count > 0)
+        //            {
+        //                int index = clsRandomizer.RandomInteger(0, lstDirection.Count - 1);
+        //                return lstDirection[index];
+        //            }
+        //        }
+        //    }
+
+        //    return CurrentDirection;
+        //}
+
         internal Direction GetReverse(Direction direction)
         {
             if (direction != Direction.None)

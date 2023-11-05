@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AutoChomp
+namespace AutoChomp.Gameloop.Data
 {
     internal class clsDataSquiggle
     {

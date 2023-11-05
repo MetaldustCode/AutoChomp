@@ -21,6 +21,8 @@ namespace AutoChomp
 
         internal Stopwatch StopWatchExit;
 
+        internal Stopwatch StopWatchEatGhost;
+
         internal GameStopWatch()
         {
             this.StopWatchIdle = new Stopwatch();
@@ -34,14 +36,16 @@ namespace AutoChomp
             this.StopWatchPowerFlash = new Stopwatch();
 
             this.StopWatchExit = new Stopwatch();
+
+            this.StopWatchEatGhost = new Stopwatch();
         }
     }
 
     internal class GameElapsedTime
     {
         internal int intIntervalSquiggle;
-        internal int intIntervalAfraid;
-        internal int intIntervalFlash;
+        //internal int intIntervalAfraid;
+        internal int intIntervalPellettFlash;
         internal int intIntervalReverse;
 
         internal int intPowerStartTime;
@@ -49,21 +53,25 @@ namespace AutoChomp
         internal int intPowerFlashCount;
         internal int intPowerFlashTotal;
 
-        internal int intPowerExit;
+        internal int intHouseExit;
+
+        internal int intEatGhost;
 
         internal GameElapsedTime()
         {
             this.intIntervalSquiggle = 500;
-            this.intIntervalAfraid = 400;
-            this.intIntervalFlash = 480;
+            //this.intIntervalAfraid = 400;
+            this.intIntervalPellettFlash = 480;
             this.intIntervalReverse = 10000;
 
-            this.intPowerStartTime = 3000;
-            this.intPowerFlashTime = 400;
+            this.intPowerStartTime = 5000;
+            this.intPowerFlashTime = 200;
             this.intPowerFlashCount = 0;
-            this.intPowerFlashTotal = 10;
+            this.intPowerFlashTotal = 12;
 
-            this.intPowerExit = 3000;
+            this.intHouseExit = 3000;
+
+            this.intEatGhost = 550;
         }
     }
 }

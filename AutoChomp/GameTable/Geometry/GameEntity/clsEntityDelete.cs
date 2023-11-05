@@ -22,7 +22,7 @@ namespace AutoChomp
             DeleteObjectId(acTrans, acDb, gameElements.lstObjPosition);
 
             //  clsCommon.bolDirectionBoxUpdate = false;
-            clsCommon.GamePacman.GameLoop.bolBoxDirectionUpdate = false;
+            //  clsCommon.GamePacman.GameLoop.bolBoxDirectionUpdate = false;
             //DeleteObjectId(acTrans, acDb, clsCommon.GamePacman.lstCellBlkRef);
 
             //if (clsCommon.GamePacman.lstCellOrigin != null)
@@ -54,6 +54,15 @@ namespace AutoChomp
             {
                 for (int i = 0; i < lstObjectId.Count; i++)
                     DeleteObjectId(acTrans, acDb, lstObjectId[i]);
+            }
+        }
+
+        internal void DeleteObjectId(Transaction acTrans, Database acDb, List<DBText> lstObjectId)
+        {
+            if (lstObjectId != null)
+            {
+                for (int i = 0; i < lstObjectId.Count; i++)
+                    DeleteObjectId(acTrans, acDb, lstObjectId[i].ObjectId);
             }
         }
 

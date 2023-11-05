@@ -1,8 +1,8 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AutoChomp
 {
@@ -112,7 +112,53 @@ namespace AutoChomp
         //    }
         //}
 
-        internal static DBText[,] arrDBText;
+        //internal void CreateTextData()
+        //{
+        //    Document acDoc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+        //    Database acDb = acDoc.Database;
+
+        //    // Start a transaction
+        //    using (Transaction acTrans = acDb.TransactionManager.StartTransaction())
+        //    {
+        //        using (DocumentLock @lock = acDoc.LockDocument())
+        //        {
+        //            if (lstText != null && lstText.Count > 0)
+        //            {
+        //                clsEntityDelete clsEntityDelete = new clsEntityDelete();
+        //                clsEntityDelete.DeleteObjectId(acTrans, acDb, lstText);
+        //            }
+
+        //            lstText = new List<DBText>();
+
+        //            List<Position> lstPos = new List<Position>();
+        //            List<int> lstNumbers = new List<int>();
+
+        //            for (int i = 0; i < clsCommon.lstGameGhost.Count; i++)
+        //            {
+        //                GameGhost Ghost = clsCommon.lstGameGhost[i];
+
+        //                List<Position> _lstPos = Ghost.lstAStarPosition;
+        //                List<int> _lstNumbers = Ghost.lstAStarNumber;
+
+        //                for (int j = 0; j < _lstPos.Count; j++)
+        //                {
+        //                    lstPos.Add(_lstPos[j]);
+        //                    lstNumbers.Add(_lstNumbers[j]);
+        //                }
+
+        //                break;
+        //            }
+
+        //            //RemoveDuplicates(ref lstPos, ref lstNumbers);
+
+        //            DrawText(acTrans, acDb, lstPos, lstNumbers, ref lstText);
+
+        //            acTrans.Commit();
+        //        }
+        //    }
+        //}
+
+        internal static List<DBText> _lstText;
 
         internal void CreateTextData()
         {
@@ -124,84 +170,153 @@ namespace AutoChomp
             {
                 using (DocumentLock @lock = acDoc.LockDocument())
                 {
-                    int[,] arrNum = clsCommon.lstGameGhost[0].arrAStar;
-
-                    if (arrDBText != null)
+                    if (_lstText != null && _lstText.Count > 0)
                     {
-                        List<ObjectId> lstObjectId = GetObjectId(arrDBText);
-
                         clsEntityDelete clsEntityDelete = new clsEntityDelete();
-                        clsEntityDelete.DeleteObjectId(acTrans, acDb, lstObjectId);
+                        clsEntityDelete.DeleteObjectId(acTrans, acDb, _lstText);
                     }
 
-                    string[,] arrText = arrNum.ConvertIntToString();
-                    arrText.GetSize(out int col, out int row);
-                    arrDBText = new DBText[col, row];
-                    DrawText(acTrans, acDb, arrText, ref arrDBText);
+                    GameGhost Ghost = clsCommon.lstGameGhost[0];
+
+                    int[,] arrAStarNum = Ghost.arrAStarGrid;
+
+                    arrAStarNum.GetSize(out int col, out int row);
+
+                    DBText[,] arrDBText = new DBText[col, row];
+                    DrawText(acTrans, acDb, arrAStarNum, ref arrDBText);
+
+                    _lstText = new List<DBText>();
+
+                    for (int c = 0; c < col; c++)
+                    {
+                        for (int r = 0; r < row; r++)
+                        {
+                            if (arrDBText[c, r] != null)
+                                _lstText.Add(arrDBText[c, r]);
+                        }
+                    }
 
                     acTrans.Commit();
                 }
             }
         }
 
+        internal void RemoveDuplicates(ref List<Position> lstPos, ref List<int> lstNum)
+        {
+            if (lstPos.Count > 0)
+            {
+                List<Tuple<int, int>> lstTuple = new List<Tuple<int, int>>();
+
+                for (int i = 0; i < lstPos.Count; i++)
+                    lstTuple.Add(new Tuple<int, int>(lstPos[i].X, lstPos[i].Y));
+
+                lstTuple = lstTuple.Distinct().ToList();
+
+                List<int> _lstNum = new List<int>();
+                List<Position> _lstPos = new List<Position>();
+
+                for (int i = 0; i < lstTuple.Count; i++)
+                    _lstPos.Add(new Position(lstTuple[i].Item1, lstTuple[i].Item2));
+
+                for (int i = 0; i < _lstPos.Count; i++)
+                {
+                    for (int k = 0; k < lstPos.Count; k++)
+                    {
+                        if (_lstPos[i].X == lstPos[i].X &&
+                            _lstPos[i].Y == lstPos[i].Y)
+                        {
+                            _lstNum.Add(lstNum[k]);
+                        }
+                    }
+                }
+
+                lstNum = new List<int>(_lstNum);
+                lstPos = new List<Position>(_lstPos);
+            }
+        }
 
         internal void DeleteText()
         {
-            Document acDoc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
-            Database acDb = acDoc.Database;
-
-            // Start a transaction
-            using (Transaction acTrans = acDb.TransactionManager.StartTransaction())
+            if (_lstText != null && _lstText.Count > 0)
             {
-                using (DocumentLock @lock = acDoc.LockDocument())
+                Document acDoc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+                Database acDb = acDoc.Database;
+
+                // Start a transaction
+                using (Transaction acTrans = acDb.TransactionManager.StartTransaction())
                 {
-                    int[,] arrNum = clsCommon.GamePacman.arrAStar;
-
-                    if (arrDBText != null)
+                    using (DocumentLock @lock = acDoc.LockDocument())
                     {
-                        List<ObjectId> lstObjectId = GetObjectId(arrDBText);
+                        if (_lstText != null && _lstText.Count > 0)
+                        {
+                            clsEntityDelete clsEntityDelete = new clsEntityDelete();
+                            clsEntityDelete.DeleteObjectId(acTrans, acDb, _lstText);
+                        }
 
-                        clsEntityDelete clsEntityDelete = new clsEntityDelete();
-                        clsEntityDelete.DeleteObjectId(acTrans, acDb, lstObjectId);
+                        _lstText = new List<DBText>();
+                        acTrans.Commit();
                     }
-
-                    acTrans.Commit();
                 }
             }
         }
 
-        internal void UpdateGhostAStar(ref GameGhost Ghost)
-        {
-            GamePacman Pacman = clsCommon.GamePacman;
+        //internal void DeleteText()
+        //{
+        //    Document acDoc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+        //    Database acDb = acDoc.Database;
 
-            Direction dirGhost = Ghost.Direction;
-            Direction dirPacman = Pacman.Direction;
+        //    // Start a transaction
+        //    using (Transaction acTrans = acDb.TransactionManager.StartTransaction())
+        //    {
+        //        using (DocumentLock @lock = acDoc.LockDocument())
+        //        {
+        //            int[,] arrNum = clsCommon.GamePacman.arrAStar;
 
-            clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
-            Position posGhost = clsGetCurrentCell.GetCell(Ghost.Origin, dirGhost);
+        //            if (arrDBText != null)
+        //            {
+        //                List<ObjectId> lstObjectId = GetObjectId(arrDBText);
 
-            Position posPacman = clsGetCurrentCell.GetCell(Pacman.Origin, dirPacman);
-           
-            Ghost.posCurrent = posGhost;
-            Pacman.posCurrent = posPacman;
+        //                clsEntityDelete clsEntityDelete = new clsEntityDelete();
+        //                clsEntityDelete.DeleteObjectId(acTrans, acDb, lstObjectId);
+        //            }
 
-            clsCommon.GamePacman = Pacman;
+        //            acTrans.Commit();
+        //        }
+        //    }
+        //}
 
-            Ghost.arrAStar = GenerateAStar(posPacman, posGhost, dirGhost);
+        //internal void UpdateGhostAStar(ref GameGhost Ghost)
+        //{
+        //    GamePacman Pacman = clsCommon.GamePacman;
 
-            //clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
-            //Ghost.arrAStar = GenerateAStar(posCurrent, direction);
+        //    Direction dirGhost = Ghost.Direction;
+        //    Direction dirPacman = Pacman.Direction;
 
-            ////Position posCurrent = clsGetCurrentCell.GetCell(ptOrigin, direction);
-            ////if (!PositionMatch(Ghost.posCurrent, posCurrent))
-            ////{
-            //Ghost.posCurrent = posCurrent;
-            //Ghost.bolCellChanged = true;
+        //    clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
+        //    Position posGhost = clsGetCurrentCell.GetCell(Ghost.ptOrigin, dirGhost);
 
-            //clsAStar clsAStar = new clsAStar();
-            //Ghost.arrAStar = GenerateAStar(posCurrent, direction);
-            // }
-        }
+        //    Position posPacman = clsGetCurrentCell.GetCell(Pacman.ptOrigin, dirPacman);
+
+        //    Ghost.ptPosition = posGhost;
+        //    Pacman.ptPosition = posPacman;
+
+        //    clsCommon.GamePacman = Pacman;
+
+        //    Ghost.arrAStarGrid = GenerateAStar(posPacman, posGhost, dirGhost);
+
+        //    //clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
+        //    //Ghost.arrAStar = GenerateAStar(posCurrent, direction);
+
+        //    ////Position posCurrent = clsGetCurrentCell.GetCell(ptOrigin, direction);
+        //    ////if (!PositionMatch(Ghost.posCurrent, posCurrent))
+        //    ////{
+        //    //Ghost.posCurrent = posCurrent;
+        //    //Ghost.bolCellChanged = true;
+
+        //    //clsAStar clsAStar = new clsAStar();
+        //    //Ghost.arrAStar = GenerateAStar(posCurrent, direction);
+        //    // }
+        //}
 
         //internal void UpdatePacmanAStar(ref GamePacman Pacman)
         //{
@@ -234,13 +349,6 @@ namespace AutoChomp
             return true;
         }
 
-        //internal void GenerateAStarHouse()
-        //{
-        //    Position posCell = new Position(15, 21);
-
-        //    clsCommon.GameGhostCommon.arrAStarHouse = GenerateAStar(posCell, Direction.None);
-        //}
-
         internal int[,] GenerateAStar(Position posPacman, Position posGhost, Direction dirGhost)
         {
             clsBuildMap clsBuildMap = new clsBuildMap();
@@ -268,7 +376,31 @@ namespace AutoChomp
             return rtnValue;
         }
 
-        internal void DrawText(Transaction acTrans, Database acDb, String[,] arrText, ref DBText[,] arrDBText)
+        //internal void DrawText(Transaction acTrans, Database acDb,
+        //                       List<Position> lstPos, List<int> lstNumber,
+        //                       ref List<DBText> lstText)
+        //{
+        //    if (lstPos.Count > 0)
+        //    {
+        //        clsGluttony clsGluttony = new clsGluttony();
+
+        //        for (int i = 0; i < lstPos.Count; i++)
+        //        {
+        //            int x = lstPos[i].X;
+        //            int y = lstPos[i].Y;
+        //            double dblX1 = x * Cell + Middle;
+        //            double dblY1 = y * Cell + Middle;
+
+        //            DBText acText = clsGluttony.AddText(acTrans, acDb, lstNumber[i].ToString(), 2);
+
+        //            acText.MoveEntityXY(dblX1, dblY1);
+
+        //            lstText.Add(acText);
+        //        }
+        //    }
+        //}
+
+        internal void DrawText(Transaction acTrans, Database acDb, int[,] arrText, ref DBText[,] arrDBText)
         {
             if (arrText != null)
             {
@@ -280,9 +412,9 @@ namespace AutoChomp
                 {
                     for (int y = 0; y < row; y++)
                     {
-                        if (arrText[x, y] != "0" && arrText[x, y] != null)
+                        if (arrText[x, y] != 0)
                         {
-                            string strValue = arrText[x, y];
+                            string strValue = arrText[x, y].ToString();
                             arrDBText[x, y] = clsGluttony.AddText(acTrans, acDb, strValue, 2);
 
                             double dblX1 = x * Cell + Middle;

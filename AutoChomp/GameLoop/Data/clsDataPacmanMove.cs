@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AutoChomp.Data
+namespace AutoChomp.Gameloop.Data
 {
     internal class clsDataPacmanMove
     {
@@ -15,7 +15,7 @@ namespace AutoChomp.Data
 
             clsReg clsReg = new clsReg();
 
-            string strValue = clsReg.GetPacmanSearchMode();
+            string strValue = clsReg.GetPacmanInputMode();
 
             Direction direction = Pacman.Direction;
 
@@ -26,7 +26,7 @@ namespace AutoChomp.Data
                 //if (direction != Direction.None)
                 {
                     clsGluttony clsGluttony = new clsGluttony();
-                    clsGluttony.GetGluttony(Pacman.Origin, Pacman.Direction,
+                    clsGluttony.GetGluttony(Pacman.ptOrigin, Pacman.Direction,
                                             ref Pacman.GameLoop.arrHistory,
                                             ref Pacman.GameLoop.bolHistoryUpdate);
                 }
@@ -35,49 +35,53 @@ namespace AutoChomp.Data
             if (strValue == "Gluttony")
             {
                 clsGluttony clsGluttony = new clsGluttony();
-                direction = clsGluttony.GetGluttony(Pacman.Origin, Pacman.Direction,
+                direction = clsGluttony.GetGluttony(Pacman.ptOrigin, Pacman.Direction,
                                                     ref Pacman.GameLoop.arrHistory,
                                                     ref Pacman.GameLoop.bolHistoryUpdate);
             }
 
             if (strValue == "Random")
             {
-                direction = clsGetDirection.GetRandomDirection(Pacman.Origin, Pacman.Direction, 6);
+                direction = clsGetDirection.GetRandomDirection(Pacman.ptOrigin, Pacman.Direction, 6);
 
                 clsGluttony clsGluttony = new clsGluttony();
-                clsGluttony.GetGluttony(Pacman.Origin, Pacman.Direction,
+                clsGluttony.GetGluttony(Pacman.ptOrigin, Pacman.Direction,
                                         ref Pacman.GameLoop.arrHistory,
                                         ref Pacman.GameLoop.bolHistoryUpdate);
+            }
+
+            if (strValue == "A-Star")
+            {
             }
 
             List<Position> lstNextCell = new List<Position>();
 
             if (direction != Direction.None)
             {
-                if (clsGetDirection.CanCharacterMove(Pacman.Origin, direction, ref lstNextCell))
+                if (clsGetDirection.CanCharacterMove(Pacman.ptOrigin, direction, ref lstNextCell))
                 {
                     UpdatePacmanPosition(ref Pacman, direction);
                     Pacman.FacingDirection = direction;
                     Pacman.Direction = direction;
-                    clsCommon.GamePosition.posCurrentPacman = Pacman.Origin;
+                    clsCommon.GamePosition.posCurrentPacman = Pacman.ptOrigin;
                     Pacman.bolGraphicsRequired = true;
                 }
                 else
                 {
-                    if (clsGetDirection.CanCharacterMove(Pacman.Origin, Pacman.FacingDirection, ref lstNextCell))
+                    if (clsGetDirection.CanCharacterMove(Pacman.ptOrigin, Pacman.FacingDirection, ref lstNextCell))
                     {
                         UpdatePacmanPosition(ref Pacman, Pacman.FacingDirection);
-                        clsCommon.GamePosition.posCurrentPacman = Pacman.Origin;
+                        clsCommon.GamePosition.posCurrentPacman = Pacman.ptOrigin;
                         Pacman.bolGraphicsRequired = true;
                     }
                 }
             }
             else
             {
-                if (clsGetDirection.CanCharacterMove(Pacman.Origin, Pacman.Direction, ref lstNextCell))
+                if (clsGetDirection.CanCharacterMove(Pacman.ptOrigin, Pacman.Direction, ref lstNextCell))
                 {
                     UpdatePacmanPosition(ref Pacman, Pacman.Direction);
-                    clsCommon.GamePosition.posCurrentPacman = Pacman.Origin;
+                    clsCommon.GamePosition.posCurrentPacman = Pacman.ptOrigin;
                     Pacman.bolGraphicsRequired = true;
                 }
             }
@@ -109,7 +113,7 @@ namespace AutoChomp.Data
 
             clsWrapAround.WrapCharacterPacman(ref Pacman);
 
-            Point2d ptPosition = Pacman.Origin;
+            Point2d ptPosition = Pacman.ptOrigin;
 
             double dblOffset = Convert.ToDouble(clsCommon.GameForm.cboSpacing.Text);
 
@@ -125,7 +129,7 @@ namespace AutoChomp.Data
             if (direction == Direction.Right)
                 ptPosition = new Point2d(ptPosition.X + dblOffset, ptPosition.Y);
 
-            Pacman.Origin = ptPosition;
+            Pacman.ptOrigin = ptPosition;
         }
     }
 }

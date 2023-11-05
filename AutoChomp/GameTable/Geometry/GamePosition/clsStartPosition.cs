@@ -45,6 +45,11 @@ namespace AutoChomp
             ptOrange = new Point2d((18 * Cell), (18 * Cell) + Middle); // Right
 
             ptRed = new Point2d((16 * Cell), (21 * Cell) + Middle);
+
+            //ptBlue = new Point2d((16 * Cell), (21 * Cell) + Middle);
+            //ptPink = new Point2d((16 * Cell), (21 * Cell) + Middle);
+            //ptOrange = new Point2d((16 * Cell), (21 * Cell) + Middle);
+            //ptRed = new Point2d((20 * Cell) + Middle, (21 * Cell) + Middle);
         }
 
         internal void SetStartPostitionPacman(Transaction acTrans, Database acDb, ref GamePacman Pacman)
@@ -55,9 +60,10 @@ namespace AutoChomp
 
             Point2d ptPacman = new Point2d((16 * Cell), (9 * Cell) + Middle);
 
-            Pacman.Origin = ptPacman;
+            Pacman.ptOrigin = ptPacman;
             Pacman.Direction = Direction.Right;
-            clsCommon.GamePacman.Origin = Pacman.Origin;
+            Pacman.FacingDirection = Direction.Right;
+            clsCommon.GamePacman.ptOrigin = Pacman.ptOrigin;
             clsCommon.GamePacman.Direction = Pacman.Direction;
 
             //for (int i = 0; i < Pacman.lstPacmanBlockReference.Count; i++)

@@ -11,7 +11,7 @@ namespace AutoChomp
 
         internal Position GetPacmanPosition()
         {
-            Point2d ptOrigin = clsCommon.GamePacman.Origin;
+            Point2d ptOrigin = clsCommon.GamePacman.ptOrigin;
             Direction direction = clsCommon.GamePacman.Direction;
 
             return GetCell(ptOrigin, direction);
@@ -174,14 +174,14 @@ namespace AutoChomp
                 {
                     Position ptStart = new Position();
 
-                    GetCell(clsCommon.lstGameGhost[i].Origin,
+                    GetCell(clsCommon.lstGameGhost[i].ptOrigin,
                                     clsCommon.lstGameGhost[i].Direction,
                                     ref ptStart);
 
                     lstPosGhost.Add(ptStart);
                 }
 
-                GetCell(clsCommon.GamePacman.Origin,
+                GetCell(clsCommon.GamePacman.ptOrigin,
                                 clsCommon.GamePacman.Direction,
                                 ref posPacman);
                 return true;

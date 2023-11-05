@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AutoChomp.Data
+namespace AutoChomp.Gameloop.Data
 {
     internal class clsDataDot
     {
@@ -11,7 +11,7 @@ namespace AutoChomp.Data
             EatDotsPacman();
             EatPowerPacman();
             EatDotsGhost();
-            SetFlash();
+            SetPowerFlash();
         }
 
         internal void EatDotsPacman()
@@ -25,7 +25,7 @@ namespace AutoChomp.Data
             {
                 GameDots GameDots = clsCommon.GameDots;
 
-                Point2d ptPacPosition = clsCommon.GamePacman.Origin;
+                Point2d ptPacPosition = clsCommon.GamePacman.ptOrigin;
                 List<Point2d> lstDotsPosition = GameDots.lstOrigin;
                 int intPos = -1;
                 if (PositionMatch(ptPacPosition, lstDotsPosition, GameDots.lstIsEaten, ref intPos))
@@ -62,7 +62,7 @@ namespace AutoChomp.Data
 
             for (int i = 0; i < lstGhost.Count; i++)
             {
-                Point2d ptPacPosition = lstGhost[i].Origin;
+                Point2d ptPacPosition = lstGhost[i].ptOrigin;
                 List<Point2d> lstPowerPosition = GameDots.lstOrigin;
                 int intPos = -1;
                 clsDataDot clsDotData = new clsDataDot();
@@ -88,8 +88,9 @@ namespace AutoChomp.Data
             {
                 GamePower GamePower = clsCommon.GamePower;
 
-                Point2d ptPacPosition = clsCommon.GamePacman.Origin;
+                Point2d ptPacPosition = clsCommon.GamePacman.ptOrigin;
                 List<Point2d> lstPowerPosition = GamePower.lstOrigin;
+
                 int intPos = -1;
                 if (PositionMatch(ptPacPosition, lstPowerPosition, GamePower.lstIsEaten, ref intPos))
                 {
@@ -122,7 +123,7 @@ namespace AutoChomp.Data
             return false;
         }
 
-        internal void SetFlash()
+        internal void SetPowerFlash()
         {
             GamePower GamePower = clsCommon.GamePower;
             clsTimerEvents clsTimerEvents = new clsTimerEvents();
@@ -133,7 +134,7 @@ namespace AutoChomp.Data
             {
                 int intElapsed = clsTimerEvents.GetTimerPellet();
 
-                if (intElapsed > clsTimers.GameElapsedTime.intIntervalFlash)
+                if (intElapsed > clsTimers.GameElapsedTime.intIntervalPellettFlash)
                 {
                     GamePower.bolIsFlashOn = !GamePower.bolIsFlashOn;
 

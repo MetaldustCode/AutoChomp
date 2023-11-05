@@ -5,7 +5,7 @@ namespace AutoChomp
 {
     internal class clsSetAfraid
     {
-        internal void SetAfraidGhosts(Boolean bolIsAfraid, Boolean bolToggle = false)
+        internal void SetGhostState(GhostState ghostState, Boolean bolToggle = false)
         {
             if (clsCommon.lstGameGhost != null)
             {
@@ -13,7 +13,7 @@ namespace AutoChomp
 
                 if (clsReg.GetPlaySound())
                 {
-                    if (bolIsAfraid)
+                    if (ghostState == GhostState.Afraid)
                         clsNAudio.PlayPowerPellet();
                     else
                         clsNAudio.StopPowerPellet();
@@ -21,26 +21,37 @@ namespace AutoChomp
 
                 List<GameGhost> lstGhosts = clsCommon.lstGameGhost;
 
+                if (clsCommon.GameGhostCommon.bolPowerTimerFlash == false)
+                {
+                    for (int i = 0; i < lstGhosts.Count; i++)
+                        if (lstGhosts[i].bolIsEaten == true)
+                            lstGhosts[i].bolIsEaten = false;
+                }
+
                 for (int i = 0; i < lstGhosts.Count; i++)
                 {
-                    lstGhosts[i].bolIsAfraid = bolIsAfraid;
-
-                    if (bolIsAfraid)
+                    if (!lstGhosts[i].bolIsEaten)
                     {
-                        lstGhosts[i].State = GhostState.Afraid;
-
-                        if (bolToggle)
+                        if (lstGhosts[i].GhostState != GhostState.Dead)
                         {
-                            if (lstGhosts[i].Color == GhostColor.Default)
-                                lstGhosts[i].Color = GhostColor.White;
-                            else
+                            if (ghostState == GhostState.Afraid)
+                            {
+                                lstGhosts[i].GhostState = GhostState.Afraid;
+
+                                if (bolToggle)
+                                {
+                                    if (lstGhosts[i].Color == GhostColor.Default)
+                                        lstGhosts[i].Color = GhostColor.White;
+                                    else
+                                        lstGhosts[i].Color = GhostColor.Default;
+                                }
+                            }
+                            if (ghostState == GhostState.Alive)
+                            {
+                                lstGhosts[i].GhostState = GhostState.Alive;
                                 lstGhosts[i].Color = GhostColor.Default;
+                            }
                         }
-                    }
-                    else
-                    {
-                        lstGhosts[i].State = GhostState.Alive;
-                        lstGhosts[i].Color = GhostColor.Default;
                     }
                 }
 

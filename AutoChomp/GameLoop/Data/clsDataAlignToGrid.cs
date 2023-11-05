@@ -1,7 +1,7 @@
 ﻿using Autodesk.AutoCAD.Geometry;
 using System.Collections.Generic;
 
-namespace AutoChomp.Data
+namespace AutoChomp.Gameloop.Data
 {
     internal class clsDataAlignToGrid
     {
@@ -15,31 +15,37 @@ namespace AutoChomp.Data
         {
             GamePacman Pacman = clsCommon.GamePacman;
 
-            clsGetCurrentCell clsGetCell = new clsGetCurrentCell();
+            if (Pacman != null)
+            {
+                clsGetCurrentCell clsGetCell = new clsGetCurrentCell();
 
-            Position pos = clsGetCell.GetCell(Pacman.Origin, Pacman.Direction);
+                Position pos = clsGetCell.GetCell(Pacman.ptOrigin, Pacman.Direction);
 
-            Point2d pt = pos.GetOrigin();
+                Point2d pt = pos.GetOrigin();
 
-            clsCommon.GamePacman.Origin = pt;
+                clsCommon.GamePacman.ptOrigin = pt;
+            }
         }
 
         internal void AlignGhosts()
         {
             List<GameGhost> lstGhost = clsCommon.lstGameGhost;
 
-            for (int i = 0; i < lstGhost.Count; i++)
+            if (lstGhost != null)
             {
-                clsGetCurrentCell clsGetCell = new clsGetCurrentCell();
+                for (int i = 0; i < lstGhost.Count; i++)
+                {
+                    clsGetCurrentCell clsGetCell = new clsGetCurrentCell();
 
-                Position pos = clsGetCell.GetCell(lstGhost[i].Origin, lstGhost[i].Direction);
+                    Position pos = clsGetCell.GetCell(lstGhost[i].ptOrigin, lstGhost[i].Direction);
 
-                Point2d pt = pos.GetOrigin();
+                    Point2d pt = pos.GetOrigin();
 
-                lstGhost[i].Origin = pt;
+                    lstGhost[i].ptOrigin = pt;
+                }
+
+                clsCommon.lstGameGhost = lstGhost;
             }
-
-            clsCommon.lstGameGhost = lstGhost;
         }
     }
 }

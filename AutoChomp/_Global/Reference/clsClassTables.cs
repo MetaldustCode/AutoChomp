@@ -18,7 +18,10 @@ namespace AutoChomp
         // Position Path
         internal static List<Position> lstXGridPosition = null;
 
+        internal static List<String> lstXGridPositionString = null;
+
         internal static List<Point2d> lstXGridOrigin = null;
+        internal static List<String> lstXGridOriginString = null;
 
         // Tunnel Path
         internal static Boolean[,] arrXTunnel = null;

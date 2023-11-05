@@ -1,5 +1,4 @@
-﻿using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.DatabaseServices;
+﻿using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using System;
 using System.Collections.Generic;
@@ -8,87 +7,11 @@ namespace AutoChomp
 {
     internal class clsSolvePath
     {
-
-
-        internal void DrawingDirectionBoxes(Transaction acTrans, Database acDb,
-                                            List<Position> lstPt, int intColor)
-        {
-            //for (int i = 0; i < lstPt.Count; i++)
-            //{
-            //    clsPolylineAdd clsPolylineAdd = new clsPolylineAdd();
-            //    BlockReference acBlkRef = clsPolylineAdd.AddBoxBlock(acTrans, acDb, intColor, "GluttonyBox");
-            //    acBlkRef.ColorIndex = intColor;
-            //    acBlkRef.Position = lstPt[i].GetOrigin().ToPoint3d();
-            //    clsCommon.GameObjectId.lstObjPosition.Add(acBlkRef.ObjectId);
-            //}
-        }
-
-
-
-        internal void Solve()
-        {
-
-
-            List<GameGhost> lstGhosts = clsCommon.lstGameGhost;
-
-
-            for (int i = 0; i < lstGhosts.Count; i++)
-            {
-                int[,] arrAStar = lstGhosts[i].arrAStar;
-                arrAStar.GetSize(out int col, out int row);
-
-                if (col > 0)
-                {
-                    GameGhost ghost = lstGhosts[i];
-
-                    arrAStar = ghost.arrAStar;
-
-                    Position pos = ghost.posCurrent;
-
-                    ghost.lstPosition = SolveAStar(arrAStar, pos);
-                }
-            }
-        }
-
-        internal List<Boolean> GetSearchVisible()
-        {
-            clsReg clsReg = new clsReg();
-            List<Boolean> rtnValue = new List<bool>();
-
-            rtnValue.Add(clsReg.GetRedSearchVisible());
-            rtnValue.Add(clsReg.GetPinkSearchVisible());
-            rtnValue.Add(clsReg.GetBlueSearchVisible());
-            rtnValue.Add(clsReg.GetOrangeSearchVisible());
-
-            return rtnValue;
-        }
-
-        internal string[,] ToStringArray(int[,] arrAStar)
-        {
-            arrAStar.GetSize(out int col, out int row);
-
-            string[,] rtnValue = new string[col, row];
-
-            for (int i = 0; i < col; i++)
-            {
-                for (int j = 0; j < row; j++)
-                {
-                    string strValue = arrAStar[i, j].ToString();
-                    if (strValue == "0")
-                        strValue = "";
-
-                    rtnValue[i, j] = strValue;
-                }
-            }
-
-            return rtnValue;
-        }
-
         internal List<Position> SolveAStar(int[,] arrAStar, Position pos)
         {
             arrAStar.GetSize(out int col, out int row);
 
-            string[,] strAStar = ToStringArray(arrAStar);
+            string[,] strAStar = arrAStar.ToStringArray(true);
 
             List<Position> lstPosition = new List<Position>();
 
@@ -111,7 +34,13 @@ namespace AutoChomp
             GameObjectId gameElements = clsCommon.GameObjectId;
             if (gameElements == null) return;
 
-            gameElements.lstObjAStar.Add(clsPolylineAdd.AddPolyLine(acTrans, acDb, lstPoints, intColor, 10));
+            ObjectId objId = clsPolylineAdd.AddPolyLine(acTrans, acDb, lstPoints, intColor, 10);
+
+            Polyline acPline = acTrans.GetObject(objId, OpenMode.ForWrite) as Polyline;
+
+            acPline.FilletAll(50, 10);
+
+            gameElements.lstObjAStar.Add(acPline.ObjectId);
         }
 
         internal void DeleteLine(Transaction acTrans, Database acDb)
@@ -167,29 +96,29 @@ namespace AutoChomp
                                  int x, int y,
                                  ref List<Position> lstPosition)
         {
-            string strNum = arr[x, y];
-            if (strNum.IsNumeric(out int curNumber))
+            if (arr.GetLength(0) > 0)
             {
-                //outX.Add(x);
-                //outY.Add(y);
-
-                List<int> maX = new List<int>();
-                List<int> maY = new List<int>();
-
-                List<String> maPair = new List<String>();
-
-                GetNextDirection(ref x, ref y, col, row,
-                                 ref curNumber, maPair, arr, maX, maY);
-
-                if (maX.Count > 0)
+                string strNum = arr[x, y];
+                if (strNum.IsNumeric(out int curNumber))
                 {
-                    int rnd = clsRandomizer.RandomInteger(0, maX.Count - 1);
+                    List<int> maX = new List<int>();
+                    List<int> maY = new List<int>();
 
-                    for (int i = 0; i < maX.Count; i++)
+                    List<String> maPair = new List<String>();
+
+                    GetNextDirection(ref x, ref y, col, row,
+                                     ref curNumber, maPair, arr, maX, maY);
+
+                    if (maX.Count > 0)
                     {
-                        lstPosition.Add(new Position(maX[rnd], maY[rnd]));
+                        int rnd = clsRandomizer.RandomInteger(0, maX.Count - 1);
 
-                        PathFinder(arr, col, row, maX[rnd], maY[rnd], ref lstPosition);
+                        for (int i = 0; i < maX.Count; i++)
+                        {
+                            lstPosition.Add(new Position(maX[rnd], maY[rnd]));
+
+                            PathFinder(arr, col, row, maX[rnd], maY[rnd], ref lstPosition);
+                        }
                     }
                 }
             }

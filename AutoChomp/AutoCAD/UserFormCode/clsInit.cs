@@ -58,12 +58,10 @@ namespace AutoChomp
             // Fill In UserForm Default Values
             List<String> lstSpacing = SetDropDownSpacing(xmlMain);
 
-            double dblSpeed = 0.0;
-            string strSpeed = clsReg.GetSpeed(ref dblSpeed);
+            string strSpeed = clsReg.GetSpeed(out double dblSpeed);
             xmlMain.txtNum.Text = strSpeed;
 
-            double dblSpacing = 0.0;
-            string strSpacing = clsReg.GetSpacing(ref dblSpacing);
+            string strSpacing = clsReg.GetSpacing(out double dblSpacing);
             xmlMain.cboSpacing.SelectedIndex = lstSpacing.IndexOf(strSpacing);
         }
 

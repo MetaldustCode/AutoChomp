@@ -3,7 +3,7 @@ using Autodesk.AutoCAD.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace AutoChomp.Graphics
+namespace AutoChomp.Gameloop.Graphics
 {
     internal class clsGraphicsGhost
     {
@@ -30,31 +30,32 @@ namespace AutoChomp.Graphics
             for (int i = 0; i < lstGhost.Count; i++)
             {
                 GameGhost Ghost = lstGhost[i];
-
+                //Ghost.StartLocation = StartLocation.Outside;
+                //Ghost.Direction = Direction.Right;
                 if (Ghost.StartLocation == StartLocation.Outside)
                 {
-                    Ghost.Origin = ptRed;
-                    Ghost.bolInHouse = false;
+                    Ghost.ptOrigin = ptRed;
+                    Ghost.HouseState = HouseState.OutHouse;
                 }
 
                 if (Ghost.StartLocation == StartLocation.Left)
                 {
-                    Ghost.Origin = ptPink;
-                    Ghost.bolInHouse = true;
+                    Ghost.ptOrigin = ptPink;
+                    Ghost.HouseState = HouseState.InHouse;
                     lstInHouse.Add(Ghost);
                 }
 
                 if (Ghost.StartLocation == StartLocation.Middle)
                 {
-                    Ghost.Origin = ptBlue;
-                    Ghost.bolInHouse = true;
+                    Ghost.ptOrigin = ptBlue;
+                    Ghost.HouseState = HouseState.InHouse;
                     lstInHouse.Add(Ghost);
                 }
 
                 if (Ghost.StartLocation == StartLocation.Right)
                 {
-                    Ghost.Origin = ptOrange;
-                    Ghost.bolInHouse = true;
+                    Ghost.ptOrigin = ptOrange;
+                    Ghost.HouseState = HouseState.InHouse;
                     lstInHouse.Add(Ghost);
                 }
 
@@ -67,7 +68,7 @@ namespace AutoChomp.Graphics
                         if (lstGhost[i].lstStandard[k].IsObjectIdValid(acDb))
                         {
                             BlockReference acBlkRef = acTrans.GetObject(lstGhost[i].lstStandard[k].ObjectId, OpenMode.ForWrite) as BlockReference;
-                            Update(acBlkRef, lstGhost[i].Origin.ToPoint3d());
+                            Update(acBlkRef, lstGhost[i].ptOrigin.ToPoint3d());
                         }
                     }
                 }
@@ -79,7 +80,7 @@ namespace AutoChomp.Graphics
                         if (lstGhost[i].lstAfraid[k].IsObjectIdValid(acDb))
                         {
                             BlockReference acBlkRef = acTrans.GetObject(lstGhost[i].lstAfraid[k].ObjectId, OpenMode.ForWrite) as BlockReference;
-                            Update(acBlkRef, lstGhost[i].Origin.ToPoint3d());
+                            Update(acBlkRef, lstGhost[i].ptOrigin.ToPoint3d());
                         }
                     }
                 }
@@ -91,7 +92,7 @@ namespace AutoChomp.Graphics
                         if (lstGhost[i].lstDead[k].IsObjectIdValid(acDb))
                         {
                             BlockReference acBlkRef = acTrans.GetObject(lstGhost[i].lstDead[k].ObjectId, OpenMode.ForWrite) as BlockReference;
-                            Update(acBlkRef, lstGhost[i].Origin.ToPoint3d());
+                            Update(acBlkRef, lstGhost[i].ptOrigin.ToPoint3d());
                         }
                     }
                 }
@@ -103,7 +104,7 @@ namespace AutoChomp.Graphics
                         if (lstGhost[i].lstAlternate[k].IsObjectIdValid(acDb))
                         {
                             BlockReference acBlkRef = acTrans.GetObject(lstGhost[i].lstAlternate[k].ObjectId, OpenMode.ForWrite) as BlockReference;
-                            Update(acBlkRef, lstGhost[i].Origin.ToPoint3d());
+                            Update(acBlkRef, lstGhost[i].ptOrigin.ToPoint3d());
                         }
                     }
                 }
@@ -122,10 +123,10 @@ namespace AutoChomp.Graphics
                 string strSuffix = "";
                 if (GetGhostStatus(lstGhost[i], ref strSuffix))
                 {
-                    if (UpdateGhostPosition(acTrans, acDb, lstGhost[i].lstStandard, lstGhost[i].Origin, strSuffix)) rtnValue = true;
-                    if (UpdateGhostPosition(acTrans, acDb, lstGhost[i].lstAlternate, lstGhost[i].Origin, strSuffix)) rtnValue = true;
-                    if (UpdateGhostPosition(acTrans, acDb, lstGhost[i].lstAfraid, lstGhost[i].Origin, strSuffix)) rtnValue = true;
-                    if (UpdateGhostPosition(acTrans, acDb, lstGhost[i].lstDead, lstGhost[i].Origin, strSuffix)) rtnValue = true;
+                    if (UpdateGhostPosition(acTrans, acDb, lstGhost[i].lstStandard, lstGhost[i].ptOrigin, strSuffix)) rtnValue = true;
+                    if (UpdateGhostPosition(acTrans, acDb, lstGhost[i].lstAlternate, lstGhost[i].ptOrigin, strSuffix)) rtnValue = true;
+                    if (UpdateGhostPosition(acTrans, acDb, lstGhost[i].lstAfraid, lstGhost[i].ptOrigin, strSuffix)) rtnValue = true;
+                    if (UpdateGhostPosition(acTrans, acDb, lstGhost[i].lstDead, lstGhost[i].ptOrigin, strSuffix)) rtnValue = true;
                 }
             }
 
@@ -145,7 +146,7 @@ namespace AutoChomp.Graphics
         internal Boolean GetGhostStatus(GameGhost Ghost, ref string strSuffix)
         {
             Squiggle squiggle = Ghost.Squiggle;
-            GhostState state = Ghost.State;
+            GhostState state = Ghost.GhostState;
             GhostColor GhostColor = Ghost.Color;
             Direction direction = Ghost.Direction;
 

@@ -39,7 +39,7 @@ namespace AutoChomp
             SaveData("StartSpeed", strValue);
         }
 
-        internal string GetSpeed(ref double dblSpeed)
+        internal string GetSpeed(out double dblSpeed)
         {
             string strValue = GetData("StartSpeed");
 
@@ -57,7 +57,7 @@ namespace AutoChomp
             SaveData("Spacing", strValue);
         }
 
-        internal string GetSpacing(ref double dblSpacing)
+        internal string GetSpacing(out double dblSpacing)
         {
             string strValue = GetData("Spacing");
 
@@ -262,14 +262,14 @@ namespace AutoChomp
 
         // "Red", "Pink", "Blue", "Orange"
 
-        internal void SetPacmanSearchMode(String strValue)
+        internal void SetPacmanInputMode(String strValue)
         {
-            SaveData("PacmanSearchMode", strValue);
+            SaveData("PacmanInputMode", strValue);
         }
 
-        internal String GetPacmanSearchMode()
+        internal String GetPacmanInputMode()
         {
-            string strValue = GetData("PacmanSearchMode");
+            string strValue = GetData("PacmanInputMode");
 
             if (strValue.Length == 0)
                 return "Keyboard";
@@ -277,14 +277,14 @@ namespace AutoChomp
                 return strValue;
         }
 
-        internal void SetRedSearchMode(String strValue)
+        internal void SetRedInputMode(String strValue)
         {
-            SaveData("RedSearchMode", strValue);
+            SaveData("RedInputMode", strValue);
         }
 
-        internal String GetRedSearchMode()
+        internal String GetRedInputMode()
         {
-            string strValue = GetData("RedSearchMode");
+            string strValue = GetData("RedInputMode");
 
             if (strValue.Length == 0)
                 return "None";
@@ -292,14 +292,14 @@ namespace AutoChomp
                 return strValue;
         }
 
-        internal void SetPinkSearchMode(String strValue)
+        internal void SetPinkInputMode(String strValue)
         {
-            SaveData("PinkSearchMode", strValue);
+            SaveData("PinkInputMode", strValue);
         }
 
-        internal String GetPinkSearchMode()
+        internal String GetPinkInputMode()
         {
-            string strValue = GetData("PinkSearchMode");
+            string strValue = GetData("PinkInputMode");
 
             if (strValue.Length == 0)
                 return "None";
@@ -307,14 +307,14 @@ namespace AutoChomp
                 return strValue;
         }
 
-        internal void SetBlueSearchMode(String strValue)
+        internal void SetBlueInputMode(String strValue)
         {
-            SaveData("BlueSearchMode", strValue);
+            SaveData("BlueInputMode", strValue);
         }
 
-        internal String GetBlueSearchMode()
+        internal String GetBlueInputMode()
         {
-            string strValue = GetData("BlueSearchMode");
+            string strValue = GetData("BlueInputMode");
 
             if (strValue.Length == 0)
                 return "None";
@@ -322,14 +322,14 @@ namespace AutoChomp
                 return strValue;
         }
 
-        internal void SetOrangeSearchMode(String strValue)
+        internal void SetOrangeInputMode(String strValue)
         {
-            SaveData("OrangeSearchMode", strValue);
+            SaveData("OrangeInputMode", strValue);
         }
 
-        internal String GetOrangeSearchMode()
+        internal String GetOrangeInputMode()
         {
-            string strValue = GetData("OrangeSearchMode");
+            string strValue = GetData("OrangeInputMode");
 
             if (strValue.Length == 0)
                 return "None";

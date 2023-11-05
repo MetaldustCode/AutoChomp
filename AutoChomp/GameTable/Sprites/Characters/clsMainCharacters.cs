@@ -33,18 +33,18 @@ namespace AutoChomp
             clsStartPosition clsStartPosition = new clsStartPosition();
             clsStartPosition.SetStartPostitionPacman(acTrans, acDb, ref GamePacman);
 
-            Graphics.clsGraphicsPacman clsGraphicsPacman = new Graphics.clsGraphicsPacman();
+            Gameloop.Graphics.clsGraphicsPacman clsGraphicsPacman = new Gameloop.Graphics.clsGraphicsPacman();
             clsGraphicsPacman.UpdatePacmanPositionAndVisibility(acTrans, acDb, ref GamePacman);
 
             // Hide Pacman Death
             clsGraphicsPacman.SetVisibilityToFalse(acTrans, GamePacman.lstDeathBlockReference);
 
             // Set Ghost Positions
-            Graphics.clsGraphicsGhost clsPositionGhost = new Graphics.clsGraphicsGhost();
+            Gameloop.Graphics.clsGraphicsGhost clsPositionGhost = new Gameloop.Graphics.clsGraphicsGhost();
             clsPositionGhost.SetStartPostitionGhost(acTrans, acDb, ref lstGameGhost);
 
             // Update Ghosts
-            Graphics.clsGraphicsGhost clsGhostPosition = new Graphics.clsGraphicsGhost();
+            Gameloop.Graphics.clsGraphicsGhost clsGhostPosition = new Gameloop.Graphics.clsGraphicsGhost();
             clsGhostPosition.UpdateGhostGraphics(acTrans, acDb, ref lstGameGhost);
         }
     }

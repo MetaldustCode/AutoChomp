@@ -1,7 +1,31 @@
-﻿namespace AutoChomp
+﻿using System;
+
+namespace AutoChomp
 {
     internal class clsAfraid
     {
+        internal Boolean EatGhost()
+        {
+            // While the first timer is running
+            if (clsCommon.GameGhostCommon.bolEatGhost)
+            {
+                clsTimerEvents clsTimerEvents = new clsTimerEvents();
+                int intStartElapsed = clsTimerEvents.GetTimerEatGhost();
+
+                if (intStartElapsed > clsTimers.GameElapsedTime.intEatGhost)
+                {
+                    // Stop first timer
+                    clsTimerEvents.StopTimerEatGhost();
+                    clsCommon.GameGhostCommon.bolEatGhost = false;
+                    clsCommon.GamePacman.bolGraphicsRequired = true;
+                }
+                else
+                    return true;
+            }
+
+            return false;
+        }
+
         internal void EatPellet()
         {
             // Cancel existing timers and start afraid timer
@@ -40,7 +64,7 @@
                 {
                     // Toggle color
                     clsTimerEvents.RestartTimerPowerFlash();
-                    clsSetAfraid.SetAfraidGhosts(true, true);
+                    clsSetAfraid.SetGhostState(GhostState.Afraid, true);
                     clsTimers.GameElapsedTime.intPowerFlashCount++;
                 }
 
@@ -52,7 +76,7 @@
                     clsTimerEvents.StopTimerPowerFlash();
 
                     // Set ghosts to normal
-                    clsSetAfraid.SetAfraidGhosts(false);
+                    clsSetAfraid.SetGhostState(GhostState.Alive);
                 }
             }
         }
@@ -69,7 +93,7 @@
 
             // Set ghosts to afraid
             clsSetAfraid clsSetAfraid = new clsSetAfraid();
-            clsSetAfraid.SetAfraidGhosts(true);
+            clsSetAfraid.SetGhostState(GhostState.Afraid);
         }
 
         internal void CancelAfraid()
@@ -91,7 +115,7 @@
 
             // Set ghosts to normal
             clsSetAfraid clsSetAfraid = new clsSetAfraid();
-            clsSetAfraid.SetAfraidGhosts(false);
+            clsSetAfraid.SetGhostState(GhostState.Alive);
         }
     }
 }

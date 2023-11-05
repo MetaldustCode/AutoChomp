@@ -43,8 +43,8 @@ namespace AutoChomp
         private void cboSpacing_DropDownClosed(object sender, EventArgs e)
         {
             clsReg clsReg = new clsReg();
-            double dblCurrent = -1;
-            string strCurrent = clsReg.GetSpacing(ref dblCurrent);
+
+            string strCurrent = clsReg.GetSpacing(out double dblCurrent);
 
             string strValue = cboSpacing.Text;
 
@@ -55,7 +55,7 @@ namespace AutoChomp
             }
 
             // Align to the Current Center Point
-            Data.clsDataAlignToGrid clsAlignToGrid = new Data.clsDataAlignToGrid();
+            Gameloop.Data.clsDataAlignToGrid clsAlignToGrid = new Gameloop.Data.clsDataAlignToGrid();
             clsAlignToGrid.AlignToGrid();
         }
 
@@ -152,19 +152,14 @@ namespace AutoChomp
             else
                 this.btnStop.Content = "Pause";
 
-            clsReg clsReg = new clsReg();
-
-            if (clsReg.GetPlaySound())
-            {
-                clsNAudio.StopPowerPellet();
-            }
+            clsNAudio.StopPowerPellet();
         }
 
         private void btnHouse_Click(object sender, RoutedEventArgs e)
         {
-            clsSolvePath clsSolvePath = new clsSolvePath();
+            //clsSolvePath clsSolvePath = new clsSolvePath();
 
-            clsSolvePath.Solve();
+            //clsSolvePath.Solve();
 
             //clsNAudio.PlayPowerPellet();
 
@@ -260,13 +255,13 @@ namespace AutoChomp
                         clsAfraid clsAfraid = new clsAfraid();
                         clsAfraid.EatPellet();
 
-                        Update.clsUpdateData clsUpdateData = new Update.clsUpdateData();
+                        Gameloop.Update.clsUpdateData clsUpdateData = new Gameloop.Update.clsUpdateData();
                         for (int i = 0; i < intElapsed; i++)
                             clsUpdateData.UpdateData();
 
                         if (intElapsed > 0)
                         {
-                            Update.clsUpdateGraphics clsDisplayGraphics = new Update.clsUpdateGraphics();
+                            Gameloop.Update.clsUpdateGraphics clsDisplayGraphics = new Gameloop.Update.clsUpdateGraphics();
                             clsDisplayGraphics.UpdateGraphics();
                         }
                     }

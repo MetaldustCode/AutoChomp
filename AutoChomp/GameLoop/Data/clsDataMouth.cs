@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AutoChomp.Data
+namespace AutoChomp.Gameloop.Data
 {
     internal class clsDataMouth
     {
@@ -44,7 +44,7 @@ namespace AutoChomp.Data
         {
             clsGetDirection clsGetDirection = new clsGetDirection();
             List<Position> lstNextCell = new List<Position>();
-            if (clsGetDirection.CanCharacterMove(Pacman.Origin, Pacman.Direction, ref lstNextCell))
+            if (clsGetDirection.CanCharacterMove(Pacman.ptOrigin, Pacman.Direction, ref lstNextCell))
             {
                 List<String> lstMouth = Mouth();
 
@@ -52,6 +52,7 @@ namespace AutoChomp.Data
 
                 if (Pacman.intMouth > lstMouth.Count - 1)
                     Pacman.intMouth = 0;
+
                 return true;
             }
 

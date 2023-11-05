@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AutoChomp.Graphics
+namespace AutoChomp.Gameloop.Graphics
 {
     internal class clsGraphicsDots
     {

@@ -29,7 +29,7 @@ namespace AutoChomp
             {
                 Direction direction = lstGhosts[i].Direction;
 
-                if (!lstGhosts[i].bolInHouse)
+                if (lstGhosts[i].HouseState != HouseState.InHouse)
                 {
                     direction = clsGetDirection.GetReverse(direction);
                     lstGhosts[i].Direction = direction;

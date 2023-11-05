@@ -12,6 +12,31 @@ namespace AutoChomp
         private static readonly double Cell = clsGridValues.Cell;
         private static readonly double Middle = clsGridValues.Middle;
 
+        internal static string[,] ToStringArray(this int[,] arrAStar, Boolean bolExcludeZero = false)
+        {
+            arrAStar.GetSize(out int col, out int row);
+
+            string[,] rtnValue = new string[col, row];
+
+            for (int i = 0; i < col; i++)
+            {
+                for (int j = 0; j < row; j++)
+                {
+                    string strValue = arrAStar[i, j].ToString();
+
+                    if (bolExcludeZero)
+                    {
+                        if (strValue == "0")
+                            strValue = "";
+                    }
+
+                    rtnValue[i, j] = strValue;
+                }
+            }
+
+            return rtnValue;
+        }
+
         internal static string[,] ConvertIntToString(this int[,] arrNum)
         {
             arrNum.GetSize(out int col, out int row);
@@ -249,6 +274,19 @@ namespace AutoChomp
         internal static List<Double> Multiply(this List<Double> lstValue)
         {
             List<Double> rtnValue = new List<double>();
+
+            for (int j = 0; j < clsGridValues.intGroup; j++)
+            {
+                for (int i = 0; i < lstValue.Count; i++)
+                    rtnValue.Add(lstValue[i]);
+            }
+
+            return rtnValue;
+        }
+
+        internal static List<Position> Multiply(this List<Position> lstValue)
+        {
+            List<Position> rtnValue = new List<Position>();
 
             for (int j = 0; j < clsGridValues.intGroup; j++)
             {

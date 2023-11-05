@@ -11,14 +11,14 @@ namespace AutoChomp
         /// </summary>
         /// <param name="pline">The instance to which the method applies.</param>
         /// <param name="radius">The arc radius.</param>
-        internal static void FilletAll(this Polyline pline, double radius)
+        internal static void FilletAll(this Polyline pline, double radius, double dblWidth = 0.0)
         {
             int n = pline.Closed ? 0 : 1;
-            for (int i = n; i < pline.NumberOfVertices - n; i += 1 + pline.FilletAt(i, radius))
+            for (int i = n; i < pline.NumberOfVertices - n; i += 1 + pline.FilletAt(i, radius, dblWidth))
             { }
         }
 
-        internal static int FilletAt(this Polyline pline, int index, double radius)
+        internal static int FilletAt(this Polyline pline, int index, double radius, double dblWidth = 0.0)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace AutoChomp
                 {
                     bulge = -bulge;
                 }
-                pline.AddVertexAt(index, pt1, bulge, 0.0, 0.0);
+                pline.AddVertexAt(index, pt1, bulge, dblWidth, dblWidth);
                 pline.SetPointAt(index + 1, pt2);
 
                 // pline.ColorIndex = 1;

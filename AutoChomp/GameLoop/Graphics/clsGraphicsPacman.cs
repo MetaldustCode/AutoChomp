@@ -1,7 +1,7 @@
 ﻿using Autodesk.AutoCAD.DatabaseServices;
 using System.Collections.Generic;
 
-namespace AutoChomp.Graphics
+namespace AutoChomp.Gameloop.Graphics
 {
     internal class clsGraphicsPacman
     {
@@ -33,10 +33,15 @@ namespace AutoChomp.Graphics
 
         internal void UpdateVisibility(BlockReference acBlkRef, string strBlockOpen)
         {
-            if (acBlkRef.Name.Contains(strBlockOpen))
-                acBlkRef.Visible = true;
-            else
+            if (clsCommon.GameGhostCommon.bolEatGhost)
                 acBlkRef.Visible = false;
+            else
+            {
+                if (acBlkRef.Name.Contains(strBlockOpen))
+                    acBlkRef.Visible = true;
+                else
+                    acBlkRef.Visible = false;
+            }
         }
 
         internal void UpdateRotation(BlockReference acBlkRef, GamePacman Pacman)
@@ -61,7 +66,7 @@ namespace AutoChomp.Graphics
         internal void UpdatePosition(BlockReference acBlkRef, ref GamePacman Pacman, string strBlockOpen)
         {
             if (acBlkRef.Name.Contains(strBlockOpen))
-                acBlkRef.Position = Pacman.Origin.ToPoint3d();
+                acBlkRef.Position = Pacman.ptOrigin.ToPoint3d();
 
             //clsZoomToPoint clsZoomToPoint = new clsZoomToPoint();
             //clsZoomToPoint.ZoomToPoint(Pacman.Origin.ToPoint3d());

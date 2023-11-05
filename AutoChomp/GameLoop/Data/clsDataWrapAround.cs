@@ -1,7 +1,7 @@
 ﻿using Autodesk.AutoCAD.Geometry;
 using System;
 
-namespace AutoChomp.Data
+namespace AutoChomp.Gameloop.Data
 {
     internal class clsDataWrapAround
     {
@@ -9,20 +9,20 @@ namespace AutoChomp.Data
 
         internal void WrapCharacterPacman(ref GamePacman Pacman)
         {
-            Point2d ptPosition = Pacman.Origin;
+            Point2d ptPosition = Pacman.ptOrigin;
 
             UpdatePosition(ref ptPosition);
 
-            Pacman.Origin = ptPosition;
+            Pacman.ptOrigin = ptPosition;
         }
 
         internal void WrapCharacterGhost(ref GameGhost Ghost)
         {
-            Point2d ptPosition = Ghost.Origin;
+            Point2d ptPosition = Ghost.ptOrigin;
 
             UpdatePosition(ref ptPosition);
 
-            Ghost.Origin = ptPosition;
+            Ghost.ptOrigin = ptPosition;
         }
 
         internal void UpdatePosition(ref Point2d ptPosition)
@@ -49,7 +49,7 @@ namespace AutoChomp.Data
             clsDataWrapAround clsWrapAround = new clsDataWrapAround();
             clsWrapAround.WrapCharacterGhost(ref Ghost);
 
-            Point2d ptOrigin = Ghost.Origin;
+            Point2d ptOrigin = Ghost.ptOrigin;
 
             double dblOffset = Convert.ToDouble(clsCommon.GameForm.cboSpacing.Text);
 
@@ -65,7 +65,7 @@ namespace AutoChomp.Data
             if (direction == Direction.Right)
                 ptOrigin = new Point2d(ptOrigin.X + dblOffset, ptOrigin.Y);
 
-            Ghost.Origin = ptOrigin;
+            Ghost.ptOrigin = ptOrigin;
             Ghost.Direction = direction;
         }
 
@@ -74,7 +74,7 @@ namespace AutoChomp.Data
             clsDataWrapAround clsWrapAround = new clsDataWrapAround();
             clsWrapAround.WrapCharacterPacman(ref Pacman);
 
-            Point2d ptPosition = Pacman.Origin;
+            Point2d ptPosition = Pacman.ptOrigin;
 
             double dblOffset = Convert.ToDouble(clsCommon.GameForm.cboSpacing.Text);
 
@@ -90,7 +90,7 @@ namespace AutoChomp.Data
             if (direction == Direction.Right)
                 ptPosition = new Point2d(ptPosition.X + dblOffset, ptPosition.Y);
 
-            Pacman.Origin = ptPosition;
+            Pacman.ptOrigin = ptPosition;
             Pacman.Direction = direction;
         }
     }

@@ -8,15 +8,15 @@ namespace AutoChomp
         internal CheckBox chkDot;
         internal CheckBox chkNumber;
 
-        internal CheckBox chkRed;
-        internal CheckBox chkPink;
-        internal CheckBox chkBlue;
-        internal CheckBox chkOrange;
+        //internal CheckBox chkRed;
+        //internal CheckBox chkPink;
+        //internal CheckBox chkBlue;
+        //internal CheckBox chkOrange;
 
-        internal ComboBox cboRed;
-        internal ComboBox cboPink;
-        internal ComboBox cboBlue;
-        internal ComboBox cboOrange;
+        //internal ComboBox cboRed;
+        //internal ComboBox cboPink;
+        //internal ComboBox cboBlue;
+        //internal ComboBox cboOrange;
 
         internal ComboBox cboSpacing;
         internal TextBox txtInfo;

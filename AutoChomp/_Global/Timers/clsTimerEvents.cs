@@ -50,6 +50,20 @@ namespace AutoChomp
                     clsTimers.GameStopWatch.StopWatchPellet.Stop();
         }
 
+        internal void RestartTimerEatGhost()
+        {
+            if (clsTimers.GameStopWatch != null)
+                if (clsTimers.GameStopWatch.StopWatchEatGhost.IsRunning)
+                    clsTimers.GameStopWatch.StopWatchEatGhost.Restart();
+        }
+
+        internal void StopTimerEatGhost()
+        {
+            if (clsTimers.GameStopWatch != null)
+                if (clsTimers.GameStopWatch.StopWatchEatGhost.IsRunning)
+                    clsTimers.GameStopWatch.StopWatchEatGhost.Stop();
+        }
+
         internal int GetTimerSquiggle()
         {
             if (clsTimers.GameStopWatch != null)
@@ -58,6 +72,18 @@ namespace AutoChomp
                     clsTimers.GameStopWatch.StopWatchSquiggle.Restart();
 
                 return Convert.ToInt32(clsTimers.GameStopWatch.StopWatchSquiggle.ElapsedMilliseconds);
+            }
+            return 0;
+        }
+
+        internal int GetTimerEatGhost()
+        {
+            if (clsTimers.GameStopWatch != null)
+            {
+                if (!clsTimers.GameStopWatch.StopWatchEatGhost.IsRunning)
+                    clsTimers.GameStopWatch.StopWatchEatGhost.Restart();
+
+                return Convert.ToInt32(clsTimers.GameStopWatch.StopWatchEatGhost.ElapsedMilliseconds);
             }
             return 0;
         }

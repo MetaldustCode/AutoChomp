@@ -103,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoCAD\UserFormCode\clsInput.cs" />
+    <Compile Include="Gameloop\Data\clsDataEatGhost.cs" />
+    <Compile Include="Movement\AStar\clsBuildAndSolve.cs" />
+    <Compile Include="_Global\Registry\clsSetInputMode.cs" />
     <Compile Include="AutoCAD\UserFormCode\clsSharpDX.cs" />
     <Compile Include="AutoCAD\UserFormCode\clsInit.cs" />
     <Compile Include="AutoCAD\UserFormCode\clsPalette.cs" />
@@ -119,16 +122,16 @@
       <DependentUpon>xmlOptions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\clsData.cs" />
-    <Compile Include="GameLoop\Data\clsDataGhostMove.cs" />
-    <Compile Include="GameLoop\Data\clsDataSquiggle.cs" />
+    <Compile Include="Gameloop\Data\clsDataGhostMove.cs" />
+    <Compile Include="Gameloop\Data\clsDataSquiggle.cs" />
     <Compile Include="AutoCAD\UserFormCode\clsResetGame.cs" />
-    <Compile Include="GameLoop\Data\clsDataAlignToGrid.cs" />
-    <Compile Include="GameLoop\Data\clsDataDots.cs" />
-    <Compile Include="GameLoop\Data\clsDataMouth.cs" />
-    <Compile Include="GameLoop\Data\clsDataPacmanMove.cs" />
-    <Compile Include="GameLoop\Data\clsDataWrapAround.cs" />
-    <Compile Include="GameLoop\Update\clsUpdateData.cs" />
-    <Compile Include="GameLoop\Update\clsUpdateGraphics.cs" />
+    <Compile Include="Gameloop\Data\clsDataAlignToGrid.cs" />
+    <Compile Include="Gameloop\Data\clsDataDots.cs" />
+    <Compile Include="Gameloop\Data\clsDataMouth.cs" />
+    <Compile Include="Gameloop\Data\clsDataPacmanMove.cs" />
+    <Compile Include="Gameloop\Data\clsDataWrapAround.cs" />
+    <Compile Include="Gameloop\Update\clsUpdateData.cs" />
+    <Compile Include="Gameloop\Update\clsUpdateGraphics.cs" />
     <Compile Include="GameTable\Geometry\GameBlock\clsCreateBlock.cs" />
     <Compile Include="GameTable\Geometry\GameBlock\clsInsertBlock.cs" />
     <Compile Include="GameTable\Geometry\GameDots\clsDrawDots.cs" />
@@ -140,9 +143,9 @@
     <Compile Include="GameTable\Geometry\GameGeometry\clsPolylineFilltet.cs" />
     <Compile Include="GameTable\Geometry\GameGeometry\clsPolylineJoin.cs" />
     <Compile Include="GameTable\Geometry\GameGeometry\clsHatch.cs" />
-    <Compile Include="GameLoop\Graphics\clsGraphicsDots.cs" />
-    <Compile Include="GameLoop\Graphics\clsGraphicsGhost.cs" />
-    <Compile Include="GameLoop\Graphics\clsGraphicsPacman.cs" />
+    <Compile Include="Gameloop\Graphics\clsGraphicsDots.cs" />
+    <Compile Include="Gameloop\Graphics\clsGraphicsGhost.cs" />
+    <Compile Include="Gameloop\Graphics\clsGraphicsPacman.cs" />
     <Compile Include="GameTable\Geometry\GameGrid\clsDrawGrid.cs" />
     <Compile Include="GameTable\Geometry\GameGrid\clsDrawGridLines.cs" />
     <Compile Include="GameTable\Geometry\GameGrid\clsElements.cs" />
@@ -167,6 +170,7 @@
     <Compile Include="GameTable\Sprites\Maps\clsPacmanMaze.cs" />
     <Compile Include="Movement\AStar\clsGetNextDirection.cs" />
     <Compile Include="Movement\Common\clsSetAfraid.cs" />
+    <Compile Include="_Global\Registry\clsSetSearchMode.cs" />
     <Compile Include="Movement\Pathfinder\clsAStar.cs" />
     <Compile Include="Movement\Pathfinder\clsBuildMap.cs" />
     <Compile Include="Movement\Pathfinder\clsDrawTunnel.cs" />
@@ -204,7 +208,7 @@
     <Compile Include="_Global\Reference\clsClassPacman.cs" />
     <Compile Include="_Global\Reference\clsClassCommon.cs" />
     <Compile Include="_Global\Shared\clsExtensions.cs" />
-    <Compile Include="_Global\Shared\clsReg.cs" />
+    <Compile Include="_Global\Registry\clsReg.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="AutoCAD\UserForm\xmlDebug.xaml">

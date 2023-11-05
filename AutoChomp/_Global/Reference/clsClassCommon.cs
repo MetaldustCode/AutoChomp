@@ -5,6 +5,8 @@ namespace AutoChomp
 {
     internal static class clsCommon
     {
+        internal static int intCell = 0;
+
         internal static bool bolInit = false;
 
         internal static GameForm GameForm;
@@ -20,12 +22,8 @@ namespace AutoChomp
         internal static GameDots GameDots;
         internal static GamePower GamePower;
         internal static GameGhostCommon GameGhostCommon;
-
         internal static GameDebug GameDebug;
-
         internal static GameSounds GameSounds;
-
- 
     }
 
     internal static class clsGridValues
@@ -59,6 +57,7 @@ namespace AutoChomp
         internal bool bolPowerPelletEaten;
         internal bool bolPowerTimerStart;
         internal bool bolPowerTimerFlash;
+        internal bool bolEatGhost;
 
         internal List<GameGhost> lstInHouse;
 
@@ -71,6 +70,7 @@ namespace AutoChomp
             this.bolPowerPelletEaten = false;
             this.bolPowerTimerStart = false;
             this.bolPowerTimerFlash = false;
+            this.bolEatGhost = false;
 
             this.lstInHouse = new List<GameGhost>();
 
@@ -96,6 +96,7 @@ namespace AutoChomp
         {
             bool bolCredit = false;
             bool bolEatFruit = false;
+
             bool bolEatGhost = false;
             bool bolGameStart = false;
             bool bolIntermission = false;
