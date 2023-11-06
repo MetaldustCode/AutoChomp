@@ -189,6 +189,7 @@ namespace AutoChomp
 
                 Pacman.GameLoop.bolBoxSuggestionUpdate = true;
                 Pacman.GameLoop.bolBoxDirectionUpdate = true;
+
                 // Get Current Position from Origin and Direction
                 clsGetCurrentCell clsGetCell = new clsGetCurrentCell();
                 Position pos = clsGetCell.GetCell(Origin, curDirection);

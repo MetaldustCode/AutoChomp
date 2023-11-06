@@ -68,6 +68,8 @@ namespace AutoChomp.Gameloop.Update
                 clsGhostPosition.UpdateGhostGraphics(acTrans, acDb, ref lstGhost);
                 clsCommon.GameGhostCommon.bolGraphicsRequired = false;
             }
+
+          
         }
 
         internal void UpdateAStarLine(Transaction acTrans, Database acDb)

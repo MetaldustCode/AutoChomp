@@ -28,9 +28,13 @@ namespace AutoChomp.Gameloop.Data
                         lstGhost[i].Color = GhostColor.Default;
                         lstGhost[i].bolIsEaten = true;
 
-                        clsNAudio clsNAudio = new clsNAudio();
-                        clsNAudio.PlayEatGhost();
+                        clsReg clsReg = new clsReg();
 
+                        if (clsReg.GetPlaySound())
+                        {
+                            clsNAudio clsNAudio = new clsNAudio();
+                            clsNAudio.PlayEatGhost();
+                        }
                         clsCommon.GameGhostCommon.bolEatGhost = true;
                         clsCommon.GamePacman.bolGraphicsRequired = true;
                         break;
@@ -54,18 +58,10 @@ namespace AutoChomp.Gameloop.Data
                 lstDotsPosition.Contains(pt))
             {
                 return pt;
-            }
-            else
-            {
-                Debug.Print("");
-            }
+            }           
 
             return pt;
-        }
-
-        internal void GetSpacing()
-        {
-        }
+        }      
 
         internal Boolean IsOverLap(Point2d pt1, Point2d pt2, double dblValue)
         {

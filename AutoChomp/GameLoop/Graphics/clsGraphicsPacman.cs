@@ -68,8 +68,8 @@ namespace AutoChomp.Gameloop.Graphics
             if (acBlkRef.Name.Contains(strBlockOpen))
                 acBlkRef.Position = Pacman.ptOrigin.ToPoint3d();
 
-            //clsZoomToPoint clsZoomToPoint = new clsZoomToPoint();
-            //clsZoomToPoint.ZoomToPoint(Pacman.Origin.ToPoint3d());
+           // clsZoomToPoint clsZoomToPoint = new clsZoomToPoint();
+            //clsZoomToPoint.ZoomToPoint(Pacman.ptOrigin.ToPoint3d());
         }
 
         internal void SetVisibilityToFalse(Transaction acTrans, List<BlockReference> lstEntity)

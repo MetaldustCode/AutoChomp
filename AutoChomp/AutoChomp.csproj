@@ -121,7 +121,6 @@
     <Compile Include="AutoCAD\UserForm\xmlOptions.xaml.cs">
       <DependentUpon>xmlOptions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\clsData.cs" />
     <Compile Include="Gameloop\Data\clsDataGhostMove.cs" />
     <Compile Include="Gameloop\Data\clsDataSquiggle.cs" />
     <Compile Include="AutoCAD\UserFormCode\clsResetGame.cs" />

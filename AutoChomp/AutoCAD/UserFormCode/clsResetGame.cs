@@ -93,7 +93,7 @@ namespace AutoChomp
 
                     dynamic acadApp = Autodesk.AutoCAD.ApplicationServices.Application.AcadApplication;
 
-                    acadApp.ZoomExtents();
+                  acadApp.ZoomExtents();
                 }
             }
         }
