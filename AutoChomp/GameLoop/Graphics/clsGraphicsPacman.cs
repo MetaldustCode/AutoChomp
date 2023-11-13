@@ -33,14 +33,17 @@ namespace AutoChomp.Gameloop.Graphics
 
         internal void UpdateVisibility(BlockReference acBlkRef, string strBlockOpen)
         {
-            if (clsCommon.GameGhostCommon.bolEatGhost)
-                acBlkRef.Visible = false;
-            else
+            if (clsCommon.GameGhostCommon != null)
             {
-                if (acBlkRef.Name.Contains(strBlockOpen))
-                    acBlkRef.Visible = true;
-                else
+                if (clsCommon.GameGhostCommon.bolEatGhost)
                     acBlkRef.Visible = false;
+                else
+                {
+                    if (acBlkRef.Name.Contains(strBlockOpen))
+                        acBlkRef.Visible = true;
+                    else
+                        acBlkRef.Visible = false;
+                }
             }
         }
 

@@ -42,22 +42,11 @@ namespace AutoChomp
 
         private void cboSpacing_DropDownClosed(object sender, EventArgs e)
         {
-            clsReg clsReg = new clsReg();
-
-            string strCurrent = clsReg.GetSpacing(out double dblCurrent);
-
-            string strValue = cboSpacing.Text;
-
-            if (strValue != strCurrent)
-            {
-                if (double.TryParse(strValue, out _))
-                    clsReg.SetSpacing(strValue);
-            }
-
-            // Align to the Current Center Point
-            Gameloop.Data.clsDataAlignToGrid clsAlignToGrid = new Gameloop.Data.clsDataAlignToGrid();
-            clsAlignToGrid.AlignToGrid();
+            clsUpdateScale clsUpdateScale = new clsUpdateScale();
+            clsUpdateScale.UpdateSpacing();       
         }
+
+
 
         private void cboSpacing_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -157,6 +146,8 @@ namespace AutoChomp
 
         private void btnHouse_Click(object sender, RoutedEventArgs e)
         {
+            clsUpdateScale clsUpdateScale = new clsUpdateScale();
+            clsUpdateScale.UpdateSpacing();
             //clsSolvePath clsSolvePath = new clsSolvePath();
 
             //clsSolvePath.Solve();
@@ -187,11 +178,11 @@ namespace AutoChomp
         private void Reset()
         {
             this.IsEnabled = false;
-            if (clsCommon.GamePacman != null)
-            {
-                List<Direction> lstDirection = clsCommon.GamePacman.GameLoop.lstLoopDirection;
-                List<Position> lstPosition = clsCommon.GamePacman.GameLoop.lstLoopPosition;
-            }
+            //if (clsCommon.GamePacman != null)
+            //{
+            //    List<Direction> lstDirection = clsCommon.GamePacman.GameLoop.lstLoopDirection;
+            //    List<Position> lstPosition = clsCommon.GamePacman.GameLoop.lstLoopPosition;
+            //}
 
             clsResetGame clsCreateGrid = new clsResetGame();
 

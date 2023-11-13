@@ -17,9 +17,9 @@ namespace AutoChomp
                 lstValid = new List<Direction> { direction };
             }
 
-            List<Direction> lstDirection = GetInverse(lstValid);
+            List<Direction> lstDirection = GetInverse(lstValid);      
 
-            List<Position> lstBlockage = GetPosition(lstDirection, Position);
+            List<Position> lstBlockage = GetBlockage(lstDirection, Position);
 
             return lstBlockage;
         }
@@ -30,7 +30,7 @@ namespace AutoChomp
             Direction dirReverse = clsGetDirection.GetReverse(direction);
 
             List<Direction> lstDirection = new List<Direction>() { dirReverse };
-            return GetPosition(lstDirection, Position);
+            return GetBlockage(lstDirection, Position);
         }
 
         public List<Direction> GetValidDirections(Boolean[,] arrXGrid, Point2d ptPosition, Direction Direction, ref List<Position> lstNextCell)
@@ -72,7 +72,7 @@ namespace AutoChomp
             return rtnValue;
         }
 
-        internal List<Position> GetPosition(List<Direction> lstDirection, Position Position)
+        internal List<Position> GetBlockage(List<Direction> lstDirection, Position Position)
         {
             List<Position> rtnValue = new List<Position>();
             for (int i = 0; i < lstDirection.Count; i++)

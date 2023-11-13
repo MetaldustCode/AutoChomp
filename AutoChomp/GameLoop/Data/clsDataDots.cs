@@ -93,7 +93,8 @@ namespace AutoChomp.Gameloop.Data
 
                 int intPos = -1;
                 if (PositionMatch(ptPacPosition, lstPowerPosition, GamePower.lstIsEaten, ref intPos))
-                {
+                {    
+
                     if (intPos > -1)
                     {
                         GamePower.lstIsEaten[intPos] = true;

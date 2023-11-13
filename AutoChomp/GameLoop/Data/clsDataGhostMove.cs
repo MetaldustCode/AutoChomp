@@ -198,6 +198,14 @@ namespace AutoChomp.Gameloop.Data
             for (int i = 0; i < lstFrameSkip.Count; i++)
             {
                 GameGhost Ghost = lstGhost[i];
+
+                if (Ghost.Reset_Update)
+                {
+                    Ghost.ptOrigin = Ghost.Reset_ptOrigin;
+                    Ghost.Direction = Ghost.Reset_Direction;
+                    Ghost.Reset_Update = false;
+                }
+
                 if (Ghost.InputMode != InputMode.None)
                 {
                     //Ghost.dblFrameDelay = lstFrameSkip[i];
@@ -247,7 +255,7 @@ namespace AutoChomp.Gameloop.Data
         {
             List<GameGhost> lstGhost = clsCommon.lstGameGhost;
 
-            lstSpeed = new List<Double> { 100, 90, 80, 50 }.Multiply();
+            lstSpeed = new List<Double> { 100, 80, 65, 50 }.Multiply();
 
             List<Double> lstFrameDelay = lstSpeed.ToList();
 
@@ -305,7 +313,7 @@ namespace AutoChomp.Gameloop.Data
                     if (IsAtGrid(Ghost))
                     {
                         clsBuildAndSolve clsBuildAndSolve = new clsBuildAndSolve();
-                        clsBuildAndSolve.BuildToPacman(ref Ghost);
+                        clsBuildAndSolve.BuildToPacman(ref Ghost, i);
                         lstMatched.Add(i);
                         lstGhosts[i] = Ghost;
                     }
@@ -318,11 +326,6 @@ namespace AutoChomp.Gameloop.Data
 
         internal Boolean IsAtGrid(GameGhost Ghost)
         {
-            clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
-            //Position posGhost = clsGetCurrentCell.GetCell(Ghost.ptOrigin, Ghost.Direction);
-
-            //Ghost.ptPosition = posGhost;
-
             Boolean[,] arrXDots = clsClassTables.arrXDots;
             arrXDots.GetSize(out int col, out int row);
 

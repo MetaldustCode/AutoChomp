@@ -15,11 +15,12 @@ namespace AutoChomp
             DeleteObjectId(acTrans, acDb, gameElements.lstObjMaze);
             DeleteObjectId(acTrans, acDb, gameElements.lstObjDots);
             DeleteObjectId(acTrans, acDb, gameElements.lstObjPower);
-            DeleteObjectId(acTrans, acDb, gameElements.lstObjBoxes);
             DeleteObjectId(acTrans, acDb, gameElements.lstObjDirectionBoxes);
+            DeleteObjectId(acTrans, acDb, gameElements.lstObjSuggestionBoxes);
             DeleteObjectId(acTrans, acDb, gameElements.lstObjHistoryBoxes);
             DeleteObjectId(acTrans, acDb, gameElements.lstObjAStar);
             DeleteObjectId(acTrans, acDb, gameElements.lstObjPosition);
+            DeleteObjectId(acTrans, acDb, gameElements.lstObjCircle);
 
             //  clsCommon.bolDirectionBoxUpdate = false;
             //  clsCommon.GamePacman.GameLoop.bolBoxDirectionUpdate = false;
@@ -33,8 +34,12 @@ namespace AutoChomp
             gameElements.lstObjMaze.Clear();
             gameElements.lstObjDots.Clear();
             gameElements.lstObjPower.Clear();
-            gameElements.lstObjBoxes.Clear();
+            gameElements.lstObjDirectionBoxes.Clear();
+            gameElements.lstObjSuggestionBoxes.Clear();
             gameElements.lstObjHistoryBoxes.Clear();
+            gameElements.lstObjAStar.Clear();
+            gameElements.lstObjPosition.Clear();
+            gameElements.lstObjCircle.Clear();
 
             clsCommon.GameObjectId = gameElements;
         }

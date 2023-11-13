@@ -54,6 +54,8 @@ namespace AutoChomp
 
                 clsEntityDelete.DeleteObjectId(acTrans, acDb, gameElements.lstObjAStar);
                 gameElements.lstObjAStar.Clear();
+            
+
             }
         }
 

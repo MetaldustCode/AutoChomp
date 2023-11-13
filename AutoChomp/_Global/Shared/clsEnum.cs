@@ -68,4 +68,22 @@
         Gluttany,
         AStar
     }
+
+    internal enum ChaseMode
+    {
+        Random,
+        Scatter,
+        Chase
+    }
+
+    // "Red", "Pink", "Blue", "Orange"
+
+    internal enum ChaseLocation
+    {
+        Red,
+        Pink,
+        Blue,
+        Orange,
+        Pacman
+    }
 }

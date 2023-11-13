@@ -7,7 +7,7 @@ namespace AutoChomp
     internal class clsCharacterOther
     {
         internal List<GameGhost> ProcessSprites(Transaction acTrans, Database acDb, BlockTable acBlkTbl,
-                                                BlockTableRecord acBlkTblRec, ref GamePacman Pacman)
+                                                BlockTableRecord acBlkTblRec, out GamePacman Pacman)
         {
             List<GameGhost> lstGhost = AddCharacterGhost();
 
@@ -29,7 +29,7 @@ namespace AutoChomp
             List<String> lstPacmanDeathName = new List<string>();
             List<BlockReference> lstPacmanDeathBlkRef = AddPacmanDeath(acTrans, acDb, acBlkTbl, acBlkTblRec, ref lstPacmanDeathName);
 
-            GamePacman GamePacman = new GamePacman("Pacman", 2);
+            GamePacman GamePacman = clsCommon.GamePacman;
 
             GamePacman.lstPacmanBlockName.Clear();
             GamePacman.lstPacmanBlockReference.Clear();

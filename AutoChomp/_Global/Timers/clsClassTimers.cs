@@ -1,4 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Documents;
 
 namespace AutoChomp
 {
@@ -43,8 +46,7 @@ namespace AutoChomp
 
     internal class GameElapsedTime
     {
-        internal int intIntervalSquiggle;
-        //internal int intIntervalAfraid;
+        internal int intIntervalSquiggle; 
         internal int intIntervalPellettFlash;
         internal int intIntervalReverse;
 
@@ -57,14 +59,16 @@ namespace AutoChomp
 
         internal int intEatGhost;
 
+        internal List<ChaseMode> lstChaseModeCategory;
+        internal List<int> lstChaseModeTime;
+
         internal GameElapsedTime()
         {
-            this.intIntervalSquiggle = 500;
-            //this.intIntervalAfraid = 400;
+            this.intIntervalSquiggle = 500;      
             this.intIntervalPellettFlash = 480;
             this.intIntervalReverse = 10000;
 
-            this.intPowerStartTime = 5000;
+            this.intPowerStartTime = 8000;
             this.intPowerFlashTime = 200;
             this.intPowerFlashCount = 0;
             this.intPowerFlashTotal = 12;
@@ -72,6 +76,24 @@ namespace AutoChomp
             this.intHouseExit = 3000;
 
             this.intEatGhost = 550;
+
+            //Scatter for 7 seconds, then Chase for 20 seconds.
+            //Scatter for 7 seconds, then Chase for 20 seconds.
+            //Scatter for 5 seconds, then Chase for 20 seconds.
+            //Scatter for 5 seconds, then switch to Chase mode permanently.
+
+            this.lstChaseModeCategory =
+                new List<ChaseMode>(){ChaseMode.Scatter, ChaseMode.Chase,
+                                      ChaseMode.Scatter, ChaseMode.Chase,
+                                      ChaseMode.Scatter, ChaseMode.Chase,
+                                      ChaseMode.Scatter, ChaseMode.Chase};
+
+
+            this.lstChaseModeTime =
+                new List<int>() { 7000, 20000,
+                                  7000, 20000,
+                                  50000, 20000,
+                                  5000, 0 };
         }
     }
 }

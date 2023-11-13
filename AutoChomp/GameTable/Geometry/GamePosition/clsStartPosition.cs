@@ -1,5 +1,6 @@
 ﻿using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
+using System;
 
 namespace AutoChomp
 {
@@ -56,24 +57,18 @@ namespace AutoChomp
         {
             clsStartRandom clsStartRandom = new clsStartRandom();
 
-            //clsStartRandom.GetRandomPosition(out Position pos, out Point2d ptPacman);
-
             Point2d ptPacman = new Point2d((16 * Cell), (9 * Cell) + Middle);
 
             Pacman.ptOrigin = ptPacman;
             Pacman.Direction = Direction.Right;
             Pacman.FacingDirection = Direction.Right;
-            clsCommon.GamePacman.ptOrigin = Pacman.ptOrigin;
-            clsCommon.GamePacman.Direction = Pacman.Direction;
 
-            //for (int i = 0; i < Pacman.lstPacmanBlockReference.Count; i++)
-            //{
-            //    if (Pacman.lstPacmanBlockReference[i].IsObjectIdValid(acDb))
-            //    {
-            //        BlockReference acBlkRef = acTrans.GetObject(Pacman.lstPacmanBlockReference[i].ObjectId, OpenMode.ForWrite) as BlockReference;
-            //        acBlkRef.Position = Pacman.Origin.ToPoint3d();
-            //    }
-            //}
+            Pacman.Reset_Update = true;
+            Pacman.Reset_Direction = Direction.Right;
+            Pacman.Reset_ptOrigin = ptPacman;
+            Pacman.Reset_FacingDirection = Direction.Right;
+
+            clsCommon.GamePacman = Pacman;
         }
     }
 }

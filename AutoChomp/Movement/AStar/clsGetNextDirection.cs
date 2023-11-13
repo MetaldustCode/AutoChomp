@@ -1,4 +1,6 @@
-﻿namespace AutoChomp
+﻿using Autodesk.AutoCAD.Geometry;
+
+namespace AutoChomp
 {
     internal class clsGetNextDirection
     {
@@ -47,5 +49,23 @@
 
             return Direction.None;
         }
+
+        internal Direction GetNextDirection(Point2d posCurrent, Point2d posNext)
+        {
+            if (posNext.X > posCurrent.X)
+                return Direction.Right;
+
+            if (posNext.X < posCurrent.X)
+                return Direction.Left;
+
+            if (posNext.Y > posCurrent.Y)
+                return Direction.Up;
+
+            if (posNext.Y < posCurrent.Y)
+                return Direction.Down;
+
+            return Direction.None;
+        }
+
     }
 }

@@ -5,9 +5,9 @@ namespace AutoChomp
 {
     internal static class clsCommon
     {
-        internal static int intCell = 0;
+        //  internal static int intCell = 0;
 
-        internal static bool bolInit = false;
+        // internal static bool bolInit = false;
 
         internal static GameForm GameForm;
         internal static DGVForm DGVForm;
@@ -23,7 +23,7 @@ namespace AutoChomp
         internal static GamePower GamePower;
         internal static GameGhostCommon GameGhostCommon;
         internal static GameDebug GameDebug;
-        internal static GameSounds GameSounds;
+        // internal static GameSounds GameSounds;
     }
 
     internal static class clsGridValues
@@ -78,34 +78,34 @@ namespace AutoChomp
         }
     }
 
-    internal class GameSounds
-    {
-        private bool bolCredit;
-        private bool bolEatFruit;
-        private bool bolEatGhost;
-        private bool bolGameStart;
-        private bool bolIntermission;
+    //internal class GameSounds
+    //{
+    //    private bool bolCredit;
+    //    private bool bolEatFruit;
+    //    private bool bolEatGhost;
+    //    private bool bolGameStart;
+    //    private bool bolIntermission;
 
-        private bool bolPowerPellet;
-        private bool bolRetreating;
+    //    private bool bolPowerPellet;
+    //    private bool bolRetreating;
 
-        private int intMunch;
-        private int intSiren;
+    //    private int intMunch;
+    //    private int intSiren;
 
-        internal GameSounds()
-        {
-            bool bolCredit = false;
-            bool bolEatFruit = false;
+    //    internal GameSounds()
+    //    {
+    //        bool bolCredit = false;
+    //        bool bolEatFruit = false;
 
-            bool bolEatGhost = false;
-            bool bolGameStart = false;
-            bool bolIntermission = false;
+    //        bool bolEatGhost = false;
+    //        bool bolGameStart = false;
+    //        bool bolIntermission = false;
 
-            bool bolPowerPellet = false;
-            bool bolRetreating = false;
+    //        bool bolPowerPellet = false;
+    //        bool bolRetreating = false;
 
-            int intMunch = 0;
-            int intSiren = 0;
-        }
-    }
+    //        int intMunch = 0;
+    //        int intSiren = 0;
+    //    }
+    // }
 }

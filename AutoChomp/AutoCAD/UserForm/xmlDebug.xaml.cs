@@ -32,6 +32,7 @@ namespace AutoChomp
                 this.chkDebugDirection.IsChecked = clsReg.GetDebugDirection();
                 this.chkGhostEatDots.IsChecked = clsReg.GetGhostEatDots();
                 this.chkPacmanEatDots.IsChecked = clsReg.GetPacmanEatDots();
+                this.chkShowCurrentCell.IsChecked = clsReg.GetCurrentCell();
             }
             bolInit = false;
         }
@@ -54,6 +55,10 @@ namespace AutoChomp
 
             if (chk.Name == "chkPacmanEatDots")
                 clsReg.SetPacmanEatDots((bool)chk.IsChecked);
+
+            if (chk.Name == "chkShowCurrentCell")
+                clsReg.SetCurrentCell((bool)chk.IsChecked);
+
 
             clsValidDirection clsValidDirection = new clsValidDirection();
 

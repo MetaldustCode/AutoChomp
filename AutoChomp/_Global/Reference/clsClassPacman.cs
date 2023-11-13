@@ -18,11 +18,12 @@ namespace AutoChomp
         internal PacmanState PacmanState;
         internal Direction Direction;
         internal Point2d ptOrigin;
-        internal Position ptPosition;
+        internal Direction FacingDirection;
+        //internal Position ptPosition;
         internal int intMouth;
 
         // Movement
-        internal Direction FacingDirection;
+
 
         internal Boolean bolGraphicsRequired;
 
@@ -35,6 +36,24 @@ namespace AutoChomp
 
         internal InputMode InputMode;
         internal Boolean bolSearchMode;
+
+        // Chase Mode
+        internal int[,] arrCurrentAStar;
+        internal Position CurrentGhostPosition;
+        internal Position CurrentPacmanPosition;
+        internal GameGhost GhostCurrentChase;
+        internal List<Position> lstCurrentChase;
+
+        // Set Cell Position
+        internal Boolean bolResetOrigin;
+        internal Direction dirReset;
+        internal Point2d ptResetOrigin;
+
+        internal Boolean Reset_Update;
+        internal Direction Reset_Direction;
+        internal Point2d Reset_ptOrigin;
+        internal Direction Reset_FacingDirection;
+
 
         internal GamePacman(string strBlockName, int intColorIndex)
         {
@@ -56,9 +75,10 @@ namespace AutoChomp
 
             // Movement
             this.FacingDirection = Direction.None;
+
             this.bolGraphicsRequired = true;
 
-            this.ptPosition = new Position(0, 0);
+            //this.ptPosition = new Position(0, 0);
             this.bolCellChanged = false;
 
             this.GameLoop = new GameLoop();
@@ -70,6 +90,16 @@ namespace AutoChomp
             this.InputMode = InputMode.None;
 
             this.bolSearchMode = false;
+            this.arrCurrentAStar = new int[0, 0];
+            this.GhostCurrentChase = null;
+            this.lstCurrentChase = new List<Position>();
+            this.CurrentPacmanPosition = new Position(0, 0);
+            this.CurrentGhostPosition = new Position(0, 0);
+
+            this.Reset_Update = false;
+            this.Reset_Direction = Direction.None;
+            this.Reset_ptOrigin = new Point2d();
+            this.Reset_FacingDirection   = Direction.None;
         }
     }
 }

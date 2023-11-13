@@ -79,7 +79,11 @@ namespace AutoChomp
 
                         if (lstPos.Count > 0)
                         {
-                            Position posGhost = clsGetCurrentCell.GetCell(Ghost.ptOrigin, Ghost.Direction);
+                            // Position posGhost = clsGetCurrentCell.GetCell(Ghost.ptOrigin, Ghost.Direction);
+
+                            Gameloop.Data.clsDataAlignToGrid clsDataAlignToGrid = new Gameloop.Data.clsDataAlignToGrid();
+                            Position posGhost = clsDataAlignToGrid.GetPosition(Ghost.ptOrigin);
+
 
                             for (int k = 0; k < lstPos.Count; k++)
                             {

@@ -36,12 +36,20 @@ namespace AutoChomp.Gameloop.Graphics
                 {
                     Ghost.ptOrigin = ptRed;
                     Ghost.HouseState = HouseState.OutHouse;
+
+                    Ghost.Reset_Update = true;
+                    Ghost.Reset_ptOrigin = ptRed;
                 }
 
                 if (Ghost.StartLocation == StartLocation.Left)
                 {
                     Ghost.ptOrigin = ptPink;
                     Ghost.HouseState = HouseState.InHouse;
+
+                    Ghost.Reset_Update = true;
+                    Ghost.Reset_ptOrigin = ptPink;
+                    Ghost.Reset_Direction = Direction.Up;
+
                     lstInHouse.Add(Ghost);
                 }
 
@@ -49,13 +57,24 @@ namespace AutoChomp.Gameloop.Graphics
                 {
                     Ghost.ptOrigin = ptBlue;
                     Ghost.HouseState = HouseState.InHouse;
+
+                    Ghost.Reset_Update = true;
+                    Ghost.Reset_ptOrigin = ptBlue;
+                    Ghost.Reset_Direction = Direction.Up;
+
                     lstInHouse.Add(Ghost);
                 }
 
                 if (Ghost.StartLocation == StartLocation.Right)
                 {
                     Ghost.ptOrigin = ptOrange;
+
                     Ghost.HouseState = HouseState.InHouse;
+
+                    Ghost.Reset_Update = true;
+                    Ghost.Reset_ptOrigin = ptOrange;
+                    Ghost.Reset_Direction = Direction.Up;
+
                     lstInHouse.Add(Ghost);
                 }
 

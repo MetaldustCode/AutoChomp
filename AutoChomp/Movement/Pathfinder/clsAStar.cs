@@ -178,7 +178,9 @@ namespace AutoChomp
 
                     GameGhost Ghost = clsCommon.lstGameGhost[0];
 
-                    int[,] arrAStarNum = Ghost.arrAStarGrid;
+                    //  int[,] arrAStarNum = Ghost.arrAStarGrid;
+
+                    int[,] arrAStarNum = clsCommon.GamePacman.arrCurrentAStar;
 
                     arrAStarNum.GetSize(out int col, out int row);
 
@@ -349,6 +351,15 @@ namespace AutoChomp
             return true;
         }
 
+        internal int[,] GenerateAStar(Position posPacman)
+        {
+            clsBuildMap clsBuildMap = new clsBuildMap();
+
+            string[,] arrText = clsBuildMap.BuildMap(posPacman);
+
+            return arrText.ConvertStringToInt();
+        }
+
         internal int[,] GenerateAStar(Position posPacman, Position posGhost, Direction dirGhost)
         {
             clsBuildMap clsBuildMap = new clsBuildMap();
@@ -357,6 +368,9 @@ namespace AutoChomp
 
             return arrText.ConvertStringToInt();
         }
+
+
+
 
         internal List<ObjectId> GetObjectId(DBText[,] arrNum)
         {

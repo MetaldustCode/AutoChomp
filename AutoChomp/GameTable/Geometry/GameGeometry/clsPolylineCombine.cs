@@ -30,8 +30,8 @@ namespace AutoChomp
                 {
                     if (i != k)
                     {
-                        if (IsMatched(lstStartPoint[i], lstStartPoint[k], lstEndPoint[k]) ||
-                            IsMatched(lstEndPoint[i], lstStartPoint[k], lstEndPoint[k]))
+                        if (lstStartPoint[i].IsMatched(lstStartPoint[k], lstEndPoint[k]) ||
+                            lstEndPoint[i].IsMatched(lstStartPoint[k], lstEndPoint[k]))
                             lstMatch.Add(k);
                     }
                 }
@@ -158,15 +158,6 @@ namespace AutoChomp
             }
 
             return bolFound;
-        }
-
-        internal Boolean IsMatched(Point2d ptMatch, Point2d ptStartPoint, Point2d ptEndPoint)
-        {
-            if (ptMatch == ptStartPoint || ptMatch == ptEndPoint)
-            {
-                return true;
-            }
-            return false;
         }
 
         internal List<Polyline> CombineLines(Transaction acTrans, List<ObjectId> lstHandle)

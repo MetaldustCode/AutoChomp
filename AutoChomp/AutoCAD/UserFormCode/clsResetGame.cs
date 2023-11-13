@@ -93,7 +93,7 @@ namespace AutoChomp
 
                     dynamic acadApp = Autodesk.AutoCAD.ApplicationServices.Application.AcadApplication;
 
-                  acadApp.ZoomExtents();
+                    acadApp.ZoomExtents();
                 }
             }
         }
@@ -123,12 +123,11 @@ namespace AutoChomp
         }
 
         internal void ProcessCharacters(Transaction acTrans, Database acDb, BlockTable acBlkTbl, BlockTableRecord acBlkTblRec)
-        {
-            GamePacman GamePacman = new GamePacman("Pacman", 1);
-            List<GameGhost> lstGameGhost = new List<GameGhost>();
-
+        { 
             clsMainCharacters clsCreateCharacters = new clsMainCharacters();
-            clsCreateCharacters.CreateCharacters(acTrans, acDb, acBlkTbl, acBlkTblRec, ref GamePacman, ref lstGameGhost);
+            clsCreateCharacters.CreateCharacters(acTrans, acDb, acBlkTbl, acBlkTblRec, 
+                                                 out GamePacman GamePacman, 
+                                                 out List<GameGhost> lstGameGhost);
 
             // Store BlockReferences
             clsCommon.GamePacman = GamePacman;

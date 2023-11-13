@@ -12,6 +12,26 @@ namespace AutoChomp
         private static readonly double Cell = clsGridValues.Cell;
         private static readonly double Middle = clsGridValues.Middle;
 
+        internal static Boolean IsMatched(this Point2d ptMatch, Point2d ptStartPoint, Point2d ptEndPoint)
+        {
+            if (ptMatch == ptStartPoint || ptMatch == ptEndPoint)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        internal static Boolean IsMatched(this Position pt1, Position pt2)
+        {
+            if (pt1.X == pt2.X && pt1.Y == pt2.Y)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
         internal static string[,] ToStringArray(this int[,] arrAStar, Boolean bolExcludeZero = false)
         {
             arrAStar.GetSize(out int col, out int row);

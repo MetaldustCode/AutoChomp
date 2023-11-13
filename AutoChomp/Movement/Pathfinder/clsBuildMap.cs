@@ -37,6 +37,37 @@ namespace AutoChomp
             return new string[0, 0];
         }
 
+        internal string[,] BuildMap(Position pos)
+        {
+            if (pos.X < 0 || pos.Y < 0) return new string[0, 0];
+
+            string[,] arrNum = BuildString();
+            arrNum.GetSize(out int col, out int row);
+ 
+            if (arrNum[pos.X, pos.Y] == null)
+            {
+                arrNum[pos.X, pos.Y] = "1";
+
+                List<int> aX = new List<int>() { pos.X };
+                List<int> aY = new List<int>() { pos.Y };
+
+                int numBase = 1;
+
+                while (GetNextSequence(ref arrNum, col, row, ref aX, ref aY))
+                {
+                    numBase++;
+
+                    for (int i = 0; i < aX.Count; i++)
+                        arrNum[aX[i], aY[i]] = numBase.ToString();
+                }
+
+                return arrNum;
+            }
+            return new string[0, 0];
+        }
+
+
+
         internal void InjectBlockAge(ref string[,] arrNum, int col, int row, Position posGhost, Direction direction)
         {
             if (direction != Direction.None)

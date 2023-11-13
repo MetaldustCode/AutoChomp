@@ -124,7 +124,7 @@ namespace AutoChomp
 
             clsCommon.GamePower = new GamePower();
 
-            //clsCommon.GameGhostCommon = new GameGhostCommon();
+            clsCommon.GameGhostCommon = new GameGhostCommon();
 
             clsTimers.GameStopWatch = new GameStopWatch();
 

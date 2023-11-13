@@ -21,8 +21,8 @@ namespace AutoChomp
             if (clsCommon.GameForm == null)
                 clsCommon.GameForm = new GameForm();
 
-            clsCommon.GameGhostCommon = new GameGhostCommon();
-            clsCommon.GameSounds = new GameSounds();
+            //clsCommon.GameGhostCommon = new GameGhostCommon();
+            //clsCommon.GameSounds = new GameSounds();
 
             //clsCommon.GameForm.chkRed = this.chkRed;
             //clsCommon.GameForm.chkPink = this.chkPink;
@@ -49,7 +49,7 @@ namespace AutoChomp
 
         private void LoadGhost()
         {
-            List<String> lstDropDown = new List<String>() { "None", "Random", "A-Star" };
+            List<String> lstDropDown = new List<String>() { "None", "Random", "A-Star", "Chase", "Scatter", "Auto" };
             SetDropDown(lstDropDown);
 
             LoadRegistry(lstDropDown);

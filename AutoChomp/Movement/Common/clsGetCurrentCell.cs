@@ -1,4 +1,5 @@
-﻿using Autodesk.AutoCAD.Geometry;
+﻿using AutoChomp.Gameloop.Data;
+using Autodesk.AutoCAD.Geometry;
 using System;
 using System.Collections.Generic;
 
@@ -14,20 +15,24 @@ namespace AutoChomp
             Point2d ptOrigin = clsCommon.GamePacman.ptOrigin;
             Direction direction = clsCommon.GamePacman.Direction;
 
-            return GetCell(ptOrigin, direction);
+            clsDataAlignToGrid clsDataAlignToGrid = new clsDataAlignToGrid();       
+            clsDataAlignToGrid.GetPosition(ref ptOrigin, out Position Position);
+            return Position;
+
+            // return GetCell(ptOrigin, direction);
         }
 
-        internal Position GetCell(Point2d ptOrigin, Direction Direction)
-        {
-            Position ptCell = new Position();
+        //internal Position GetCell(Point2d ptOrigin, Direction Direction)
+        //{
+        //    Position ptCell = new Position();
 
-            if (clsClassTables.lstXGridOrigin.Contains(ptOrigin))
-                ptCell = GetMidCell(ptOrigin);
-            else
-                GetCell(ptOrigin, Direction, ref ptCell);
+        //    if (clsClassTables.lstXGridOrigin.Contains(ptOrigin))
+        //        ptCell = GetMidCell(ptOrigin);
+        //    else
+        //        GetCell(ptOrigin, Direction, ref ptCell);
 
-            return ptCell;
-        }
+        //    return ptCell;
+        //}
 
         internal Position GetMidCell(Point2d ptPosition)
         {
@@ -71,9 +76,9 @@ namespace AutoChomp
         {
             Boolean rtnValue = false;
 
-            Boolean[,] arrGrid = clsClassTables.arrXGridPath;
+            Boolean[,] arrXGrid = clsClassTables.arrXGridPath;
 
-            if (GetCellLocation3(arrGrid, ptPosition, ref lstCol, ref lstRow))
+            if (GetCellLocation3(arrXGrid, ptPosition, ref lstCol, ref lstRow))
             {
                 rtnValue = true;
 
@@ -127,17 +132,17 @@ namespace AutoChomp
             return rtnValue;
         }
 
-        internal Boolean GetCellLocation3(Boolean[,] arrBorder, Point2d ptPosition,
+        internal Boolean GetCellLocation3(Boolean[,] arrXGrid, Point2d ptPosition,
                                                 ref List<int> lstCol, ref List<int> lstRow)
         {
-            int col = arrBorder.GetLength(0);
-            int row = arrBorder.GetLength(1);
+            int col = arrXGrid.GetLength(0);
+            int row = arrXGrid.GetLength(1);
 
             for (int c = 0; c < col; c++)
             {
                 for (int r = 0; r < row; r++)
                 {
-                    if (arrBorder[c, r])
+                    if (arrXGrid[c, r])
                     {
                         double x1 = c * Cell;
                         double x2 = (c * Cell) + Cell;

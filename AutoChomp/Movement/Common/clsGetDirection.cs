@@ -34,37 +34,37 @@ namespace AutoChomp
             return rtnValue;
         }
 
-        internal List<Direction> GetValidDirection(Point2d pt, Direction direction, Boolean bolIncludeReverse)
-        {
-            List<Direction>[,] arrXCanMove = clsClassTables.arrXDirection;
+        //internal List<Direction> GetValidDirection(Point2d pt, Direction direction, Boolean bolIncludeReverse)
+        //{
+        //    List<Direction>[,] arrXCanMove = clsClassTables.arrXDirection;
 
-            clsGetCurrentCell clsGetCell = new clsGetCurrentCell();
-            Position ptCell = clsGetCell.GetCell(pt, direction);
+        //    clsGetCurrentCell clsGetCell = new clsGetCurrentCell();
+        //    Position ptCell = clsGetCell.GetCell(pt, direction);
 
-            if (ptCell != new Position(0, 0))
-            {
-                List<Direction> lstDirection = arrXCanMove[ptCell.X, ptCell.Y];
+        //    if (ptCell != new Position(0, 0))
+        //    {
+        //        List<Direction> lstDirection = arrXCanMove[ptCell.X, ptCell.Y];
 
-                if (!bolIncludeReverse)
-                {
-                    clsGetDirection clsGetDirection = new clsGetDirection();
-                    direction = clsGetDirection.GetReverse(direction);
+        //        if (!bolIncludeReverse)
+        //        {
+        //            clsGetDirection clsGetDirection = new clsGetDirection();
+        //            direction = clsGetDirection.GetReverse(direction);
 
-                    if (lstDirection != null)
-                    {
-                        if (lstDirection.Contains(direction))
-                        {
-                            int intPos = lstDirection.IndexOf(direction);
-                            lstDirection.RemoveAt(intPos);
-                        }
-                    }
-                }
+        //            if (lstDirection != null)
+        //            {
+        //                if (lstDirection.Contains(direction))
+        //                {
+        //                    int intPos = lstDirection.IndexOf(direction);
+        //                    lstDirection.RemoveAt(intPos);
+        //                }
+        //            }
+        //        }
 
-                return lstDirection;
-            }
+        //        return lstDirection;
+        //    }
 
-            return new List<Direction>();
-        }
+        //    return new List<Direction>();
+        //}
 
         internal List<Direction> GetValidDirection(Position ptCell, Direction direction, Boolean bolIncludeReverse)
         {

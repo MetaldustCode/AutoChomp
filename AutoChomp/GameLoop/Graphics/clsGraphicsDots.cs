@@ -46,12 +46,19 @@ namespace AutoChomp.Gameloop.Graphics
                                 if (acBlkRef.Visible == false)
                                     acBlkRef.Visible = true;
                             }
+                            else
+                            {
+                                if (acBlkRef.Visible == true)
+                                    acBlkRef.Visible = false;
+                            }
                         }
                         else
                         {
                             if (acBlkRef.Visible == true)
                                 acBlkRef.Visible = false;
                         }
+
+                        clsCommon.GameDots.bolGraphicsRequired = true;
                     }
                 }
 

@@ -5,41 +5,44 @@ namespace AutoChomp
 {
     internal class clsBuildAndSolve
     {
-        internal void BuildToPacman(ref GameGhost Ghost)
+        internal void BuildToPacman(ref GameGhost Ghost, int i)
         {
             clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
 
             GamePacman Pacman = clsCommon.GamePacman;
-            Position posPacman = clsGetCurrentCell.GetCell(Pacman.ptOrigin, Pacman.Direction);
+            //Position posPacman = clsGetCurrentCell.GetCell(Pacman.ptOrigin, Pacman.Direction);
 
-            Build(ref Ghost, posPacman);
+            Gameloop.Data.clsDataAlignToGrid clsDataAlignToGrid = new Gameloop.Data.clsDataAlignToGrid();
+            Position posPacman = clsDataAlignToGrid.GetPosition(Pacman.ptOrigin);
+
+
+            Build(ref Ghost, i, posPacman);
         }
 
-        internal void BuildToHouse(ref GameGhost Ghost)
-        {
-            Position posHome = new Position(16, 21);
-            Build(ref Ghost, posHome);
-        }
-
-        internal void BuildToCorner(ref GameGhost Ghost, int i)
-        {
-            Position posHome = GetCorner(i);
-            Build(ref Ghost, posHome);
-        }
-
-        internal void Build(ref GameGhost Ghost, Position posHome)
+        internal void Build(ref GameGhost Ghost, int i, Position posHome)
         {
             clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
-            Position posGhost = clsGetCurrentCell.GetCell(Ghost.ptOrigin, Ghost.Direction);
+            // Position posGhost = clsGetCurrentCell.GetCell(Ghost.ptOrigin, Ghost.Direction);
+
+            Gameloop.Data.clsDataAlignToGrid clsDataAlignToGrid = new Gameloop.Data.clsDataAlignToGrid();
+            Position posGhost = clsDataAlignToGrid.GetPosition(Ghost.ptOrigin);
+
 
             clsAStar clsAStar = new clsAStar();
             int[,] arrAStar = null;
-            if (Ghost.GhostState == GhostState.Alive || Ghost.GhostState == GhostState.Afraid)
+            if (Ghost.GhostState == GhostState.Afraid)
+            {
+                Position posCorner = GetCorner(i);
+                arrAStar = clsAStar.GenerateAStar(posCorner, posGhost, Ghost.Direction);
+            }
+
+            if (Ghost.GhostState == GhostState.Alive)
                 arrAStar = clsAStar.GenerateAStar(posHome, posGhost, Ghost.Direction);
+
 
             if (Ghost.GhostState == GhostState.Dead)
             {
-                Position posHouse = new Position(16, 21);
+                Position posHouse = new Position(15, 21);
                 arrAStar = clsAStar.GenerateAStar(posHouse, posGhost, Ghost.Direction);
             }
 
@@ -63,13 +66,21 @@ namespace AutoChomp
             }
         }
 
+        // + 4 From Pacman
+        internal void CalculatePinky()
+        {
+            
+        }
+
         internal Position GetCorner(int i)
         {
-            List<Position> lstPosition = new List<Position>();
-            lstPosition.Add(new Position(3, 3));
-            lstPosition.Add(new Position(3, 31));
-            lstPosition.Add(new Position(28, 3));
-            lstPosition.Add(new Position(28, 31));
+            List<Position> lstPosition = new List<Position>()
+            {
+                new Position(3, 3),
+                new Position(3, 31),
+                new Position(28, 3),
+                new Position(28, 31)
+            };
 
             lstPosition = lstPosition.Multiply();
 

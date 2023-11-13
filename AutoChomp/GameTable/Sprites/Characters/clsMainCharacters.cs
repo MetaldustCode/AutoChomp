@@ -13,11 +13,11 @@ namespace AutoChomp
         }
 
         public void CreateCharacters(Transaction acTrans, Database acDb, BlockTable acBlkTbl, BlockTableRecord acBlkTblRec,
-                                     ref GamePacman GamePacman, ref List<GameGhost> lstGameGhost)
+                                     out GamePacman GamePacman, out List<GameGhost> lstGameGhost)
         {
             clsCharacterOther clsCharacterOther = new clsCharacterOther();
 
-            lstGameGhost = clsCharacterOther.ProcessSprites(acTrans, acDb, acBlkTbl, acBlkTblRec, ref GamePacman);
+            lstGameGhost = clsCharacterOther.ProcessSprites(acTrans, acDb, acBlkTbl, acBlkTblRec, out GamePacman);
 
             List<Direction> lstDirections = GetDirections();
 

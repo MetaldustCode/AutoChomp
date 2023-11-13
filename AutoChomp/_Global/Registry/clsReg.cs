@@ -104,6 +104,23 @@ namespace AutoChomp
             return false;
         }
 
+
+        internal void SetCurrentCell(Boolean strValue)
+        {
+            SaveData("ShowCurrentCell", strValue.ToString());
+        }
+
+        internal Boolean GetCurrentCell()
+        {
+            string strValue = GetData("ShowCurrentCell");
+
+            if (strValue.Length == 0 ||
+                strValue == "True") return true;
+            return false;
+        }
+
+
+
         internal void SetShowHighScore(Boolean strValue)
         {
             SaveData("ShowHighScore", strValue.ToString());
@@ -230,35 +247,35 @@ namespace AutoChomp
             return false;
         }
 
-        internal void SetShowGridNumbers(String strValue)
-        {
-            SaveData("ShowGridNumbers", strValue);
-        }
+        //internal void SetShowGridNumbers(String strValue)
+        //{
+        //    SaveData("ShowGridNumbers", strValue);
+        //}
 
-        internal String GetShowGridNumbers()
-        {
-            string strValue = GetData("ShowGridNumbers");
+        //internal String GetShowGridNumbers()
+        //{
+        //    string strValue = GetData("ShowGridNumbers");
 
-            if (strValue.Length == 0)
-                return "None";
-            else
-                return strValue;
-        }
+        //    if (strValue.Length == 0)
+        //        return "None";
+        //    else
+        //        return strValue;
+        //}
 
-        internal void SetShowGhostPath(String strValue)
-        {
-            SaveData("ShowGhostPath", strValue);
-        }
+        //internal void SetShowGhostPath(String strValue)
+        //{
+        //    SaveData("ShowGhostPath", strValue);
+        //}
 
-        internal String GetShowGhostPath()
-        {
-            string strValue = GetData("ShowGhostPath");
+        //internal String GetShowGhostPath()
+        //{
+        //    string strValue = GetData("ShowGhostPath");
 
-            if (strValue.Length == 0)
-                return "None";
-            else
-                return strValue;
-        }
+        //    if (strValue.Length == 0)
+        //        return "None";
+        //    else
+        //        return strValue;
+        //}
 
         // "Red", "Pink", "Blue", "Orange"
 
@@ -416,65 +433,65 @@ namespace AutoChomp
 
         // "Red", "Pink", "Blue", "Orange"
 
-        internal void SetRedSpeed(String strValue)
-        {
-            SaveData("RedSpeed", strValue);
-        }
+        //internal void SetRedSpeed(String strValue)
+        //{
+        //    SaveData("RedSpeed", strValue);
+        //}
 
-        internal String GetRedSpeed()
-        {
-            string strValue = GetData("RedSpeed");
+        //internal String GetRedSpeed()
+        //{
+        //    string strValue = GetData("RedSpeed");
 
-            if (strValue.Length == 0)
-                return "None";
-            else
-                return strValue;
-        }
+        //    if (strValue.Length == 0)
+        //        return "None";
+        //    else
+        //        return strValue;
+        //}
 
-        internal void SetPinkSpeed(String strValue)
-        {
-            SaveData("PinkSpeed", strValue);
-        }
+        //internal void SetPinkSpeed(String strValue)
+        //{
+        //    SaveData("PinkSpeed", strValue);
+        //}
 
-        internal String GetPinkSpeed()
-        {
-            string strValue = GetData("PinkSpeed");
+        //internal String GetPinkSpeed()
+        //{
+        //    string strValue = GetData("PinkSpeed");
 
-            if (strValue.Length == 0)
-                return "None";
-            else
-                return strValue;
-        }
+        //    if (strValue.Length == 0)
+        //        return "None";
+        //    else
+        //        return strValue;
+        //}
 
-        internal void SetBlueSpeed(String strValue)
-        {
-            SaveData("BlueSpeed", strValue);
-        }
+        //internal void SetBlueSpeed(String strValue)
+        //{
+        //    SaveData("BlueSpeed", strValue);
+        //}
 
-        internal String GetBlueSpeed()
-        {
-            string strValue = GetData("BlueSpeed");
+        //internal String GetBlueSpeed()
+        //{
+        //    string strValue = GetData("BlueSpeed");
 
-            if (strValue.Length == 0)
-                return "None";
-            else
-                return strValue;
-        }
+        //    if (strValue.Length == 0)
+        //        return "None";
+        //    else
+        //        return strValue;
+        //}
 
-        internal void SetOrangeSpeed(String strValue)
-        {
-            SaveData("OrangeSpeed", strValue);
-        }
+        //internal void SetOrangeSpeed(String strValue)
+        //{
+        //    SaveData("OrangeSpeed", strValue);
+        //}
 
-        internal String GetOrangSpeed()
-        {
-            string strValue = GetData("OrangeSpeed");
+        //internal String GetOrangSpeed()
+        //{
+        //    string strValue = GetData("OrangeSpeed");
 
-            if (strValue.Length == 0)
-                return "None";
-            else
-                return strValue;
-        }
+        //    if (strValue.Length == 0)
+        //        return "None";
+        //    else
+        //        return strValue;
+        //}
 
         // -------------
 

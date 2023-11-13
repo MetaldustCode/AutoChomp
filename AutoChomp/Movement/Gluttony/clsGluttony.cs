@@ -22,42 +22,23 @@ namespace AutoChomp
             List<List<Position>> _lstLstCellPos = lstLstCellPos.ToList();
 
             // Copy to not be immutable
-            clsDotCount clsDotCount = new clsDotCount();
-            lstDirection = lstDirection.ToList();
 
-            // Convert position to cell
-            Boolean[,] arrXDots = clsClassTables.arrXDots;
+            lstDirection = lstDirection.ToList();   
+
+            Boolean[,] arrXDots = Merge(clsClassTables.arrXDots, clsClassTables.arrXPower);
+
             arrXDots.GetSize(out int col, out int row);
             clsGetCurrentCell clsGetCell = new clsGetCurrentCell();
-            Position curPos = clsGetCell.GetCell(Origin, direction);
+
+            Gameloop.Data.clsDataAlignToGrid clsDataAlignToGrid = new Gameloop.Data.clsDataAlignToGrid();
+            Position curPos = clsDataAlignToGrid.GetPosition(Origin);
+
+            // Position curPos = clsGetCell.GetCell(Origin, direction);
 
             List<int> lstCount = new List<int>();
 
-            // Get dot count in each direction
             List<List<Position>> lstLstCount = new List<List<Position>>();
-            for (int i = 0; i < lstDirection.Count; i++)
-            {
-                if (lstDirection[i] == Direction.Up)
-                {
-                    lstCount.Add(clsDotCount.GetUpCount(arrXDots, col, row, curPos, out List<Position> lstUp));
-                    lstLstCount.Add(lstUp);
-                }
-                if (lstDirection[i] == Direction.Down)
-                {
-                    lstCount.Add(clsDotCount.GetDownCount(arrXDots, col, row, curPos, out List<Position> lstDown));
-                    lstLstCount.Add(lstDown);
-                }
-                if (lstDirection[i] == Direction.Right)
-                {
-                    lstCount.Add(clsDotCount.GetRightCount(arrXDots, col, row, curPos, out List<Position> lstRight));
-                    lstLstCount.Add(lstRight);
-                }
-                if (lstDirection[i] == Direction.Left)
-                {
-                    lstCount.Add(clsDotCount.GetLeftCount(arrXDots, col, row, curPos, out List<Position> lstLeft));
-                    lstLstCount.Add(lstLeft);
-                }
-            }
+            GetCount(arrXDots, lstDirection, col, row, ref lstCount, curPos, ref lstLstCount);
 
             // Find largest dot count direction
             int intMax = lstCount.Max();
@@ -93,6 +74,59 @@ namespace AutoChomp
             clsCommon.GamePacman = Pacman;
 
             return direction;
+        }
+
+        internal Boolean[,] Merge(Boolean[,] arrXDots, Boolean[,] arrXPower)
+        {
+            return arrXDots;
+
+            //arrXDots.GetSize(out int col, out int row);
+            //Boolean[,] rtnValue = new bool[col, row];
+
+            //for (int c = 0; c < col; c++)
+            //{
+            //    for (int r = 0; r < row; r++)
+            //    {
+            //        if (arrXDots[c, r])
+            //            rtnValue[c, r] = true;
+
+            //        if (arrXPower[c, r])
+            //            rtnValue[c, r] = true;
+            //    }
+            //}
+
+            //return rtnValue;
+        }
+
+        internal void GetCount(Boolean[,] arrXDots, List<Direction> lstDirection, int col, int row, ref List<int> lstCount, Position curPos, ref List<List<Position>> lstLstCount)
+        {
+            clsDotCount clsDotCount = new clsDotCount();
+
+            // Get dot count in each direction
+
+            for (int i = 0; i < lstDirection.Count; i++)
+            {
+                if (lstDirection[i] == Direction.Up)
+                {
+                    lstCount.Add(clsDotCount.GetUpCount(arrXDots, col, row, curPos, out List<Position> lstUp));
+                    lstLstCount.Add(lstUp);
+                }
+                if (lstDirection[i] == Direction.Down)
+                {
+                    lstCount.Add(clsDotCount.GetDownCount(arrXDots, col, row, curPos, out List<Position> lstDown));
+                    lstLstCount.Add(lstDown);
+                }
+                if (lstDirection[i] == Direction.Right)
+                {
+                    lstCount.Add(clsDotCount.GetRightCount(arrXDots, col, row, curPos, out List<Position> lstRight));
+                    lstLstCount.Add(lstRight);
+                }
+                if (lstDirection[i] == Direction.Left)
+                {
+                    lstCount.Add(clsDotCount.GetLeftCount(arrXDots, col, row, curPos, out List<Position> lstLeft));
+                    lstLstCount.Add(lstLeft);
+                }
+            }
         }
 
         internal void RunningInLoop(ref GamePacman Pacman, ref Direction[,] arrHistory,
@@ -192,7 +226,11 @@ namespace AutoChomp
 
                 // Get Current Position from Origin and Direction
                 clsGetCurrentCell clsGetCell = new clsGetCurrentCell();
-                Position pos = clsGetCell.GetCell(Origin, curDirection);
+                // Position pos = clsGetCell.GetCell(Origin, curDirection);
+
+                Gameloop.Data.clsDataAlignToGrid clsDataAlignToGrid = new Gameloop.Data.clsDataAlignToGrid();
+                Position pos = clsDataAlignToGrid.GetPosition(Origin);
+
 
                 // clsCommon.bolDirectionBoxUpdate = true;
                 // Get the Cell Count for each Direction that is available
@@ -283,7 +321,7 @@ namespace AutoChomp
                                          ref List<List<Position>> lstLstCellPos)
         {
             int intMax = lstDotCount.Max();
-
+            Boolean bolMatch = false;
             for (int i = lstDotCount.Count - 1; i >= 0; i--)
             {
                 if (lstDotCount[i] != intMax)
@@ -291,8 +329,27 @@ namespace AutoChomp
                     lstLstCellPos.RemoveAt(i);
                     lstDirection.RemoveAt(i);
                     lstDotCount.RemoveAt(i);
+                    bolMatch = true;
                 }
             }
+
+            //if (!bolMatch)
+            //{
+            //    if (lstDotCount.Count > 1)
+            //    {
+            //        int index = clsRandomizer.RandomInteger(0, lstDotCount.Count - 1);
+
+            //        for (int i = lstDotCount.Count - 1; i >= 0; i--)
+            //        {
+            //            if (i != index)
+            //            {
+            //                lstLstCellPos.RemoveAt(i);
+            //                lstDirection.RemoveAt(i);
+            //                lstDotCount.RemoveAt(i);                        
+            //            }
+            //        }
+            //    }
+            //}
 
             if (lstDotCount.Count == 1)
                 return true;
@@ -343,12 +400,19 @@ namespace AutoChomp
 
             clsGetCurrentCell clsGetCell = new clsGetCurrentCell();
 
-            Position pos = clsGetCell.GetCell(Origin, direction);
+            // Position pos = clsGetCell.GetCell(Origin, direction);
+
+            Gameloop.Data.clsDataAlignToGrid clsDataAlignToGrid = new Gameloop.Data.clsDataAlignToGrid();
+            Position pos = clsDataAlignToGrid.GetPosition(Origin);
+
 
             clsGetDirection clsGetDirection = new clsGetDirection();
             lstDirection = clsGetDirection.GetValidDirection(pos, direction, false);
 
-            Boolean[,] arrXDots = clsClassTables.arrXDots;
+           //  Boolean[,] arrXDots = clsClassTables.arrXDots;
+
+            Boolean[,] arrXDots = Merge(clsClassTables.arrXDots, clsClassTables.arrXPower);
+
             arrXDots.GetSize(out int col, out int row);
 
             for (int i = 0; i < lstDirection.Count; i++)
@@ -396,23 +460,6 @@ namespace AutoChomp
                                             List<Position> lstPt, int intColor)
         {
             clsEntityDelete clsEntityDelete = new clsEntityDelete();
-            clsEntityDelete.DeleteObjectId(acTrans, acDb, clsCommon.GameObjectId.lstObjBoxes);
-            clsCommon.GameObjectId.lstObjBoxes.Clear();
-
-            for (int i = 0; i < lstPt.Count; i++)
-            {
-                clsPolylineAdd clsPolylineAdd = new clsPolylineAdd();
-                BlockReference acBlkRef = clsPolylineAdd.AddBoxBlock(acTrans, acDb, intColor, "GluttonyBox");
-
-                acBlkRef.Position = lstPt[i].GetOrigin().ToPoint3d();
-                clsCommon.GameObjectId.lstObjBoxes.Add(acBlkRef.ObjectId);
-            }
-        }
-
-        internal void DrawingSuggestionBox(Transaction acTrans, Database acDb,
-                                           List<Position> lstPt, int intColor)
-        {
-            clsEntityDelete clsEntityDelete = new clsEntityDelete();
             clsEntityDelete.DeleteObjectId(acTrans, acDb, clsCommon.GameObjectId.lstObjDirectionBoxes);
             clsCommon.GameObjectId.lstObjDirectionBoxes.Clear();
 
@@ -422,8 +469,25 @@ namespace AutoChomp
                 BlockReference acBlkRef = clsPolylineAdd.AddBoxBlock(acTrans, acDb, intColor, "DirectionBox");
 
                 acBlkRef.Position = lstPt[i].GetOrigin().ToPoint3d();
-
                 clsCommon.GameObjectId.lstObjDirectionBoxes.Add(acBlkRef.ObjectId);
+            }
+        }
+
+        internal void DrawingSuggestionBox(Transaction acTrans, Database acDb,
+                                           List<Position> lstPt, int intColor)
+        {
+            clsEntityDelete clsEntityDelete = new clsEntityDelete();
+            clsEntityDelete.DeleteObjectId(acTrans, acDb, clsCommon.GameObjectId.lstObjSuggestionBoxes);
+            clsCommon.GameObjectId.lstObjSuggestionBoxes.Clear();
+
+            for (int i = 0; i < lstPt.Count; i++)
+            {
+                clsPolylineAdd clsPolylineAdd = new clsPolylineAdd();
+                BlockReference acBlkRef = clsPolylineAdd.AddBoxBlock(acTrans, acDb, intColor, "SuggestionBox");
+
+                acBlkRef.Position = lstPt[i].GetOrigin().ToPoint3d();
+
+                clsCommon.GameObjectId.lstObjSuggestionBoxes.Add(acBlkRef.ObjectId);
             }
         }
 
@@ -438,7 +502,7 @@ namespace AutoChomp
             {
                 String strValue = GetLetter(lstDirection[i]);
 
-                BlockReference acBlkRef = AddBoxTextBlock(acTrans, acDb, lstDirection[i], strValue, intColor, "TextBox_" + strValue);
+                BlockReference acBlkRef = AddBoxTextBlock(acTrans, acDb, lstDirection[i], strValue, intColor, "HistoryBox_" + strValue);
 
                 Point2d pt = lstPt[i].GetOrigin();
                 acBlkRef.MoveEntityXY(acTrans, acDb, pt.X, pt.Y);

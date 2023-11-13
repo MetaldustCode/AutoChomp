@@ -12,11 +12,17 @@ namespace AutoChomp.Gameloop.Data
             string strBlockOpen = Mouth()[Pacman.intMouth];
 
             if (strBlockOpen == "Mid")
+            {
                 clsCommon.GamePacman.PacmanState = PacmanState.Mid;
+                //clsUpdateScale clsUpdateScale = new clsUpdateScale();
+                //clsUpdateScale.UpdateSpacing();
+            }
             if (strBlockOpen == "Open")
                 clsCommon.GamePacman.PacmanState = PacmanState.Open;
             if (strBlockOpen == "Close")
                 clsCommon.GamePacman.PacmanState = PacmanState.Close;
+
+      
         }
 
         internal List<String> Mouth()

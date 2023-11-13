@@ -1,24 +1,59 @@
 ﻿using AutoChomp.Gameloop.Graphics;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Geometry;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 
 namespace AutoChomp.Gameloop.Update
 {
     internal class clsUpdateGraphics
     {
+        internal void UpdateGraphics()
+        {
+            Document acDoc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
+            Database acDb = acDoc.Database;
+
+            using (Transaction acTrans = acDb.TransactionManager.StartTransaction())
+            {
+                using (DocumentLock @lock = acDoc.LockDocument())
+                {
+
+                    UpdateGraphics(acTrans, acDb);
+
+                    UpdatePacmanBoxes(acTrans, acDb);
+
+                    UpdateAStarLine(acTrans, acDb);
+
+                    ShowScore(acTrans, acDb);
+
+                    acTrans.Commit();
+                }
+
+                UpdateScreen();
+            }
+        }
+
+
         internal void UpdateGraphics(Transaction acTrans, Database acDb)
         {
-            // if (!clsValues.IsResetRunning)
+            clsReg clsReg = new clsReg();
 
-            if (clsCommon.GamePacman.bolGraphicsRequired || clsCommon.GameGhostCommon.bolGraphicsRequired)
+            // if (!clsValues.IsResetRunning)
+            clsGraphicsDebug clsGraphicsDebug = new clsGraphicsDebug();
+            clsGraphicsDebug.DeleteCircle();
+
+            if (clsReg.GetCurrentCell())
+                clsGraphicsDebug.DrawCircle();
+
+            // if (clsCommon.GamePacman.bolGraphicsRequired || clsCommon.GameGhostCommon.bolGraphicsRequired)
             {
                 //clsSolvePath clsSolvePath = new clsSolvePath();
                 //clsSolvePath.Solve();
 
-                clsReg clsReg = new clsReg();
+
                 clsAStar clsAStar = new clsAStar();
 
                 if (clsReg.GetNumbersVisible())
@@ -29,9 +64,11 @@ namespace AutoChomp.Gameloop.Update
                 // UpdateAStarLine(acTrans, acDb);
             }
 
+
             //Update Pacman
             if (clsCommon.GamePacman.bolGraphicsRequired)
             {
+
                 clsGraphicsPacman clsGraphicsPacman = new clsGraphicsPacman();
                 clsGraphicsPacman.UpdatePacmanPositionAndVisibility(acTrans, acDb, ref clsCommon.GamePacman);
                 clsCommon.GamePacman.bolGraphicsRequired = false;
@@ -46,9 +83,11 @@ namespace AutoChomp.Gameloop.Update
 
             //Hide Dots
             if (clsCommon.GameDots.bolGraphicsRequired)
-            {
+            {                
+
                 Gameloop.Graphics.clsGraphicsDots clsEatGraphics = new Gameloop.Graphics.clsGraphicsDots();
                 clsEatGraphics.DisplayDots(acTrans);
+
                 clsCommon.GameDots.bolGraphicsRequired = false;
             }
 
@@ -60,22 +99,31 @@ namespace AutoChomp.Gameloop.Update
                 clsCommon.GamePower.bolGraphicsRequired = false;
             }
 
+            // Update Ghost Spite
             if (clsCommon.GameGhostCommon.bolGraphicsRequired)
             {
                 List<GameGhost> lstGhost = clsCommon.lstGameGhost;
+
                 // Update Ghost
                 Gameloop.Graphics.clsGraphicsGhost clsGhostPosition = new Gameloop.Graphics.clsGraphicsGhost();
                 clsGhostPosition.UpdateGhostGraphics(acTrans, acDb, ref lstGhost);
                 clsCommon.GameGhostCommon.bolGraphicsRequired = false;
             }
 
-          
         }
 
         internal void UpdateAStarLine(Transaction acTrans, Database acDb)
         {
+            clsCalcGlobalAStar clsCalcGlobalAStar = new clsCalcGlobalAStar();
             clsSolvePath clsSolvePath = new clsSolvePath();
             clsSolvePath.DeleteLine(acTrans, acDb);
+
+            clsReg clsReg = new clsReg();
+            if (clsReg.GetPacmanSearchVisible() &&
+                clsCommon.GamePacman.lstCurrentChase.Count > 0)
+            {
+                clsSolvePath.DrawLine(acTrans, acDb, clsCommon.GamePacman.lstCurrentChase, 2);
+            }
 
             List<GameGhost> lstGhosts = clsCommon.lstGameGhost;
 
@@ -83,30 +131,30 @@ namespace AutoChomp.Gameloop.Update
 
             for (int i = 0; i < lstGhosts.Count; i++)
             {
-                if (lstGhosts[i].bolAStarShowLine)
+                // clsCalcGlobalAStar clsCalcGlobalAStar = new clsCalcGlobalAStar();
+
+
+                if (lstGhosts[i].bolAStarShowLine &&
+                    lstGhosts[i].GhostState == GhostState.Alive &&
+                    !clsCalcGlobalAStar.IsAfraid(clsCommon.lstGameGhost))
                 {
                     List<Position> lstPos = lstGhosts[i].lstAStarPosition;
+
                     if (lstPos.Count > 0)
                     {
-                        GamePacman Pacman = clsCommon.GamePacman;
+                        //GamePacman Pacman = clsCommon.GamePacman;
+                        //Point2d ptOrigin = Pacman.ptOrigin;
+                        //Gameloop.Data.clsDataAlignToGrid clsDataAlignToGrid = new Gameloop.Data.clsDataAlignToGrid();
+                        //clsDataAlignToGrid.GetPosition(ref ptOrigin, out Position Position);
+                        //Position posPacman = Position;
 
-                        clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
-                        Position posPacman = clsGetCurrentCell.GetCell(Pacman.ptOrigin, Pacman.Direction);
+                        //clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
+                        //Position posPacman = clsGetCurrentCell.GetCell(Pacman.ptOrigin, Pacman.Direction);
 
-                        string strPos = String.Format("{0} {1} / ", lstPos[lstPos.Count - 1].X, lstPos[lstPos.Count - 1].Y);
-                        strPos += String.Format("{0} {1}", posPacman.X, posPacman.Y);
+                        //string strPos = String.Format("{0} {1} / ", lstPos[lstPos.Count - 1].X, lstPos[lstPos.Count - 1].Y);
+                        //strPos += String.Format("{0} {1}", posPacman.X, posPacman.Y);
 
-                        int intPos = HasPosition(lstPos, posPacman);
-
-                        //if (intPos > -1 && intPos != lstPos.Count - 1)
-                        //{
-                        //    List<Position> lstNew = new List<Position>();
-
-                        //    for (int k = 0; k < intPos; k++)
-                        //        lstNew.Add(lstPos[k]);
-
-                        //    lstPos = new List<Position>(lstNew);
-                        //}
+                        // int intPos = HasPosition(lstPos, posPacman);                  
 
                         clsSolvePath.DrawLine(acTrans, acDb, lstPos, lstColor[i]);
                     }
@@ -144,11 +192,14 @@ namespace AutoChomp.Gameloop.Update
 
             if (Pacman.GameLoop.bolBoxDirectionUpdate)
             {
-                if (!bolShowDirection)
+                clsCalcGlobalAStar clsCalcGlobalAStar = new clsCalcGlobalAStar();
+
+                if (!bolShowDirection || clsCalcGlobalAStar.IsAfraid(clsCommon.lstGameGhost))
                     Pacman.GameLoop.lstBoxDirection.Clear();
 
                 clsGluttony.DrawingDirectionBoxes(acTrans, acDb, Pacman.GameLoop.lstBoxDirection,
                                                  clsGluttony.GetColor(Direction.Up));
+
                 Pacman.GameLoop.bolBoxDirectionUpdate = false;
             }
 
@@ -182,39 +233,23 @@ namespace AutoChomp.Gameloop.Update
             clsCommon.GamePacman = Pacman;
         }
 
-        internal void UpdateGraphics()
+        internal void ShowScore(Transaction acTrans, Database acDb)
         {
-            Document acDoc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
-            Database acDb = acDoc.Database;
+            clsScore clsScore = new clsScore();
+            clsScore.ShowValue(acTrans, acDb);
+        }
 
-            using (Transaction acTrans = acDb.TransactionManager.StartTransaction())
+        internal void UpdateScreen()
+        {
+            try
             {
-                using (DocumentLock @lock = acDoc.LockDocument())
-                {
-                    BlockTable acBlkTbl = acTrans.GetObject(acDb.BlockTableId, OpenMode.ForRead) as BlockTable;
-
-                    clsUpdateGraphics clsUpdateGraphics = new clsUpdateGraphics();
-
-                    UpdateGraphics(acTrans, acDb);
-
-                    UpdatePacmanBoxes(acTrans, acDb);
-
-                    UpdateAStarLine(acTrans, acDb);
-
-                    clsScore clsScore = new clsScore();
-                    clsScore.ShowValue(acTrans, acDb);
-
-                    acTrans.Commit();
-                }
-                try
-                {
-                    Autodesk.AutoCAD.ApplicationServices.Application.UpdateScreen();
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
+                Autodesk.AutoCAD.ApplicationServices.Application.UpdateScreen();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
+
     }
 }

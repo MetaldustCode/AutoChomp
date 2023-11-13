@@ -49,6 +49,10 @@ namespace AutoChomp
         // Form Values
         internal InputMode InputMode;
 
+        internal Boolean Reset_Update;
+        internal Direction Reset_Direction;
+        internal Point2d Reset_ptOrigin;
+
         //Red
         //Pink
         //Blue
@@ -124,6 +128,10 @@ namespace AutoChomp
             this.InputMode = InputMode.None;
             this.bolAStarShowLine = false;
             this.bolIsEaten = false;
+
+            this.Reset_Update = false;
+            this.Reset_Direction = Direction.None;
+            this.Reset_ptOrigin = new Point2d();
         }
     }
 }

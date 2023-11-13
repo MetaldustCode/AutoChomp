@@ -19,11 +19,23 @@ namespace AutoChomp.Gameloop.Data
 
             Direction direction = Pacman.Direction;
 
+            if (Pacman.Reset_Update)
+            {
+                Pacman.ptOrigin = Pacman.Reset_ptOrigin;
+                Pacman.Direction = Pacman.Reset_Direction;
+                Pacman.FacingDirection = Pacman.Reset_FacingDirection;
+                Pacman.Reset_Update = false;
+            }
+
             if (strValue == "Keyboard")
             {
+                clsCalcGlobalAStar clsCalcGlobalAStar = new clsCalcGlobalAStar();
+
+                clsCalcGlobalAStar.GetNextDirection(ref direction);
+
                 direction = clsInput.GetDirection();
 
-                //if (direction != Direction.None)
+                if (direction != Direction.None)
                 {
                     clsGluttony clsGluttony = new clsGluttony();
                     clsGluttony.GetGluttony(Pacman.ptOrigin, Pacman.Direction,
@@ -34,10 +46,15 @@ namespace AutoChomp.Gameloop.Data
 
             if (strValue == "Gluttony")
             {
-                clsGluttony clsGluttony = new clsGluttony();
-                direction = clsGluttony.GetGluttony(Pacman.ptOrigin, Pacman.Direction,
-                                                    ref Pacman.GameLoop.arrHistory,
-                                                    ref Pacman.GameLoop.bolHistoryUpdate);
+                clsCalcGlobalAStar clsCalcGlobalAStar = new clsCalcGlobalAStar();
+
+                if (!clsCalcGlobalAStar.GetNextDirection(ref direction))
+                {
+                    clsGluttony clsGluttony = new clsGluttony();
+                    direction = clsGluttony.GetGluttony(Pacman.ptOrigin, Pacman.Direction,
+                                                        ref Pacman.GameLoop.arrHistory,
+                                                        ref Pacman.GameLoop.bolHistoryUpdate);
+                }
             }
 
             if (strValue == "Random")
@@ -131,5 +148,24 @@ namespace AutoChomp.Gameloop.Data
 
             Pacman.ptOrigin = ptPosition;
         }
+
+
+        internal Boolean IsAtGrid(GamePacman Pacman)
+        {
+            Boolean[,] arrXDots = clsClassTables.arrXDots;
+            arrXDots.GetSize(out int col, out int row);
+
+            List<String> lstXGridOriginString = clsClassTables.lstXGridOriginString;
+
+            if (col > 0 && lstXGridOriginString.Count > 0)
+            {
+                string strValue = String.Format("{0},{1}", Pacman.ptOrigin.X, Pacman.ptOrigin.Y);
+                if (lstXGridOriginString.Contains(strValue))
+                    return true;
+            }
+
+            return false;
+        }
+
     }
 }

@@ -103,8 +103,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoCAD\UserFormCode\clsInput.cs" />
+    <Compile Include="AutoCAD\UserFormCode\clsUpdateScale.cs" />
     <Compile Include="Gameloop\Data\clsDataEatGhost.cs" />
+    <Compile Include="Gameloop\Graphics\clsGraphicsDebug.cs" />
     <Compile Include="Movement\AStar\clsBuildAndSolve.cs" />
+    <Compile Include="Movement\GhostChase\clsCalcGlobalAStar.cs" />
     <Compile Include="_Global\Registry\clsSetInputMode.cs" />
     <Compile Include="AutoCAD\UserFormCode\clsSharpDX.cs" />
     <Compile Include="AutoCAD\UserFormCode\clsInit.cs" />

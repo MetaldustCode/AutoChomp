@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:AutoChomp"
              mc:Ignorable="d"
-             d:DesignHeight="88" d:DesignWidth="200">
+             d:DesignHeight="116" d:DesignWidth="200">
 
     <Grid x:Name="GridOptionsMaterial" Background="#f0f0f0">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="6" />
             <RowDefinition Height="12" />
-            <RowDefinition Height="64" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="6" />
             <RowDefinition Height="6" />
         </Grid.RowDefinitions>
@@ -33,6 +33,7 @@
                 <CheckBox x:Name="chkDebugDirection" Content="Show Maze Path" Checked="chkPath_Checked" Unchecked="chkPath_Checked"  Margin="12,6,0,0"></CheckBox>
                 <CheckBox x:Name="chkPacmanEatDots" Content="Chomp Eat Dots" Checked="chkPath_Checked" Unchecked="chkPath_Checked"  Margin="12,6,0,0"></CheckBox>
                 <CheckBox x:Name="chkGhostEatDots" Content="Ghosts Eat Dots" Checked="chkPath_Checked" Unchecked="chkPath_Checked"  Margin="12,6,0,0"></CheckBox>
+                <CheckBox x:Name="chkShowCurrentCell" Content="Show Current Cell" Checked="chkPath_Checked" Unchecked="chkPath_Checked"  Margin="12,6,0,0"></CheckBox>
             </StackPanel>
         </ScrollViewer>
     </Grid>
