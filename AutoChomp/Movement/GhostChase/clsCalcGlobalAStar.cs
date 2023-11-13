@@ -19,7 +19,7 @@ namespace AutoChomp
                 GamePacman Pacman = clsCommon.GamePacman;
 
                 clsDataPacmanMove clsDataPacmanMove = new clsDataPacmanMove();
-                if (clsDataPacmanMove.IsAtGrid(Pacman) && 
+                if (clsDataPacmanMove.IsAtGrid(Pacman) &&
                     clsCommon.GamePacman.lstCurrentChase.Count > 0)
                 {
                     Point2d ptOrigin = Pacman.ptOrigin;
@@ -84,9 +84,6 @@ namespace AutoChomp
                 clsDataAlignToGrid clsDataAlignToGrid = new clsDataAlignToGrid();
                 clsDataAlignToGrid.GetPosition(ref ptOrigin, out Position posPacman);
 
-                //clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
-                //Position posPacman = clsGetCurrentCell.GetCell(Pacman.ptOrigin, Pacman.Direction);
-
                 clsDataPacmanMove clsDataPacmanMove = new clsDataPacmanMove();
 
                 if (clsDataPacmanMove.IsAtGrid(Pacman))// && !posPacman.IsMatched(Pacman.CurrentGhostPosition))
@@ -135,21 +132,9 @@ namespace AutoChomp
                         else
                             GetClosest(lstGhost, lstLstPosition);
 
-                        //if (clsCommon.GamePacman.lstCurrentChase.Count == 0)
-                        //{
-                        //    clsCommon.GamePacman.GhostCurrentChase = null;
-                        //    clsCommon.GamePacman.lstCurrentChase = new List<Position>();
-                        //}
-                        //else
-                        //    clsCommon.GamePacman.bolGraphicsRequired = true;
                     }
                 }
             }
-            //else
-            //{
-            //    clsCommon.GamePacman.GhostCurrentChase = null;
-            //    clsCommon.GamePacman.lstCurrentChase = new List<Position>();
-            //}
         }
 
         internal Boolean IsAfraid(List<GameGhost> lstGameGhost)
@@ -217,58 +202,5 @@ namespace AutoChomp
                 }
             }
         }
-
-
-        //internal void clsAStar(Transaction acTrans, Database acDb)
-        //{
-        //    GamePacman Pacman = clsCommon.GamePacman;
-
-        //    clsGetCurrentCell clsGetCurrentCell = new clsGetCurrentCell();
-        //    Position posPacman = clsGetCurrentCell.GetCell(Pacman.ptOrigin, Pacman.Direction);
-
-        //    List<GameGhost> lstGhosts = clsCommon.lstGameGhost;
-        //    List<List<Position>> lstLstPosition = new List<List<Position>>();
-
-        //    for (int i = 0; i < lstGhosts.Count; i++)
-        //    {
-        //        GameGhost Ghost = lstGhosts[i];
-
-
-
-        //        Position posGhost = clsGetCurrentCell.GetCell(Ghost.ptOrigin, Ghost.Direction);
-
-        //        if (Ghost.GhostState == GhostState.Alive)
-        //        {
-        //            clsAStar clsAStar = new clsAStar();
-
-        //            int[,] arrAStar = clsAStar.GenerateAStar(posGhost, posPacman, Direction.None);
-
-        //            clsSolvePath clsSolvePath = new clsSolvePath();
-        //            List<Position> lstPos = clsSolvePath.SolveAStar(arrAStar, posPacman);
-        //            if (lstPos.Count > 0)
-        //                lstLstPosition.Add(lstPos);
-        //        }
-        //    }
-
-        //    List<int> lstCount = new List<int>();
-        //    for (int i = 0; i < lstLstPosition.Count; i++)
-        //    {
-        //        lstCount.Add(lstLstPosition[i].Count);
-        //    }
-
-        //    int intMin = lstCount.Min();
-
-        //    for (int i = 0; i < lstLstPosition.Count; i++)
-        //    {
-        //        if (lstLstPosition[i].Count == intMin)
-        //        {
-        //            clsSolvePath clsSolvePath = new clsSolvePath();
-        //            clsSolvePath.DrawLine(acTrans, acDb, lstLstPosition[i], 2);
-        //        }
-        //    }
-
-        //}
-
-
     }
 }

@@ -255,7 +255,7 @@ namespace AutoChomp.Gameloop.Data
         {
             List<GameGhost> lstGhost = clsCommon.lstGameGhost;
 
-            lstSpeed = new List<Double> { 100, 80, 65, 50 }.Multiply();
+            lstSpeed = new List<Double> { 95, 85, 75, 65 }.Multiply();
 
             List<Double> lstFrameDelay = lstSpeed.ToList();
 

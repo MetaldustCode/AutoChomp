@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoChomp.Gameloop.Data;
+using System;
 using System.Collections.Generic;
 
 namespace AutoChomp
@@ -37,8 +38,12 @@ namespace AutoChomp
             }
 
             if (Ghost.GhostState == GhostState.Alive)
-                arrAStar = clsAStar.GenerateAStar(posHome, posGhost, Ghost.Direction);
+            {
+                clsDataGhostTarget clsDataGhostTarget = new clsDataGhostTarget();
+                List<Position> lstTarget = clsDataGhostTarget.GetTarget();
 
+                arrAStar = clsAStar.GenerateAStar(lstTarget[i], posGhost, Ghost.Direction);
+            }
 
             if (Ghost.GhostState == GhostState.Dead)
             {
@@ -69,17 +74,18 @@ namespace AutoChomp
         // + 4 From Pacman
         internal void CalculatePinky()
         {
-            
+
         }
 
+        // "Red", "Pink", "Blue", "Orange"
         internal Position GetCorner(int i)
         {
             List<Position> lstPosition = new List<Position>()
             {
-                new Position(3, 3),
-                new Position(3, 31),
+                new Position(28, 31),
                 new Position(28, 3),
-                new Position(28, 31)
+                new Position(3, 31),
+                new Position(3, 3)
             };
 
             lstPosition = lstPosition.Multiply();

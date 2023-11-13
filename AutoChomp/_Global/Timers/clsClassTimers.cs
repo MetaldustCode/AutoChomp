@@ -68,7 +68,7 @@ namespace AutoChomp
             this.intIntervalPellettFlash = 480;
             this.intIntervalReverse = 10000;
 
-            this.intPowerStartTime = 8000;
+            this.intPowerStartTime = 5000;
             this.intPowerFlashTime = 200;
             this.intPowerFlashCount = 0;
             this.intPowerFlashTotal = 12;

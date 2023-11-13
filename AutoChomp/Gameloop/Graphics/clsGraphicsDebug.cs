@@ -14,17 +14,14 @@ namespace AutoChomp.Gameloop.Graphics
         internal void DrawCircle()
         {
             List<Point2d> lstPoints = clsCommon.GameDebug.lstCircleOrigin;
-            lstPoints = lstPoints.Distinct().ToList();  
+            lstPoints = lstPoints.Distinct().ToList();
 
             for (int i = 0; i < lstPoints.Count; i++)
-            {
                 AddCircle(lstPoints[i]);
-            }
         }
 
         internal void AddCircle(Point2d pt)
         {
-
             Document acDoc = Autodesk.AutoCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument;
             Database acDb = acDoc.Database;
 
@@ -32,7 +29,6 @@ namespace AutoChomp.Gameloop.Graphics
             {
                 using (DocumentLock @lock = acDoc.LockDocument())
                 {
-
                     BlockTable acBlkTbl = (BlockTable)acTrans.GetObject(acDb.BlockTableId, OpenMode.ForWrite);
 
                     // Open the Block table record Model space for read

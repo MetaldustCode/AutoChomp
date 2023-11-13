@@ -16,7 +16,7 @@ namespace AutoChomp.Gameloop.Data
     internal class clsDataAlignToGrid
     {
         internal void AlignToGrid(Boolean bolCircleOnly)
-        {       
+        {
             AlignPacman(bolCircleOnly);
             AlignGhosts(bolCircleOnly);
         }
@@ -84,8 +84,7 @@ namespace AutoChomp.Gameloop.Data
                 {
                     GameGhost Ghost = lstGhost[i];
 
-                    if (Ghost.HouseState != HouseState.InHouse)
-              
+                    if (Ghost.HouseState == HouseState.OutHouse)
                     {
                         Point2d pt = Ghost.ptOrigin;
 
@@ -148,7 +147,7 @@ namespace AutoChomp.Gameloop.Data
             X1 = (Math.Floor(dblX) + .5) * Cell;
             Y1 = (Math.Floor(dblY) + .5) * Cell;
 
-            pt = new Point2d(X1, Y1);         
+            pt = new Point2d(X1, Y1);
 
             clsCommon.GameDebug.lstCircleOrigin.Add(new Point2d(X1, Y1));
 

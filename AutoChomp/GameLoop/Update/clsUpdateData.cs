@@ -1,4 +1,6 @@
-﻿namespace AutoChomp.Gameloop.Update
+﻿using AutoChomp.Gameloop.Data;
+
+namespace AutoChomp.Gameloop.Update
 {
     internal class clsUpdateData
     {
@@ -34,12 +36,13 @@
                 clsSquiggleData.SetDataSquiggle();
 
                 clsCalcGlobalAStar clsCalcGlobalAStar = new clsCalcGlobalAStar();
-                clsCalcGlobalAStar.clsAStar();
-
-      
+                clsCalcGlobalAStar.clsAStar();      
 
                 Data.clsDataAlignToGrid clsDataAlignToGrid = new Data.clsDataAlignToGrid();
                 clsDataAlignToGrid.AlignToGrid(true);
+
+                clsDataGhostTarget clsDataGhostTarget = new clsDataGhostTarget();
+                clsDataGhostTarget.GetTarget();
             }
 
             // Hide Dots, Flash Power Pellets
