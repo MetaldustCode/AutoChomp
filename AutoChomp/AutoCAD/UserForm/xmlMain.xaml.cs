@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
+using System.Windows.Threading;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 namespace AutoChomp
@@ -21,6 +21,8 @@ namespace AutoChomp
 
                 clsInit clsInit = new clsInit();
                 clsInit.Init(this);
+
+                StartDispatch();
 
                 Application.Idle += new System.EventHandler(OnIdle);
             }
@@ -280,5 +282,29 @@ namespace AutoChomp
             clsReg clsReg = new clsReg();
             clsReg.SetMazeIndex(cboMaze.SelectedIndex);
         }
+
+        internal void ForceMessage()
+        {
+            // Set the cursor without ectually moving it - enough to
+
+            // generate a Windows message
+
+            System.Drawing.Point pt = System.Windows.Forms.Cursor.Position;
+
+            System.Windows.Forms.Cursor.Position = new System.Drawing.Point(pt.X, pt.Y);
+        }
+        public void StartDispatch()
+        {
+            DispatcherTimer dt = new DispatcherTimer();
+            dt.Interval = TimeSpan.FromMilliseconds(15);
+            dt.Tick += Dt_Tick;
+            dt.Start();
+        }
+
+        private void Dt_Tick(object sender, EventArgs e)
+        {
+            ForceMessage();
+        }
+
     }
 }

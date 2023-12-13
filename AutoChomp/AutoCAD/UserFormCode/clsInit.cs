@@ -43,10 +43,10 @@ namespace AutoChomp
             if (clsCommon.DGVForm == null)
                 clsCommon.DGVForm = new DGVForm();
 
-            clsCommon.DGVForm.dgvCharacter = xmlMain.dgvCharacter;
-            clsCommon.DGVForm.dgvSpeed = xmlMain.dgvSpeed;
-            clsCommon.DGVForm.dgvTimer = xmlMain.dgvTimer;
-            clsCommon.DGVForm.dgvLevel = xmlMain.dgvLevel;
+            //clsCommon.DGVForm.dgvCharacter = xmlMain.dgvCharacter;
+            //clsCommon.DGVForm.dgvSpeed = xmlMain.dgvSpeed;
+            //clsCommon.DGVForm.dgvTimer = xmlMain.dgvTimer;
+            //clsCommon.DGVForm.dgvLevel = xmlMain.dgvLevel;
             clsCommon.DGVForm.tabControl = xmlMain.TabMain;
         }
 

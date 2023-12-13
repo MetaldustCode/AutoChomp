@@ -47,12 +47,16 @@ namespace AutoChomp
             {
                 string AudioFolder1 = GetPath("munch_1.wav");
                 string AudioFolder2 = GetPath("munch_2.wav");
-                stream1 = new WaveFileReader(AudioFolder1);
-                stream2 = new WaveFileReader(AudioFolder2);
-                out1 = new WaveOut();
-                out2 = new WaveOut();
-                out1.Init(stream1);
-                out2.Init(stream2);
+
+                if (System.IO.File.Exists(AudioFolder1))
+                {
+                    stream1 = new WaveFileReader(AudioFolder1);
+                    stream2 = new WaveFileReader(AudioFolder2);
+                    out1 = new WaveOut();
+                    out2 = new WaveOut();
+                    out1.Init(stream1);
+                    out2.Init(stream2);
+                }
             }
         }
 

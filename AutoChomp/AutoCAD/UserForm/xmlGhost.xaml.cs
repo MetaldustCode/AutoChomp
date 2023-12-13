@@ -49,7 +49,7 @@ namespace AutoChomp
 
         private void LoadGhost()
         {
-            List<String> lstDropDown = new List<String>() { "None", "Random", "A-Star", "Chase", "Scatter", "Auto" };
+            List<String> lstDropDown = new List<String>() { "None", "Random", "A-Star" };
             SetDropDown(lstDropDown);
 
             LoadRegistry(lstDropDown);
